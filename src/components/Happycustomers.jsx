@@ -14,6 +14,7 @@ const Happycustomers = () => {
   const carouselRef = useRef(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [scrollDirection, setScrollDirection] = useState("right");
+  const [isPaused, setIsPaused] = useState(false);
 
   const scroll = (direction) => {
     const container = carouselRef.current;
@@ -23,8 +24,9 @@ const Happycustomers = () => {
     }
   };
 
-  // Auto-scroll effect
   useEffect(() => {
+    if (isPaused) return; // Don't start interval if paused
+
     const interval = setInterval(() => {
       const container = carouselRef.current;
       if (!container) return;
@@ -45,10 +47,10 @@ const Happycustomers = () => {
           scroll("left");
         }
       }
-    }, 2000); // Scroll every 2 seconds
+    }, 2000); // every 2 seconds
 
     return () => clearInterval(interval);
-  }, [scrollDirection]);
+  }, [scrollDirection, isPaused]);
 
   return (
     <div className="relative px-6 py-8">
@@ -72,10 +74,10 @@ const Happycustomers = () => {
         ▶
       </button>
 
-      {/* Videos Carousel */}
+      {/* Carousel */}
       <div
         ref={carouselRef}
-        className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth"
+        className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide"
       >
         {videos.map((src, idx) => {
           const cleanSrc = src.trim();
@@ -85,19 +87,25 @@ const Happycustomers = () => {
           return (
             <div
               key={idx}
-              className="min-w-[270px] bg-white rounded-lg shadow-md p-0 flex-shrink-0"
-              onMouseEnter={() => setHoveredIndex(idx)}
-              onMouseLeave={() => setHoveredIndex(null)}
+              className="min-w-[270px] max-w-[270px] overflow-hidden bg-white rounded-lg shadow-md flex-shrink-0"
+              onMouseEnter={() => {
+                setHoveredIndex(idx);
+                setIsPaused(true); // ❗ Pause auto scroll
+              }}
+              onMouseLeave={() => {
+                setHoveredIndex(null);
+                setIsPaused(false); // ❗ Resume auto scroll
+              }}
             >
               <iframe
                 width="270"
                 height="480"
                 src={isHovered ? hoverSrc : cleanSrc}
-                title={`YouTube Shorts ${idx}`}
+                title={`YouTube Short ${idx}`}
                 frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="autoplay; encrypted-media; clipboard-write; gyroscope; picture-in-picture"
                 allowFullScreen
-                className="rounded-md"
+                className="rounded-md pointer-events-none"
               />
             </div>
           );
