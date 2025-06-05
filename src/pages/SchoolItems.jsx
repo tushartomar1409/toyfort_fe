@@ -13,7 +13,7 @@ const SchoolItems = () => {
     const fetchBlogImage = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:5000/api/blog-image"
+          "http://localhost:5001/api/blog-image"
         );
         setBlogPosts(data);
       } catch (error) {

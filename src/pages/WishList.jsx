@@ -19,7 +19,7 @@ const WishList = () => {
   
       try {
         if (user && user !== "Sign In") {
-          const response = await axios.get("http://localhost:5000/api/user/wishlist", {
+          const response = await axios.get("http://localhost:5001/api/user/wishlist", {
             headers: { Authorization: `Bearer ${token}` },
           })
   

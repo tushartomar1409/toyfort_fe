@@ -28,7 +28,7 @@ const ChangePassword = () => {
       }
 
       const response = await axios.post(
-        "http://localhost:5000/api/settings/change-password",
+        "http://localhost:5001/api/settings/change-password",
         values,
         {
           headers: {

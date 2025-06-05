@@ -32,7 +32,7 @@ function Blog() {
     const fetchBlogImage = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:5000/api/blog-image"
+          "http://localhost:5001/api/blog-image"
         );
         setBlogPosts(data);
       } catch (error) {
@@ -46,7 +46,7 @@ function Blog() {
     const fetchBlogContent = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:5000/api/blog-content"
+          "http://localhost:5001/api/blog-content"
         );
         setBlogContent(data);
       } catch (error) {
@@ -60,7 +60,7 @@ function Blog() {
     const fetchBooksImages = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:5000/api/books-images"
+          "http://localhost:5001/api/books-images"
         );
         setBooksImages(data);
       } catch (error) {

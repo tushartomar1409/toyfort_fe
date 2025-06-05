@@ -13,7 +13,7 @@ const Sports = () => {
     useEffect(() => {
       const fetchBlogImage = async () => {
         try {
-          const { data } = await axios.get("http://localhost:5000/api/blog-image");
+          const { data } = await axios.get("http://localhost:5001/api/blog-image");
           setBlogPosts(data);
         } catch (error) {
           console.log("Error fetching blog data:", error.message);

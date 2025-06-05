@@ -36,7 +36,7 @@ const BrandProducts = () => {
           return "No brands";
         }
         const { data } = await axios.get(
-          `http://localhost:5000/api/brand-products?brand=${brand}`
+          `http://localhost:5001/api/brand-products?brand=${brand}`
         );
         setProducts(data)
         setCurrentPage(1)

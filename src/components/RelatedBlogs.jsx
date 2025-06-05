@@ -14,7 +14,7 @@ const RelatedPosts = () => {
     const fetchRelatedPosts = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:5000/api/related-posts"
+          "http://localhost:5001/api/related-posts"
         );
         setRelatedPosts(data);
       } catch (error) {

@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import { AppContextProvider } from "./context/AppContext";
 import { BrowserRouter } from "react-router-dom";
+import { FaWhatsapp } from "react-icons/fa"; 
 
 function App() {
   return (
