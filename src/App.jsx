@@ -9,7 +9,7 @@ function App() {
   return (
     <BrowserRouter>
       <AppContextProvider>
-        <div>
+        <div style={{ paddingTop: '180px' }}> {/* REPLACE 'Xpx' with your Navbar's actual height */}
           <Navbar />
           <Approutes />
           <Footer />

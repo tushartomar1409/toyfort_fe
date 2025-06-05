@@ -10,6 +10,7 @@ import {
   faLinkedin,
   faWhatsapp,
 } from "@fortawesome/free-brands-svg-icons";
+import LoginModal from "./LoginModal";
 import { FiShoppingBag } from "react-icons/fi";
 import { MdOutlineReceiptLong } from "react-icons/md";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -20,10 +21,8 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
-import { v4 as uuidv4 } from "uuid";
 
 const styles = `
   @keyframes marquee {
@@ -48,7 +47,7 @@ const styles = `
     animation-delay: 20s;
     position: absolute;
     white-space: nowrap;
-    left: 0;
+    left: 0;const [values, setValues] = useState
     top: 0;
     opacity: 0;
   }
@@ -59,8 +58,8 @@ styleSheet.innerText = styles;
 document.head.appendChild(styleSheet);
 
 function Navbar() {
-  const [showLoginForm, setShowLoginForm] = useState(false);
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false); 
+  //const [passwordVisible, setPasswordVisible] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
   const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -154,10 +153,13 @@ function Navbar() {
       );
     }
   };
-
-  const toggleLoginForm = () => {
-    setShowLoginForm(!showLoginForm);
-  };
+// ─── NEW callback after a successful login ───
+     const handleLoginSuccess = (newUser, newToken) => {
+     localStorage.setItem("token", newToken);
+     localStorage.setItem("user", JSON.stringify(newUser));
+     setUser(newUser);
+     setProfile(false);
+ };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -166,7 +168,7 @@ function Navbar() {
   };
 
   return (
-    <div className={`border-b-4 sticky top-0 z-50 bg-white shadow transition-all duration-300`} style={{ transform: `translateY(-${scrollPosition}px)` }}>
+    <div className="border-b-4 fixed top-0 w-full bg-white shadow-md z-50 transition-all duration-300">
       <div className="" style={{ fontFamily: "Open Sans" }}>
         <div className="bg-red-500 h-8 flex flex-row space-x-4 p-1 text-white font-semibold text-base">
           <a className="" href="https://www.facebook.com/toyfort/">
@@ -330,7 +332,7 @@ function Navbar() {
                   strokeWidth={1.5}
                   stroke="currentColor"
                   className="w-8 h-8 text-gray-500 text-center"
-                  onClick={toggleLoginForm}
+                  onClick={() => setLoginOpen(true)}
                 >
                   <path
                     strokeLinecap="round"
@@ -339,7 +341,7 @@ function Navbar() {
                   />
                 </svg>
                 <button
-                  onClick={toggleLoginForm}
+                    onClick={() => setLoginOpen(true)}
                   className="text-[#606060] text-sm font-normal cursor-pointer"
                 >
                   {user}
@@ -1730,6 +1732,11 @@ function Navbar() {
           </div>
         </div>
       </div>
+      <LoginModal
+       isOpen={loginOpen}
+       onClose={() => setLoginOpen(false)}
+       onSuccess={handleLoginSuccess}
+ />
     </div>
   );
 }
