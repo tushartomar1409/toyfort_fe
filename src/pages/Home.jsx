@@ -173,6 +173,49 @@ function Home() {
     };
   }, [isVisible]);
 
+  useEffect(() => {
+    const today = new Date().toDateString();
+    const bannerViews = JSON.parse(localStorage.getItem('bannerViews') || '{}');
+    
+    if (bannerViews[today] >= 3) {
+      setIsVisible(false);
+    } else {
+      bannerViews[today] = (bannerViews[today] || 0) + 1;
+      localStorage.setItem('bannerViews', JSON.stringify(bannerViews));
+    }
+  }, []);
+
+  const handleBannerClick = () => {
+    navigator.clipboard.writeText('TFSILVER50')
+      .then(() => {
+        const toast = document.createElement('div');
+        toast.className = 'fixed top-4 right-4 bg-yellow-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transition-opacity duration-300';
+        toast.textContent = 'Coupon code TFSILVER50 copied to clipboard!';
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          setTimeout(() => {
+            document.body.removeChild(toast);
+          }, 300);
+        }, 3000);
+      })
+      .catch(err => {
+        console.error('Failed to copy coupon code:', err);
+        const toast = document.createElement('div');
+        toast.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transition-opacity duration-300';
+        toast.textContent = 'Failed to copy coupon code. Please try again.';
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          setTimeout(() => {
+            document.body.removeChild(toast);
+          }, 300);
+        }, 3000);
+      });
+  };
+
   return (
     <div className="p-4">
       {/* Offer Popup */}
@@ -186,7 +229,7 @@ function Home() {
             ✖
           </button>
 
-          <div className="relative p-6 rounded-lg">
+          <div className="relative p-6 rounded-lg cursor-pointer" onClick={handleBannerClick}>
             <img
               src="https://smm-v2.s3.ap-south-1.amazonaws.com/uploads/assets/silver-Jubilee-Discount-Coupon.jpg"
               alt="Popup-Offer"
@@ -439,7 +482,7 @@ function Home() {
 
       {/* Shop by trending category */}
 
-      <h1 className="flex justify-center items-center font-bold text-2xl mt-20 mb-10 font-sans tracking-widest">
+      {/* <h1 className="flex justify-center items-center font-bold text-2xl mt-20 mb-10 font-sans tracking-widest">
         SHOP BY TRENDING CATEGORY
       </h1>
 
@@ -493,11 +536,11 @@ function Home() {
             <img src="https://toyfort.s3.ap-south-1.amazonaws.com/img/Trampoline-caraousal-category-banner.webp" />
           </a>
         </div>
-      </div>
+      </div> */}
 
       {/* Outdoor Play For Kids */}
 
-      <div className="min-w-[769px]">
+      {/* <div className="min-w-[769px]">
         <div className="flex justify-center items-center font-bold text-2xl mt-20 mb-10 font-sans tracking-widest">
           <h1>OUTDOOR PLAY FOR KIDS</h1>
         </div>
@@ -551,7 +594,7 @@ function Home() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* FAQs */}
 

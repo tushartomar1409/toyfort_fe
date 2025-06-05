@@ -25,10 +25,44 @@ import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import { v4 as uuidv4 } from "uuid";
 
+const styles = `
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 20s linear infinite;
+    position: absolute;
+    white-space: nowrap;
+    left: 0;
+    top: 0;
+  }
+
+  .animate-marquee2 {
+    animation: marquee 20s linear infinite;
+    animation-delay: 20s;
+    position: absolute;
+    white-space: nowrap;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+`;
+
+const styleSheet = document.createElement("style");
+styleSheet.innerText = styles;
+document.head.appendChild(styleSheet);
+
 function Navbar() {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
 
   const dropdownRef = useRef();
 
@@ -48,6 +82,18 @@ function Navbar() {
   });
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -120,9 +166,9 @@ function Navbar() {
   };
 
   return (
-    <div className="border-b-4 sticky top-0 z-50 bg-white shadow">
+    <div className={`border-b-4 sticky top-0 z-50 bg-white shadow transition-all duration-300`} style={{ transform: `translateY(-${scrollPosition}px)` }}>
       <div className="" style={{ fontFamily: "Open Sans" }}>
-        <div className="bg-red-500 h-10 flex flex-row space-x-4 p-2 text-white font-semibold text-lg">
+        <div className="bg-red-500 h-8 flex flex-row space-x-4 p-1 text-white font-semibold text-base">
           <a className="" href="https://www.facebook.com/toyfort/">
             <FontAwesomeIcon icon={faFacebook} />
           </a>
@@ -156,21 +202,24 @@ function Navbar() {
           <a className="" href="https://www.threads.net/@toyfort/">
             <FontAwesomeIcon icon={faThreads} />
           </a>
-          <div className="overflow-hidden whitespace-nowrap">
-            <div className="animate-marquee inline-block">
+          <div className="overflow-hidden whitespace-nowrap relative w-full h-6">
+            <div className="animate-marquee">
+              CALL US AT 8744055175 FOR BULK ORDERS OR ANY OTHER ASSISTANCE
+            </div>
+            <div className="animate-marquee2">
               CALL US AT 8744055175 FOR BULK ORDERS OR ANY OTHER ASSISTANCE
             </div>
           </div>
         </div>
-        <div className="flex flex-row gap-72 w-30">
+        <div className="flex flex-row gap-72 w-30 py-2">
           <img
-            className="w-40 p-4 "
+            className="w-32 p-2"
             src="https://toyfort.s3.ap-south-1.amazonaws.com/img/logo.webp"
           />
 
-          <div className="relative w-1/3 m-5">
+          <div className="relative w-1/3 m-2">
             <input
-              className="w-full border bg-gray-50 border-gray-400 rounded-md p-2 pr-10"
+              className="w-full border bg-gray-50 border-gray-400 rounded-md p-1.5 pr-10"
               type="text"
               placeholder="Search for Toys"
             />
@@ -191,7 +240,7 @@ function Navbar() {
             </svg>
           </div>
 
-          <div className="flex items-center gap-2 font-semibold text-xl">
+          <div className="flex items-center gap-2 font-semibold text-lg">
             <ShoppingCartIcon
               className="w-9 h-9 text-gray-500 cursor-pointer"
               onClick={() => navigate("/cart")}
@@ -300,78 +349,7 @@ function Navbar() {
           </div>
         </div>
 
-        {showLoginForm && (
-          <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-            <div className="bg-white p-8 rounded-md shadow-lg w-96 relative">
-              {/* Manual Close Icon (X) */}
-              <button
-                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 font-bold text-2xl"
-                onClick={() => setShowLoginForm(false)} // Close login form
-              >
-                &times; {/* HTML entity for X (times symbol) */}
-              </button>
-
-              <h2 className="text-3xl font-medium mb-10 text-center">Login</h2>
-              <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                  <label
-                    htmlFor="email"
-                    className="block text-gray-700 font-medium mb-2"
-                  ></label>
-                  <input
-                    type="email"
-                    id="email"
-                    className="w-full border border-gray-300 p-3"
-                    placeholder="Email Address"
-                    name="email"
-                    required
-                    onChange={handleChanges}
-                  />
-                </div>
-                <div className="mb-4 relative">
-                  <label
-                    htmlFor="password"
-                    className="block text-gray-700 font-medium mb-2"
-                  ></label>
-                  <input
-                    type="password"
-                    id="password"
-                    className="w-full border border-gray-300 p-3"
-                    placeholder="Password"
-                    name="password"
-                    required
-                    onChange={handleChanges}
-                  />
-                </div>
-
-                <div className="text-right mb-2">
-                  <a href="/forgot-password" className="text-right">
-                    Forgot Password?
-                  </a>
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full text-white py-2 rounded-md"
-                  style={{ backgroundColor: "black" }}
-                >
-                  Login
-                </button>
-
-                <div className="text-center mt-4">
-                  <p className="text-gray-500 inline-block mr-1">
-                    Don't have an account?
-                  </p>
-                  <a href="/register" className="text-black font-medium">
-                    Register
-                  </a>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
-
-        <div className="flex justify-center gap-14 border-b-4 pb-5 border-gray-100 p-8">
+        <div className="flex justify-center gap-14 border-b-4 pb-3 border-gray-100 p-4">
           <div className="relative group">
             <p
               className="bg-red-600 text-white px-8 py-2 rounded-full cursor-pointer "
