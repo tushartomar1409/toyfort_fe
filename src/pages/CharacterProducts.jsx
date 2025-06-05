@@ -21,7 +21,7 @@ const CharacterProducts = () => {
     const fetchProductsByCharacters = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/characterProducts/products?character=${character}`
+          `http://localhost:5001/api/characterProducts/products?character=${character}`
         );
 
         setProduct(response.data);

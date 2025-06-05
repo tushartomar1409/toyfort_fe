@@ -44,7 +44,7 @@ export const AppContextProvider = (props) => {
       const token = localStorage.getItem("token");
       // console.log("Token",token)
 
-      const response = await axios.post("http://localhost:5000/api/add", item, {
+      const response = await axios.post("http://localhost:5001/api/add", item, {
         headers: { Authorization: `Bearer ${token}` },
       });
       // console.log("Add Response", response.data.result);
@@ -70,7 +70,7 @@ export const AppContextProvider = (props) => {
       // console.log("Token", token);
 
       const response = await axios.delete(
-        `http://localhost:5000/api/remove/${slug}`,
+        `http://localhost:5001/api/remove/${slug}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -103,7 +103,7 @@ export const AppContextProvider = (props) => {
         await increaseProductQuantity(item.slug);
       } else {
         const response = await axios.post(
-          "http://localhost:5000/api/addToCart",
+          "http://localhost:5001/api/addToCart",
           item,
           {
             headers: {
@@ -130,7 +130,7 @@ export const AppContextProvider = (props) => {
 
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/increaseProductQuantity/${slug}`
+        `http://localhost:5001/api/increaseProductQuantity/${slug}`
       );
 
       const newQuantity = response.data.newQuantity;
@@ -150,7 +150,7 @@ export const AppContextProvider = (props) => {
   const sidebarFilter = async (category) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/category/${category}`
+        `http://localhost:5001/api/category/${category}`
       );
       // console.log("Response",response)
       setSidebarProducts(response.data);
@@ -165,7 +165,7 @@ export const AppContextProvider = (props) => {
   const fetchDiscountProduct = async (discount) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/products/discount?discount=${discount}`
+        `http://localhost:5001/api/products/discount?discount=${discount}`
       );
 
       // console.log(response.data);
@@ -178,7 +178,7 @@ export const AppContextProvider = (props) => {
   const fetchProduct = async (age) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/products/age?age=${age}`
+        `http://localhost:5001/api/products/age?age=${age}`
       );
 
       // console.log(response.data);
@@ -191,7 +191,7 @@ export const AppContextProvider = (props) => {
   const fetchProductByGender = async (gender) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/products/gender?gender=${gender}`
+        `http://localhost:5001/api/products/gender?gender=${gender}`
       );
 
       // console.log(response.data);
@@ -204,7 +204,7 @@ export const AppContextProvider = (props) => {
   const fetchProductByPrice = async (min, max) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/products/filter-by-price?p_min=${min}&p_max=${max}`
+        `http://localhost:5001/api/products/filter-by-price?p_min=${min}&p_max=${max}`
       );
 
       setProductByPrice(response.data);
@@ -216,7 +216,7 @@ export const AppContextProvider = (props) => {
   const fetchProductOutStock = async (out) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/stock-products/out-stock?stock=${out}`
+        `http://localhost:5001/api/stock-products/out-stock?stock=${out}`
       );
 
       // console.log("Out of stock", response.data);
@@ -229,7 +229,7 @@ export const AppContextProvider = (props) => {
   const fetchProductInStock = async (out) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/stock-products/in-stock?stock=${out}`
+        `http://localhost:5001/api/stock-products/in-stock?stock=${out}`
       );
 
       // console.log("In stock", response.data);
@@ -242,7 +242,7 @@ export const AppContextProvider = (props) => {
   const fetchSubCategoryProduct = async (cat,subCat) =>{
 
     try {
-      const response = await axios.get(`http://localhost:5000/api/category/${cat}/${subCat}`)
+      const response = await axios.get(`http://localhost:5001/api/category/${cat}/${subCat}`)
 
       // console.log("sub-cat",response.data);
       
@@ -261,7 +261,7 @@ export const AppContextProvider = (props) => {
 
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/toys/${toys}`
+        `http://localhost:5001/api/toys/${toys}`
       );
     
       setOutdoorProduct(response.data)

@@ -12,7 +12,7 @@ const CarouselImages = () => {
     const fetchBrandProducts = async () => {
       try {
         if (!slug) return;
-        const { data } = await axios.get(`http://localhost:5000/api/${slug}`);
+        const { data } = await axios.get(`http://localhost:5001/api/${slug}`);
         setProducts(data);
       } catch (error) {
         console.error("Error fetching brand products:", error.message);
@@ -126,7 +126,7 @@ export default CarouselImages;
 //         if (!slug) {
 //           return "No slug";
 //         }
-//         const { data } = await axios.get(`http://localhost:5000/api/${slug}`);
+//         const { data } = await axios.get(`http://localhost:5001/api/${slug}`);
 //         setProducts(data);
 //         console.log("Fetched Data: ", data);
 //       } catch (error) {

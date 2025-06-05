@@ -26,7 +26,7 @@ const Cart = () => {
 
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/user/getCartProducts",
+          "http://localhost:5001/api/user/getCartProducts",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -56,7 +56,7 @@ const Cart = () => {
       // console.log("Token",token)
 
       const response = await axios.delete(
-        `http://localhost:5000/api/removeProduct/${slug}`,
+        `http://localhost:5001/api/removeProduct/${slug}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -78,7 +78,7 @@ const Cart = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/decreaseProductQuantity/${slug}`
+        `http://localhost:5001/api/decreaseProductQuantity/${slug}`
       );
 
       // console.log("Cart Response",response.data.newQuantity);

@@ -93,7 +93,7 @@ const Sidebar = () => {
     const getCharactersName = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/products/characters"
+          "http://localhost:5001/api/products/characters"
         );
 
         const characters = response.data.map((item) => item.attribute5_value);
@@ -106,7 +106,7 @@ const Sidebar = () => {
     const getBrandName = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/getbrand/name"
+          "http://localhost:5001/api/getbrand/name"
         );
 
         const brandName = response.data.map((item) => item.attribute2_value);

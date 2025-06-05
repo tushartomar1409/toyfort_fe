@@ -69,7 +69,7 @@ const ProductDetails = () => {
         if (!slug) {
           return "No slug";
         }
-        const { data } = await axios.get(`http://localhost:5000/api/${slug}`);
+        const { data } = await axios.get(`http://localhost:5001/api/${slug}`);
 
         const product = {
           ...data[0],

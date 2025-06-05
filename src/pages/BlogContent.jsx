@@ -18,7 +18,7 @@ const BlogContent = () => {
     const fetchBlogContent = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:5000/api/blog-image/${category_slug}/${id}`
+          `http://localhost:5001/api/blog-image/${category_slug}/${id}`
         );
         // console.log(data);
         setBlogPost(data);

@@ -25,7 +25,7 @@ function UpdateSideBar() {
         }
 
         const response = await axios.get(
-          "http://localhost:5000/api/user/profile",
+          "http://localhost:5001/api/user/profile",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -66,7 +66,7 @@ function UpdateSideBar() {
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/user/update-profile`,
+        `http://localhost:5001/api/user/update-profile`,
         { userId, ...data },
         {
           headers: {

@@ -19,7 +19,7 @@ function Slider() {
         setError(null); // Clear any previous errors
 
         // Fetch data from the local API endpoint
-        const { data } = await axios.get("http://localhost:5000/api");
+        const { data } = await axios.get("http://localhost:5001/api");
 
         // Filter out slides that do not have a valid 'image' URL
         // Then, limit the number of slides to a maximum of 9 (or adjust as needed)
