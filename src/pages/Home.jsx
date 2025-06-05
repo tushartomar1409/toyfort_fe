@@ -6,6 +6,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
+import  Banner  from "../components/Banner";
+import BtsBanner from "../components/BtsBanner";
 
 const brandImages = [
   "https://toyfort.s3.ap-south-1.amazonaws.com/smartivity-8.png",
@@ -241,6 +243,9 @@ function Home() {
           </div>
         </div>
       )}
+     {/* Banner section */}
+
+    <Banner/>
 
       {/* Slider section */}
 
@@ -416,6 +421,9 @@ function Home() {
           src="https://toyfort.s3.ap-south-1.amazonaws.com/uploads/assets/6.png"
         />
       </div>
+      {/* Back to school banner */}
+
+      <BtsBanner/>
 
       {/* Special Price */}
 
