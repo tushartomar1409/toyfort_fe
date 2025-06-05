@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import  Banner  from "../components/Banner";
 import BtsBanner from "../components/BtsBanner";
-
+import Happycustomers from "../components/Happycustomers";
 const brandImages = [
   "https://toyfort.s3.ap-south-1.amazonaws.com/smartivity-8.png",
   "https://toyfort.s3.ap-south-1.amazonaws.com/scentos-2.png",
@@ -603,6 +603,8 @@ function Home() {
           </div>
         </div>
       </div> */}
+
+      <Happycustomers/>
 
       {/* FAQs */}
 
