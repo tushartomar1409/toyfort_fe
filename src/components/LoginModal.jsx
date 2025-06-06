@@ -8,6 +8,7 @@ import axios from "axios";
 
 export default function LoginModal({ isOpen, onClose, onSuccess }) {
   const [values, setValues] = useState({ email: "", password: "" });
+  // **CHANGE**: Re-added state to track password visibility
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -17,29 +18,34 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
-        onClose(); // Call the onClose prop to close the modal
+        onClose();
       }
     };
 
     if (isOpen) {
       document.addEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "hidden"; // Prevent background scrolling
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "auto"; // Re-enable background scrolling
+      document.body.style.overflow = "auto";
     }
 
     // Cleanup function: runs when component unmounts or when isOpen changes
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "auto"; // Ensure scrolling is always re-enabled
+      document.body.style.overflow = "auto";
     };
-  }, [isOpen, onClose]); // Depend on isOpen and onClose
+  }, [isOpen, onClose]);
 
   // If modal is not open, don't render anything
   if (!isOpen) return null;
 
   const handleChange = (e) => {
     setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  // **CHANGE**: Re-added the function to toggle the state
+  const togglePasswordVisibility = () => {
+    setPasswordVisible((prev) => !prev);
   };
 
   const handleSubmit = async (e) => {
@@ -54,7 +60,7 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
 
       if (response.status === 201 && response.data.user) {
         onSuccess(response.data.user, response.data.token);
-        onClose(); // Close modal on successful login
+        onClose();
       } else {
         setErrorMessage(
           response.data.message || "Login failed. Please try again."
@@ -78,13 +84,13 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
     // Modal Overlay: Covers the entire screen, centers content, allows click to close
     // Crucial for fixed, centered behavior
     <div
-      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto p-4" // Use overflow-y-auto
-      onClick={onClose} // Clicking on the overlay closes the modal
+      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto p-4"
+      onClick={onClose}
     >
       {/* Modal Content Box: Prevents clicks inside from closing the modal */}
       <div
-        className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm relative my-auto transform transition-transform duration-300 scale-100 opacity-100" // Added transition for subtle animation
-        onClick={(e) => e.stopPropagation()} // Stop event propagation to prevent overlay click from triggering
+        className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm relative my-auto transform transition-transform duration-300 scale-100 opacity-100"
+        onClick={(e) => e.stopPropagation()}
       >
         {/* Close button */}
         <button
@@ -92,7 +98,7 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
           className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl font-bold p-1 rounded-full hover:bg-gray-100 transition-colors"
           aria-label="Close"
         >
-          &times; {/* This is the 'x' character */}
+          &times;
         </button>
 
         <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
@@ -119,30 +125,32 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
             />
           </div>
 
-          <div className="relative">
+          <div>
             <label
               htmlFor="password"
               className="block text-sm font-medium text-gray-700"
             >
               Password
             </label>
+            <div className="relative mt-1">
             <input
+                // **CHANGE**: The input type now changes based on the state
               type={passwordVisible ? "text" : "password"}
               id="password"
               name="password"
               value={values.password}
               onChange={handleChange}
               required
-              className="mt-1 block w-full px-3 py-2 pr-14 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                className="block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
             />
-            {/* Password visibility toggle button */}
+              {/* **CHANGE**: Switched back to a button and re-added the onClick handler */}
             <button
               type="button"
               onClick={togglePasswordVisibility}
-              className="absolute right-3 inset-y-0 flex items-center p-1 focus:outline-none focus:ring-2 focus:ring-red-500 rounded-full"
-              aria-label={passwordVisible ? "Hide password" : "Show password"}
+                  className="absolute inset-y-0 right-0 flex items-center pr-3 focus:outline-none"
+                  aria-label="Toggle password visibility"
             >
-              {passwordVisible ? (
+                {/* **CHANGE**: The icon is now static and does not change on click */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -184,6 +192,7 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
                 </svg>
               )}
             </button>
+            </div>
           </div>
 
           <div className="text-right">
