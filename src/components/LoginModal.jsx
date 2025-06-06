@@ -12,9 +12,6 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Effect to manage modal behavior:
-  // - Close with Escape key
-  // - Prevent/allow body scrolling
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
@@ -29,14 +26,12 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
       document.body.style.overflow = "auto";
     }
 
-    // Cleanup function: runs when component unmounts or when isOpen changes
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "auto";
     };
   }, [isOpen, onClose]);
 
-  // If modal is not open, don't render anything
   if (!isOpen) return null;
 
   const handleChange = (e) => {
@@ -76,23 +71,15 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
     }
   };
 
-  const togglePasswordVisibility = () => {
-    setPasswordVisible((prev) => !prev);
-  };
-
   return (
-    // Modal Overlay: Covers the entire screen, centers content, allows click to close
-    // Crucial for fixed, centered behavior
     <div
       className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto p-4"
       onClick={onClose}
     >
-      {/* Modal Content Box: Prevents clicks inside from closing the modal */}
       <div
         className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm relative my-auto transform transition-transform duration-300 scale-100 opacity-100"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close button */}
         <button
           onClick={onClose}
           className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl font-bold p-1 rounded-full hover:bg-gray-100 transition-colors"
@@ -133,23 +120,23 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
               Password
             </label>
             <div className="relative mt-1">
-            <input
+              <input
                 // **CHANGE**: The input type now changes based on the state
-              type={passwordVisible ? "text" : "password"}
-              id="password"
-              name="password"
-              value={values.password}
-              onChange={handleChange}
-              required
+                type={passwordVisible ? "text" : "password"}
+                id="password"
+                name="password"
+                value={values.password}
+                onChange={handleChange}
+                required
                 className="block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
-            />
+              />
               {/* **CHANGE**: Switched back to a button and re-added the onClick handler */}
-            <button
-              type="button"
-              onClick={togglePasswordVisibility}
+              <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
                   className="absolute inset-y-0 right-0 flex items-center pr-3 focus:outline-none"
                   aria-label="Toggle password visibility"
-            >
+              >
                 {/* **CHANGE**: The icon is now static and does not change on click */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -170,28 +157,7 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                   />
                 </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-5 h-5 text-gray-500"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3.98 8.223A10.477 10.477 0 001.934 12c0 2.298.57 4.474 1.597 6.388-.85-.147-1.465-.45-1.928-.903-.78-.75-1.39-1.68-1.844-2.67M19.95 5.867A10.44 10.44 0 0022.066 12c0 2.298-.57 4.474-1.597 6.388.85-.147 1.465-.45 1.928-.903.78-.75 1.39-1.68-1.844-2.67M12 9.75c1.03 0 1.968.508 2.53 1.332M8.47 11.082C7.908 10.258 6.97 9.75 5.94 9.75M9 21v-4.5h4.5M10.5 16.5V21h3M12 3v4.5h-4.5M13.5 7.5V3H10.5M16.5 12a4.5 4.5 0 10-9 0 4.5 4.5 0 009 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                  />
-                </svg>
-              )}
-            </button>
+              </button>
             </div>
           </div>
 
