@@ -10,6 +10,7 @@ import  Banner  from "../components/Banner";
 import BtsBanner from "../components/BtsBanner";
 import Happycustomers from "../components/Happycustomers";
 import TrendingCategories from "../components/TrendingCategories";
+import ShopByAge from "../components/ShopByAge";
 const brandImages = [
   "https://toyfort.s3.ap-south-1.amazonaws.com/smartivity-8.png",
   "https://toyfort.s3.ap-south-1.amazonaws.com/scentos-2.png",
@@ -386,7 +387,7 @@ function Home() {
 
       {/* Shop by age */}
 
-      <h1 className="flex justify-center items-center font-bold text-2xl mt-20 font-sans tracking-widest">
+      {/* <h1 className="flex justify-center items-center font-bold text-2xl mt-20 font-sans tracking-widest">
         SHOP BY AGE
       </h1>
 
@@ -421,10 +422,15 @@ function Home() {
           className="w-48 h-48 m-7 transform transition duration-200 hover:scale-110 cursor-pointer"
           src="https://toyfort.s3.ap-south-1.amazonaws.com/uploads/assets/6.png"
         />
-      </div>
+      </div> */}
+
+      <ShopByAge/>
+      
       {/* Back to school banner */}
 
       <BtsBanner/>
+
+      {/* Trending Categories */}
       <TrendingCategories/>
 
       {/* Special Price */}
