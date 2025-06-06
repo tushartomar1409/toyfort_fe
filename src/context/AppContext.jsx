@@ -188,6 +188,7 @@ export const AppContextProvider = (props) => {
     }
   };
 
+ 
   const fetchProductByGender = async (gender) => {
     try {
       const response = await axios.get(
@@ -307,7 +308,8 @@ export const AppContextProvider = (props) => {
     subcategoryProduct,
     outdoorProducts,
     setOutdoorProduct,
-    outdoorProduct
+    outdoorProduct,
+    fetchProductByAge: fetchProduct
   };
 
   return (

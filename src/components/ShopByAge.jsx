@@ -1,16 +1,21 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useContext} from "react";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
 import "../style/ShopByAge.css";
 
 function ShopByAge() {
+    
+ const { fetchProduct } = useContext(AppContext);
+ const navigate = useNavigate();
+
   const scrollRef = useRef(null);
   const [showArrows, setShowArrows] = useState(false);
+  
 
-  // Show arrows only on smaller screens
   useEffect(() => {
     const updateVisibility = () => {
-      setShowArrows(window.innerWidth < 1024); // <1024px shows arrows
+      setShowArrows(window.innerWidth < 1024);
     };
-
     updateVisibility();
     window.addEventListener("resize", updateVisibility);
     return () => window.removeEventListener("resize", updateVisibility);
@@ -23,6 +28,11 @@ function ShopByAge() {
         behavior: "smooth",
       });
     }
+  };
+
+  const handleSidebarByAge = (age) => {
+    fetchProduct(age);
+    navigate(`/products/age?age=${age}`);
   };
 
   const images = [
@@ -41,7 +51,6 @@ function ShopByAge() {
       </h1>
 
       <div className="flex items-center mt-5 px-4">
-        {/* Left Arrow */}
         {showArrows && (
           <button
             onClick={() => scroll("left")}
@@ -51,7 +60,6 @@ function ShopByAge() {
           </button>
         )}
 
-        {/* Scrollable container */}
         <div
           ref={scrollRef}
           className={`scroll-container flex-1 ${
@@ -64,7 +72,7 @@ function ShopByAge() {
                 key={age}
                 onClick={() => handleSidebarByAge(age)}
                 className={`h-48 mx-6 cursor-pointer transform transition hover:scale-105 flex-shrink-0 ${
-                  showArrows ? "w-1/4" : "w-[13.5%]"
+                  showArrows ? "w-1/3" : "w-[13.5%]"
                 }`}
                 src={`https://toyfort.s3.ap-south-1.amazonaws.com/uploads/assets/${img}`}
                 alt={age}
@@ -73,7 +81,6 @@ function ShopByAge() {
           </div>
         </div>
 
-        {/* Right Arrow */}
         {showArrows && (
           <button
             onClick={() => scroll("right")}
