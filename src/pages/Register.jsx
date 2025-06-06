@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AppContext } from "../context/AppContext";
 
-const Register = () => {
+// Accept openLoginModal as a prop
+const Register = ({ openLoginModal }) => {
   const [values, setValues] = useState({
     first_name: "",
     last_name: "",
@@ -60,6 +61,14 @@ const Register = () => {
       console.log(error.message);
     }
   }
+
+  // New handler to open the login modal
+  const handleLoginClick = (e) => {
+    e.preventDefault(); // Prevent default anchor link behavior
+    if (openLoginModal) { // Check if the prop exists
+      openLoginModal(); // Call the function passed from App.jsx to open the modal
+    }
+  };
 
   return (
     <div className="flex flex-col items-center">
@@ -147,7 +156,11 @@ const Register = () => {
         <br />
         <div className="text-center mt-4">
           <p className="text-gray-500 inline-block mr-1">Have an account?</p>
-          <a href="/register" className="text-black font-medium">
+          <a
+            href="#" // Change href to # or remove it to prevent page reload
+            onClick={handleLoginClick} // Call the new handler
+            className="text-black font-medium"
+          >
             Login
           </a>
         </div>

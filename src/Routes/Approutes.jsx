@@ -10,7 +10,7 @@ import PrivacyPolicy from "../pages/PrivacyPolicy";
 import Books from "../pages/Books";
 import WriteForUs from "../pages/WriteForUs";
 import ColoringBooks from "../pages/ColoringBooks";
-import Register from "../pages/Register";
+import Register from "../pages/Register"; // Import Register component
 import ForgotPassword from "../pages/ForgotPassword";
 import Infants from "../pages/Infants";
 import Toys from "../pages/Toys";
@@ -41,7 +41,8 @@ import SubCategory from "../pages/SubCategory";
 import ResetPassword from "../pages/ResetPassword";
 import OutdoorPlays from "../pages/OutdoorPlays";
 
-const Approutes = () => {
+// Accept openLoginModal as a prop
+const Approutes = ({ openLoginModal }) => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -53,7 +54,8 @@ const Approutes = () => {
       <Route path="/blog" element={<Blog />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/write-for-us" element={<WriteForUs />} />
-      <Route path="/register" element={<Register />} />
+      {/* Pass openLoginModal prop to the Register component */}
+      <Route path="/register" element={<Register openLoginModal={openLoginModal} />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/infants" element={<Infants />} />
       <Route path="/sports" element={<Sports />} />
