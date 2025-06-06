@@ -1,0 +1,157 @@
+.discount-header-container {
+  width: 100%;
+}
+
+.discount-heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 1.25rem;
+  font-family: sans-serif;
+  background-color: #f3f4f6;
+  margin: 2rem;
+  padding: 1rem 2.5rem;
+  border-radius: 9999px;
+  border: 2px solid #e5e7eb;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.discount-heading:hover {
+  transform: scale(1.05);
+}
+
+.highlight {
+  color: #ef4444;
+  margin-left: 0.5rem;
+}
+
+.scroll-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Scroll container for smaller screens */
+.discount-scroll-container {
+  display: flex;
+  gap: 2rem;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  padding: 1rem 2rem;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  margin-left: 20px;
+}
+
+.discount-scroll-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* On large screens, no scroll and gap smaller */
+@media screen and (min-width: 1025px) {
+  .discount-scroll-container {
+    overflow: visible;
+    gap: 5rem;
+    padding: 2rem 0;
+  }
+}
+
+/* Cards styling */
+.discount-card {
+  flex: 0 0 auto;
+  width: 300px;
+  height: 240px;
+  border-radius: 0.5rex;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.discount-card:hover {
+  transform: scale(1.05);
+}
+
+.discount-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  border-radius: 1rem;
+}
+
+.discount-card:hover img {
+  transform: scale(1.1);
+}
+
+.discount-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  padding: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.discount-card:hover .discount-label {
+  opacity: 1;
+}
+
+.scroll-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #ffffffcc;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  z-index: 10;
+  border-radius: 9999px;
+  transition: background-color 0.3s ease;
+  display: none;
+}
+
+.scroll-arrow.left {
+  left: 0.5rem;
+}
+
+.scroll-arrow.right {
+  right: 0.5rem;
+}
+
+.scroll-arrow:hover {
+  background-color: #e5e7eb;
+}
+
+/* Show arrows only on small and medium screens */
+@media screen and (max-width: 1024px) {
+  .scroll-arrow {
+    display: block;
+  }
+}
+
+/* Smaller card sizes on smaller screens */
+@media screen and (max-width: 768px) {
+  .discount-card {
+    width: 220px;
+    height: 180px;
+  }
+
+  .discount-heading {
+    font-size: 1rem;
+    margin: 1rem;
+  }
+
+  .discount-scroll-container {
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+}

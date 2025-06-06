@@ -11,6 +11,7 @@ import BtsBanner from "../components/BtsBanner";
 import Happycustomers from "../components/Happycustomers";
 import TrendingCategories from "../components/TrendingCategories";
 import ShopByAge from "../components/ShopByAge";
+import SpecialPrice from "../components/SpecialPrice";
 const brandImages = [
   "https://toyfort.s3.ap-south-1.amazonaws.com/smartivity-8.png",
   "https://toyfort.s3.ap-south-1.amazonaws.com/scentos-2.png",
@@ -434,8 +435,9 @@ function Home() {
       <TrendingCategories/>
 
       {/* Special Price */}
+      <SpecialPrice/>
 
-      <div className="w-full">
+      {/* <div className="w-full">
         <h1 className="flex justify-center items-center font-semibold text-xl font-sans bg-gray-100 m-10 pb-2 pt-2 border-r-4 cursor-pointer rounded-full border-2 border-gray-200 shadow-lg transition-shadow duration-300 ease-in-out transform hover:scale-105 animate-fadeIn ">
           Special Prices, Premium Products, and Free Home Delivery PAN India -
           <span className="text-red-500">It's All Just a Click Away!</span>
@@ -494,7 +496,7 @@ function Home() {
             UP TO 55% OFF
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Shop by trending category */}
 
