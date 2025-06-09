@@ -72,6 +72,7 @@ const TrendingCategories = () => {
       <div className="flex flex-wrap justify-center gap-2 max-w-full mt-6">
         {products.map((item, index) => (
           <a
+            key={item.alt}
             href={item.link}
             className="flex-1 basis-0 min-w-[calc(100%/6-10px)] max-w-[calc(100%/6-10px)] text-center no-underline md:flex-none"
           >
