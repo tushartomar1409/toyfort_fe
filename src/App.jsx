@@ -23,8 +23,9 @@ function App() {
   return (
     <BrowserRouter>
       <AppContextProvider>
-        <div style={{ paddingTop: '180px' }}> {/* REPLACE 'Xpx' with your Navbar's actual height */}
+        <div  className="overflow-x-hidden w-full m-0 p-0" style={{ paddingTop: '18px' }}> {/* REPLACE 'Xpx' with your Navbar's actual height */}
           <Navbar openLoginModal={openLoginModal} /> {/* Pass openLoginModal to Navbar */}
+    
           {/* Pass openLoginModal to Approutes so it can be passed to Register */}
           <Approutes openLoginModal={openLoginModal} />
           <Footer />
@@ -36,7 +37,11 @@ function App() {
           onSuccess={handleLoginSuccess} // Pass success handler
         />
       </AppContextProvider>
+
+
+
     </BrowserRouter>
+    
   );
 }
 
