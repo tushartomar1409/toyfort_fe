@@ -2014,6 +2014,7 @@ function Navbar() {
   return (
     <>
       {/* Fixed Navbar */}
+      {!sidebarOpen && (
       <div
         ref={navbarRef}
         className="fixed top-0 left-0 w-full z-50 bg-white shadow-md"
@@ -2027,7 +2028,7 @@ function Navbar() {
               </a>
             ))}
           </div>
-          <div className="overflow-hidden whitespace-nowrap w-full ml-2 md:ml-4">
+          <div className="overflow-hidden whitespace-nowrap w-full ml-2 md:ml-4 px-6">
             <div className="animate-marquee">
               CALL US AT 8744055175 FOR BULK ORDERS OR ANY OTHER ASSISTANCE
             </div>
@@ -2107,6 +2108,7 @@ function Navbar() {
           ))}
         </nav>
       </div>
+      )}
 
       {/* Spacer div that dynamically matches navbar height */}
       <div style={{ height: `${navHeight}px` }} />
@@ -2117,7 +2119,7 @@ function Navbar() {
           <div className="absolute inset-0 bg-black bg-opacity-20 z-50" />
           <aside
             ref={sidebarRef}
-            className="fixed top-0 left-0 h-full w-64 sm:w-72 bg-white shadow-lg z-50 transform transition-transform duration-300"
+            className="fixed top-0 left-0 h-screen w-64 sm:w-72 bg-white shadow-lg z-50 transform transition-transform duration-300 flex flex-col overflow-y-auto"
           >
             <div className="flex items-center justify-between px-4 py-3 border-b">
               <img src="https://toyfort.s3.ap-south-1.amazonaws.com/img/logo.webp" alt="Toy Fort Logo" className="h-8" />
