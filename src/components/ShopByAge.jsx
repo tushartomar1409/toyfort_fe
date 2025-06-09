@@ -1,34 +1,10 @@
 import { useRef, useEffect, useState, useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
-import "../style/ShopByAge.css";
 
 function ShopByAge() {
-    
- const { fetchProduct } = useContext(AppContext);
- const navigate = useNavigate();
-
-  const scrollRef = useRef(null);
-  const [showArrows, setShowArrows] = useState(false);
-  
-
-  useEffect(() => {
-    const updateVisibility = () => {
-      setShowArrows(window.innerWidth < 1024);
-    };
-    updateVisibility();
-    window.addEventListener("resize", updateVisibility);
-    return () => window.removeEventListener("resize", updateVisibility);
-  }, []);
-
-  const scroll = (direction) => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({
-        left: direction === "left" ? -300 : 300,
-        behavior: "smooth",
-      });
-    }
-  };
+  const { fetchProduct } = useContext(AppContext);
+  const navigate = useNavigate();
 
   const handleSidebarByAge = (age) => {
     fetchProduct(age);
@@ -36,59 +12,36 @@ function ShopByAge() {
   };
 
   const images = [
-    { age: "0-18M", img: "1.png" },
-    { age: "18-36M", img: "2.png" },
-    { age: "3-5Y", img: "3.png" },
-    { age: "5-8Y", img: "4.png" },
-    { age: "8-12Y", img: "5.png" },
-    { age: "12Y", img: "6.png" },
+    { age: "0-18M", img: "1.png", text: "0-18 MONTHS" },
+    { age: "18-36M", img: "2.png", text: "18-36 MONTHS" },
+    { age: "3-5Y", img: "3.png", text: "3-5 YEARS" },
+    { age: "5-8Y", img: "4.png", text: "5-8 YEARS" },
+    { age: "8-12Y", img: "5.png", text: "8-12 YEARS" },
+    { age: "12Y", img: "6.png", text: "12+ YEARS" },
   ];
 
   return (
-    <div className="relative w-full">
-      <h1 className="flex justify-center items-center font-bold text-2xl mt-20 font-sans tracking-widest">
+    <div className="creatives mt-20">
+      <h1 className="flex justify-center items-center font-bold text-2xl font-sans tracking-widest">
         SHOP BY AGE
       </h1>
-
-      <div className="flex items-center mt-5 px-4">
-        {showArrows && (
-          <button
-            onClick={() => scroll("left")}
-            className="text-3xl px-2 font-bold hover:text-gray-500"
+      <div className="flex flex-wrap justify-center gap-2 max-w-full mt-6">
+        {images.map(({ age, img, text }) => (
+          <div
+            key={age}
+            onClick={() => handleSidebarByAge(age)}
+            className="flex-1 basis-0 min-w-[calc(100%/6-10px)] max-w-[calc(100%/6-10px)] text-center no-underline md:flex-none cursor-pointer"
           >
-            ‹
-          </button>
-        )}
-
-        <div
-          ref={scrollRef}
-          className={`scroll-container flex-1 ${
-            showArrows ? "overflow-x-auto" : "overflow-x-hidden"
-          } whitespace-nowrap`}
-        >
-          <div className="flex">
-            {images.map(({ age, img }) => (
+            <div className="text-center">
               <img
-                key={age}
-                onClick={() => handleSidebarByAge(age)}
-                className={`h-48 mx-6 cursor-pointer transform transition hover:scale-105 flex-shrink-0 ${
-                  showArrows ? "w-1/3" : "w-[13.5%]"
-                }`}
                 src={`https://toyfort.s3.ap-south-1.amazonaws.com/uploads/assets/${img}`}
                 alt={age}
+                className="w-full h-auto block rounded-[20px] hover:scale-105 transition-transform duration-300" style={{height: "100%"}}
               />
-            ))}
+              <p className="text-[6px] md:text-sm mt-2">{text}</p>
+            </div>
           </div>
-        </div>
-
-        {showArrows && (
-          <button
-            onClick={() => scroll("right")}
-            className="text-3xl px-2 font-bold hover:text-gray-500"
-          >
-            ›
-          </button>
-        )}
+        ))}
       </div>
     </div>
   );

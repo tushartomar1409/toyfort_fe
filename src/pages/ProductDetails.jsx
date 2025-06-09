@@ -71,19 +71,24 @@ const ProductDetails = () => {
         }
         const { data } = await axios.get(`http://localhost:5001/api/${slug}`);
 
-        const product = {
-          ...data[0],
-          originalPrice: data[0].price / 100,
-          discountedPrice: Math.ceil(
-            (data[0].price / 100) * (1 - data[0].discount_rate / 100) - 1
-          ),
-          imageUrl: data[0].image_default,
-        };
+        if (data && data.length > 0 && data[0]) {
+          const product = {
+            ...data[0],
+            originalPrice: data[0].price ? data[0].price / 100 : 0,
+            discountedPrice: data[0].price && data[0].discount_rate ? 
+              Math.ceil((data[0].price / 100) * (1 - data[0].discount_rate / 100) - 1) : 0,
+            imageUrl: data[0].image_default || '',
+          };
 
-        setProducts(product);
-        console.log("Fetched Data: ", product.image_default);
+          setProducts(product);
+          console.log("Fetched Data: ", product);
+        } else {
+          console.error("No product data received");
+          setProducts(null);
+        }
       } catch (error) {
         console.error("Error fetching brand products:", error.message);
+        setProducts(null);
       }
     };
     fetchBrandProducts();
@@ -338,7 +343,7 @@ const ProductDetails = () => {
 
               <div className="w-full mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg tracking-wider">
                 <h1 className="text-2xl font-extrabold flex items-center">
-                  <faTags className="text-yellow-500 mr-2" /> Offers
+                  <FontAwesomeIcon icon={faTags} className="text-yellow-500 mr-2" /> Offers
                 </h1>
                 <div className="mt-4 p-4 border rounded-lg text-center">
                   <p className="font-semibold text-sm">

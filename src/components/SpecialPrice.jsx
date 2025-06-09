@@ -97,10 +97,10 @@ export default function SpecialPrice() {
   return (
     <>
       <div className="discount-header-container">
-        <h1 className="discount-heading">
+        <p className="discount-heading" style={{fontSize: "10px"}}>
           Special Prices, Premium Products, and Free Home Delivery PAN India -
           <span className="highlight">It's All Just a Click Away!</span>
-        </h1>
+        </p>
       </div>
 
       <div className="scroll-wrapper">
