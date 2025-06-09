@@ -2111,7 +2111,7 @@ function Navbar() {
       )}
 
       {/* Spacer div that dynamically matches navbar height */}
-      <div style={{ height: `${navHeight}px` }} />
+      {!sidebarOpen &&  <div style={{ height: `${navHeight}px` }} />}
 
       {/* Mobile Sidebar */}
       {sidebarOpen && (
