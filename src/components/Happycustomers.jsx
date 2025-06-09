@@ -25,7 +25,7 @@ const Happycustomers = () => {
   };
 
   useEffect(() => {
-    if (isPaused) return; // Don't start interval if paused
+    if (isPaused) return;
 
     const interval = setInterval(() => {
       const container = carouselRef.current;
@@ -47,13 +47,13 @@ const Happycustomers = () => {
           scroll("left");
         }
       }
-    }, 2000); // every 2 seconds
+    }, 2000);
 
     return () => clearInterval(interval);
   }, [scrollDirection, isPaused]);
 
   return (
-    <div className="relative px-6 py-8">
+    <div className="relative px-6 py-10 bg-gray-50">
       <h1 className="text-center text-4xl font-bold text-gray-700 mb-6">
         Happy Customers
       </h1>
@@ -61,14 +61,14 @@ const Happycustomers = () => {
       {/* Scroll Buttons */}
       <button
         onClick={() => scroll("left")}
-        className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md p-2 rounded-full hover:bg-gray-100"
+        className="absolute left-2 top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-md p-2 rounded-full hover:bg-gray-100"
         aria-label="Scroll Left"
       >
         ◀
       </button>
       <button
         onClick={() => scroll("right")}
-        className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md p-2 rounded-full hover:bg-gray-100"
+        className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-md p-2 rounded-full hover:bg-gray-100"
         aria-label="Scroll Right"
       >
         ▶
@@ -77,7 +77,7 @@ const Happycustomers = () => {
       {/* Carousel */}
       <div
         ref={carouselRef}
-        className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide"
+        className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide py-2 px-1"
       >
         {videos.map((src, idx) => {
           const cleanSrc = src.trim();
@@ -87,14 +87,14 @@ const Happycustomers = () => {
           return (
             <div
               key={idx}
-              className="min-w-[270px] max-w-[270px] overflow-hidden bg-white rounded-lg shadow-md flex-shrink-0"
+              className="min-w-[270px] max-w-[270px] overflow-hidden bg-white rounded-lg shadow-md flex-shrink-0 transition-transform duration-300 hover:scale-105"
               onMouseEnter={() => {
                 setHoveredIndex(idx);
-                setIsPaused(true); // ❗ Pause auto scroll
+                setIsPaused(true);
               }}
               onMouseLeave={() => {
                 setHoveredIndex(null);
-                setIsPaused(false); // ❗ Resume auto scroll
+                setIsPaused(false);
               }}
             >
               <iframe
