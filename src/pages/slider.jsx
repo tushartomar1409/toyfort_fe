@@ -217,23 +217,27 @@ const Slider = () => {
           ))}
         </div>
 
-        {slidesPerView === 3 && itemsToRender.length > 1 && (
+        {/* Arrows are visible if there's more than one slide */}
+        {itemsToRender.length > 1 && (
           <>
             <div
               onClick={goToPrevSlide}
-              className="absolute z-10 left-2 sm:left-4 md:left-6 top-1/2 -translate-y-1/2 cursor-pointer transition-all bg-gray-100 flex justify-center items-center text-lg sm:text-xl md:text-2xl border border-gray-300 w-[35px] h-[35px] sm:w-[45px] sm:h-[45px] text-black p-2 rounded-full shadow-md hover:bg-gray-200"
+              /* UPDATED: Made arrows smaller on mobile (w-7, h-7, text-sm) and larger on bigger screens */
+              className="absolute z-10 left-2 sm:left-4 md:left-6 top-1/2 -translate-y-1/2 cursor-pointer transition-all bg-gray-100 flex justify-center items-center text-sm sm:text-xl md:text-2xl border border-gray-300 w-7 h-7 sm:w-[45px] sm:h-[45px] text-black p-2 rounded-full shadow-md hover:bg-gray-200"
             >
               <FontAwesomeIcon icon={faChevronLeft} />
             </div>
             <div
               onClick={goToNextSlide}
-              className="absolute z-10 right-2 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 cursor-pointer transition-all bg-gray-100 flex justify-center items-center text-lg sm:text-xl md:text-2xl border border-gray-300 w-[35px] h-[35px] sm:w-[45px] sm:h-[45px] text-black p-2 rounded-full shadow-md hover:bg-gray-200"
+              /* UPDATED: Made arrows smaller on mobile (w-7, h-7, text-sm) and larger on bigger screens */
+              className="absolute z-10 right-2 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 cursor-pointer transition-all bg-gray-100 flex justify-center items-center text-sm sm:text-xl md:text-2xl border border-gray-300 w-7 h-7 sm:w-[45px] sm:h-[45px] text-black p-2 rounded-full shadow-md hover:bg-gray-200"
             >
               <FontAwesomeIcon icon={faChevronRight} />
             </div>
           </>
         )}
 
+        {/* UPDATED: Dots navigation is back and will show on mobile view */ }
         {slidesPerView === 1 && itemsToRender.length > 1 && (
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
             {itemsToRender.map((_, index) => (
