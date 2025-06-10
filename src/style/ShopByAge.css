@@ -1,8 +1,69 @@
-.scroll-container::-webkit-scrollbar {
+.shopbyage-scroll-container {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  /* Add left/right margin to the scroll area */
+}
+
+.shopbyage-scroll-container::-webkit-scrollbar {
   display: none;
 }
 
-.scroll-container {
-  -ms-overflow-style: none; /* IE & Edge */
-  scrollbar-width: none; /* Firefox */
+.shopbyage-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.85);
+  border: none;
+  font-size: 1.3rem; /* slightly smaller */
+  cursor: pointer;
+  padding: 0.15rem 0.35rem;
+  z-index: 2;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.shopbyage-arrow.left { left: 0; }
+.shopbyage-arrow.right { right: 0; }
+
+
+@media (max-width: 1024px) {
+  .shopbyage-scroll-container {
+    flex-wrap: nowrap;
+    gap: 2rem; /* Increase gap between images */
+  }
+  .shopbyage-scroll-container > div {
+    flex: 0 0 40vw; /* Reduce card size a bit, show more cards */
+    min-width: 40vw;
+    max-width: 38vw;
+  }
+  .shopbyage-arrow {
+    display: flex;
+  }
+}
+@media (min-width: 1025px) {
+  .shopbyage-scroll-container {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    gap: 2.5rem; /* Larger gap on desktop */
+  }
+  .shopbyage-scroll-container > div {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: none;
+  }
+  .shopbyage-arrow {
+    display: none;
+  }
+}
+
+.shopbyage-label {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 0.7rem;
 }
