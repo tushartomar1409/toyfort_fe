@@ -57,6 +57,10 @@ import LatestTransactions from "../components/admin_components/LatestTransaction
 import LatestTransactionsFeature from "../components/admin_components/LatestTransactionsFeature";
 import AdminHome from "../pages/Adminpages/AdminHome";
 import Layout from "../components/Layout"; // ✅ Import it here
+import ProductsTable from "../pages/Adminpages/ProductsTable";
+
+
+
 
 
 // Accept openLoginModal as a prop
@@ -117,10 +121,13 @@ const publicRoutes = [
   { path: "/admin/orders", component: Orders }, // Main Orders page for admin
   { path: "/admin/latest-orders", component: LatestOrders }, // Existing LatestOrders component
   { path: "/admin/pending-products", component: LatestPendingProducts },
-  { path: "/admin/products", component: LatestProducts },
+  //{ path: "/admin/products", component: LatestProducts },
   { path: "/admin/reviews", component: LatestReviews },
   { path: "/admin/transactions", component: LatestTransactions },
   { path: "/admin/transactions-feature", component: LatestTransactionsFeature },
+  { path: "/admin/products", component: ProductsTable }
+  
+
 ];
 
 

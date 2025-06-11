@@ -68,7 +68,7 @@ const Sidebar = () => {
 
           <li className="flex items-center space-x-2">
             <Link
-              to="/admin"
+              to="/"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <FaHome />
