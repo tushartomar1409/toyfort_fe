@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {
   FaHome,
   FaShoppingCart,
-  FaFileInvoice,
+  FaFileInvoice, // Import FaFileInvoice for orders icon
   FaBoxOpen,
   FaDollarSign,
   FaFlag,
@@ -216,6 +216,16 @@ const AdminSidebar = () => {
               </ul>
             )}
           </ul>
+          {/* New Orders Section */}
+          <li className="flex items-center space-x-2">
+            <Link
+              to="/admin/orders"
+              className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
+            >
+              <FaFileInvoice /> {/* Using FaFileInvoice icon for Orders */}
+              <p>Orders</p>
+            </Link>
+          </li>
           <li className="flex items-center space-x-2">
             <Link
               to="/admin/earnings"

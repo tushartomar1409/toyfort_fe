@@ -24,7 +24,7 @@ import ProductDetails from "../pages/ProductDetails";
 import UpdateProfile from '../pages/UpdateSideBar';
 import ShippingAddress from "../pages/ShippingAddress";
 import ChangePassword from "../pages/ChangePassword";
-import Orders from "../pages/Orders";
+import Orders from "../pages/admin/Orders"; // This is the main Orders component
 import Refund from "../pages/Refund";
 import WishList from "../pages/WishList";
 import Cart from "../pages/Cart";
@@ -40,6 +40,7 @@ import InStockProduct from "../pages/InStockProduct";
 import OutOfStockProduct from "../pages/OutOfStockProduct";
 import SubCategory from "../pages/SubCategory";
 import ResetPassword from "../pages/ResetPassword";
+// import OutdoorPlays from "../pages/OutdoorPlays";
 import OutdoorPlays from "../pages/OutdoorPlays";
 import AdminSidebar from "../components/admin_components/AdminSidebar";
 import { Dashboard } from "@mui/icons-material";
@@ -48,7 +49,7 @@ import Adminheader from "../components/admin_components/Adminheader";
 import Adminfooter from "../components/admin_components/Adminfooter";
 import LatestComments from "../components/admin_components/LatestComments";
 import LatestMembers from "../components/admin_components/LatestComments";
-import LatestOrders from "../components/admin_components/LatestOrders";
+import LatestOrders from "../components/admin_components/LatestOrders"; // This is a different component
 import LatestPendingProducts from "../components/admin_components/LatestPendingProducts";
 import LatestProducts from "../components/admin_components/LatestProducts";
 import LatestReviews from "../components/admin_components/LatestReviews";
@@ -57,9 +58,10 @@ import LatestTransactionsFeature from "../components/admin_components/LatestTran
 import AdminHome from "../pages/Adminpages/AdminHome";
 import Layout from "../components/Layout"; // ✅ Import it here
 
+
 // Accept openLoginModal as a prop
 const Approutes = ({ openLoginModal }) => {
-  const LoggedIn = true
+  const LoggedIn = true;
 
 const publicRoutes = [
   { path: "/", component: Home },
@@ -71,7 +73,7 @@ const publicRoutes = [
   { path: "/blog", component: Blog },
   { path: "/contact", component: Contact },
   { path: "/write-for-us", component: WriteForUs },
-  { path: "/register", component: () => <Register openLoginModal={openLoginModal} /> }, // 👈 Pass props via arrow
+  { path: "/register", component: () => <Register openLoginModal={openLoginModal} /> },
   { path: "/forgot-password", component: ForgotPassword },
   { path: "/infants", component: Infants },
   { path: "/sports", component: Sports },
@@ -84,7 +86,7 @@ const publicRoutes = [
   { path: "/settings/edit-profile", component: UpdateProfile },
   { path: "/settings/shipping-address", component: ShippingAddress },
   { path: "/settings/change-password", component: ChangePassword },
-  { path: "/order", component: Orders },
+  // { path: "/order", component: Orders }, // REMOVED from public routes
   { path: "/refund-requests", component: Refund },
   { path: "/wishlist/:slug", component: WishList },
   { path: "/cart", component: Cart },
@@ -112,7 +114,8 @@ const publicRoutes = [
   { path: "/admin/footer", component: Adminfooter },
   { path: "/admin/comments", component: LatestComments },
   { path: "/admin/members", component: LatestMembers },
-  { path: "/admin/orders", component: LatestOrders },
+  { path: "/admin/orders", component: Orders }, // Main Orders page for admin
+  { path: "/admin/latest-orders", component: LatestOrders }, // Existing LatestOrders component
   { path: "/admin/pending-products", component: LatestPendingProducts },
   { path: "/admin/products", component: LatestProducts },
   { path: "/admin/reviews", component: LatestReviews },
