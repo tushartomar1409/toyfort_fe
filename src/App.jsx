@@ -29,6 +29,7 @@ function App() {
           onClose={closeLoginModal}
           onSuccess={handleLoginSuccess}
         />
+        
       </AppContextProvider>
     </BrowserRouter>
   );

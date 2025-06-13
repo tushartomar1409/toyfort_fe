@@ -59,6 +59,10 @@ import AdminHome from "../pages/Adminpages/AdminHome";
 import Layout from "../components/Layout"; // ✅ Import it here
 import ProductsTable from "../pages/Adminpages/ProductsTable";
 
+import Earnings from "../pages/Adminpages/Earnings";
+import SellerBalances from "../pages/Adminpages/SellerBalances";
+import QuoteRequestPage from "../pages/admin/Quote Request";
+
 
 
 
@@ -126,7 +130,10 @@ const publicRoutes = [
   { path: "/admin/transactions", component: LatestTransactions },
   { path: "/admin/transactions-feature", component: LatestTransactionsFeature },
   { path: "/admin/products", component: ProductsTable },
-  { path: "admin/quote-requests", component: QuoteRequestPage }
+  { path: "admin/quote-requests", component: QuoteRequestPage },
+  { path: "/admin/earnings", component: Earnings },
+  { path: "/admin/sellerBalances", component: SellerBalances }
+  
   
 
 ];

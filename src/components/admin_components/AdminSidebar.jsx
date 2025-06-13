@@ -68,7 +68,7 @@ const AdminSidebar = () => {
 
           <li className="flex items-center space-x-2">
             <Link
-              to="/admin"
+              to="/admin/home"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <FaHome />
@@ -226,7 +226,7 @@ const AdminSidebar = () => {
               <p>Orders</p>
             </Link>
           </li>
-          <li className="flex items-center space-x-2">
+          {/* <li className="flex items-center space-x-2">
             <Link
               to="/admin/earnings"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
@@ -234,7 +234,45 @@ const AdminSidebar = () => {
               <FaWallet />
               <p>Earnings</p>
             </Link>
-          </li>
+          </li> */}
+          <ul className="space-y-2 text-sm text-gray-700">
+            <li
+              className="flex items-center justify-between cursor-pointer  py-2 hover:bg-gray-100 rounded"
+              onClick={() => setIsEarningOpen(!isEarningOpen)}
+            >
+           <div className="flex items-center space-x-2">
+                <FaWallet />
+                <p>Earnings</p>
+              </div>
+              {isEarningOpen ? (
+                <FaChevronUp size={12} />
+              ) : (
+                <FaChevronDown size={12} />
+              )}
+            </li>
+            {isEarningOpen && (
+              <ul className="ml-6 mt-1 space-y-1 text-gray-500">
+                <li className="flex items-center space-x-2">
+                  <Link
+                    to="/admin/earnings"
+                    className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
+                  >
+                    <p>Earnings</p>
+                  </Link>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <Link
+                    to="/admin/sellerBalances"
+                    className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
+                  >
+                    <p>Seller Balances</p>
+                  </Link>
+                </li>
+                </ul>
+               
+            )}
+             </ul>
+             
           <ul className="space-y-2 text-sm text-gray-700">
             <li
               className="flex items-center justify-between cursor-pointer  py-2 hover:bg-gray-100 rounded "
