@@ -6,7 +6,7 @@ export const AppContext = createContext();
 export const AppContextProvider = (props) => {
   const storedUser = localStorage.getItem("user");
 
-  console.log("Stored user", storedUser);
+  // console.log("Stored user", storedUser);
 
   const [profile, setProfile] = useState(false);
   const [wishlist, setWishlist] = useState([]);

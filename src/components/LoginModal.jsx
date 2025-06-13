@@ -49,11 +49,11 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/login",
+        "http://localhost:5001/api/login",
         values
       );
 
-      if (response.status === 201 && response.data.user) {
+      if (response.status === 201) {
         onSuccess(response.data.user, response.data.token);
         onClose();
       } else {
@@ -63,7 +63,11 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
       }
     } catch (error) {
       console.error("Login error:", error);
-      if (error.response && error.response.data && error.response.data.message) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
         setErrorMessage(error.response.data.message);
       } else {
         setErrorMessage("An error occurred during login. Please try again.");
@@ -88,17 +92,25 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
           &times;
         </button>
 
-        <h2 className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6">Login</h2>
+        <h2 className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6">
+          Login
+        </h2>
 
         {errorMessage && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-3 sm:px-4 py-2 sm:py-3 rounded relative mb-3 sm:mb-4 text-sm sm:text-base" role="alert">
+          <div
+            className="bg-red-100 border border-red-400 text-red-700 px-3 sm:px-4 py-2 sm:py-3 rounded relative mb-3 sm:mb-4 text-sm sm:text-base"
+            role="alert"
+          >
             <span className="block sm:inline">{errorMessage}</span>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
               Email
             </label>
             <input
@@ -130,10 +142,10 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
                 className="block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 text-sm sm:text-base"
               />
               <button
-                  type="button"
-                  onClick={togglePasswordVisibility}
-                  className="absolute inset-y-0 right-0 flex items-center pr-3 focus:outline-none"
-                  aria-label="Toggle password visibility"
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="absolute inset-y-0 right-0 flex items-center pr-3 focus:outline-none"
+                aria-label="Toggle password visibility"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
