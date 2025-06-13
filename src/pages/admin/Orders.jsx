@@ -37,7 +37,8 @@ function Orders() {
 
 
   return (
-    <div className="p-4 md:p-8 bg-gray-50 min-h-screen font-sans">
+    <div className="p-4 md:p-8 bg-gray-50 min-h-screen font-sans w-[80vw]">
+
       {/* Header Section */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl md:text-3xl font-bold text-gray-800">Orders</h1>

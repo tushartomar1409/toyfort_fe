@@ -65,7 +65,7 @@ import ProductsTable from "../pages/Adminpages/ProductsTable";
 
 // Accept openLoginModal as a prop
 const Approutes = ({ openLoginModal }) => {
-  const LoggedIn = false;
+  const LoggedIn = true ;
 
 const publicRoutes = [
   { path: "/", component: Home },
@@ -125,7 +125,8 @@ const publicRoutes = [
   { path: "/admin/reviews", component: LatestReviews },
   { path: "/admin/transactions", component: LatestTransactions },
   { path: "/admin/transactions-feature", component: LatestTransactionsFeature },
-  { path: "/admin/products", component: ProductsTable }
+  { path: "/admin/products", component: ProductsTable },
+  { path: "admin/quote-requests", component: QuoteRequestPage }
   
 
 ];
