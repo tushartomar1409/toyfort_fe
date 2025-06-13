@@ -7,12 +7,12 @@ import { AppContext } from "../context/AppContext";
 // Accept openLoginModal as a prop
 const Register = ({ openLoginModal }) => {
   const [values, setValues] = useState({
-    first_name: "",
-    last_name: "",
+    fName: "",
+    lName: "",
     email: "",
-    phone_number: "",
+    phone: "",
     password: "",
-    confirm_password: "",
+    confirmPassword: "",
   });
 
   const [message, setMessage] = useState("");
@@ -29,7 +29,7 @@ const Register = ({ openLoginModal }) => {
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    if (values.password !== values.confirm_password) {
+    if (values.password !== values.confirmPassword) {
       console.log("Passwords do not match.");
       return;
     }
@@ -37,35 +37,47 @@ const Register = ({ openLoginModal }) => {
     try {
       const response = await axios.post(
         "http://localhost:5001/api/register",
-        values
+        values,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
 
-      console.log(values.first_name);
-      console.log("Register Val", values);
+      console.log(values.fName);
+      // console.log("Register Val", values);
+      
 
       if (response.status === 201) {
-        localStorage.setItem("token", response.data.token);
-        if (response.data.user) {
-          setUser(response.data.user)
-          setProfile(true)
-          
-          console.log("Registration successful:", response.data.message);
-          localStorage.setItem("user", JSON.stringify(response.data.user))
-          navigate("/settings/edit-profile");
-        }else{
-          setMessageState(false)
-          setMessage("User not Register!")
+        let userData = response.data.data
+        console.log(userData.name);
+        
+        localStorage.setItem("token", userData.token);
+        setUser(userData);
+        setProfile(true);
+        localStorage.setItem("user", JSON.stringify(userData));
+        navigate("/settings/edit-profile");
+
+        } else {
+          setMessageState(false);
+          setMessage("User not Register!");
         }
-      }
+       
     } catch (error) {
-      console.log(error.message);
+      if (error.response) {
+        console.log("Backend error:", error.response.data);
+      } else {
+        console.log("Other error:", error.message);
+      }
     }
-  }
+  };
 
   // New handler to open the login modal
   const handleLoginClick = (e) => {
     e.preventDefault(); // Prevent default anchor link behavior
-    if (openLoginModal) { // Check if the prop exists
+    if (openLoginModal) {
+      // Check if the prop exists
       openLoginModal(); // Call the function passed from App.jsx to open the modal
     }
   };
@@ -85,7 +97,7 @@ const Register = ({ openLoginModal }) => {
         <input
           className="mb-3 w-full p-3 border border-gray-300"
           type="text"
-          name="first_name"
+          name="fName"
           placeholder="First Name"
           required
           onChange={handleChanges}
@@ -94,7 +106,7 @@ const Register = ({ openLoginModal }) => {
         <input
           className="mb-3 w-full p-3 border border-gray-300"
           type="text"
-          name="last_name"
+          name="lName"
           placeholder="Last Name"
           required
           onChange={handleChanges}
@@ -112,7 +124,7 @@ const Register = ({ openLoginModal }) => {
         <input
           className="mb-3 w-full p-3 border border-gray-300"
           type="tel"
-          name="phone_number"
+          name="phone"
           placeholder="Phone Number"
           required
           onChange={handleChanges}
@@ -130,7 +142,7 @@ const Register = ({ openLoginModal }) => {
         <input
           className="mb-3 w-full p-3 border border-gray-300"
           type="password"
-          name="confirm_password"
+          name="confirmPassword"
           placeholder="Confirm Password"
           required
           onChange={handleChanges}
