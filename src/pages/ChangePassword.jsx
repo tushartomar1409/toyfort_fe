@@ -19,7 +19,9 @@ const ChangePassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem("token");
+      const user = JSON.parse(localStorage.getItem("user"));
+      const token = user.token;
+
       if (!token) {
         console.log("No token found");
         setMessage("Unauthorized. Please log in.");

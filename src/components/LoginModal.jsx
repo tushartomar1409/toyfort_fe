@@ -57,9 +57,8 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
       );
 
       if (response.status === 201) {
-        console.log("Login res:",response.data);
-
-        let userData = response.data.data;
+        // console.log("Login res:",response.data);
+        
         setUser(response.data.data);
         localStorage.setItem("user", user);
 
