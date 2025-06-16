@@ -18,7 +18,9 @@ function UpdateSideBar() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const token = localStorage.getItem("token");
+        const user = JSON.parse(localStorage.getItem("user"));
+        const token = user.token;
+        
         if (!token) {
           console.log("No token found");
           return;
@@ -28,21 +30,19 @@ function UpdateSideBar() {
           "http://localhost:5001/api/user/profile",
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
 
-        // console.log(response.data);
-
-        if (response.data.length > 0) {
-          const userData = response.data[0];
-          setMessageState(true)
-          setMessage("Register Successful!")
+        if (response.status === 200) {
+          const userData = response.data;
+          setMessageState(true);
+          setMessage("Register Successful!");
           setData(userData);
         } else {
-          setMessageState(false)
-          setMessage("User not Register!")
+          setMessageState(false);
+          setMessage("User not Register!");
           console.log("No user data found in response");
         }
       } catch (error) {
@@ -55,9 +55,9 @@ function UpdateSideBar() {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-
     const user = JSON.parse(localStorage.getItem("user"));
-    const userId = user?.id;
+    const token = user.token;
+    const userId = user?._id;
 
     if (!userId) {
       console.log("User ID not found");
@@ -67,20 +67,21 @@ function UpdateSideBar() {
     try {
       const response = await axios.put(
         `http://localhost:5001/api/user/update-profile`,
-        { userId, ...data },
+        {...data },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
+      
 
       if (response.status === 200) {
-        setMessageState(true)
+        setMessageState(true);
         setMessage("Changes successfully saved!");
         console.log("Profile updated successfully");
-      }else{
-        setMessageState(false)
+      } else {
+        setMessageState(false);
         setMessage("Changes not saved!");
       }
     } catch (error) {
@@ -160,9 +161,9 @@ function UpdateSideBar() {
                     backgroundColor: "#d4edda",
                     padding: "20px",
                     color: "#155724",
-                    marginBottom:"10px",
-                    display:"flex",
-                    alignItems:"center"
+                    marginBottom: "10px",
+                    display: "flex",
+                    alignItems: "center",
                   }}
                 >
                   <FaCheckCircle style={{ marginRight: "10px" }} />
@@ -170,15 +171,15 @@ function UpdateSideBar() {
                 </div>
               )}
 
-               {message && !messageState && (
+              {message && !messageState && (
                 <div
                   style={{
                     backgroundColor: "#f8d7da",
                     padding: "20px",
                     color: "155724",
-                    marginBottom:"10px",
-                    display:"flex",
-                    alignItems:"center"
+                    marginBottom: "10px",
+                    display: "flex",
+                    alignItems: "center",
                   }}
                 >
                   <FaCheckCircle style={{ marginRight: "10px" }} />
@@ -246,8 +247,8 @@ function UpdateSideBar() {
                 Save Changes
               </button>
 
-              <Link to={'/settings/shipping-address'}>
-               <button className="bg-black text-white px-4 py-2">Next</button>
+              <Link to={"/settings/shipping-address"}>
+                <button className="bg-black text-white px-4 py-2">Next</button>
               </Link>
             </div>
           </form>
