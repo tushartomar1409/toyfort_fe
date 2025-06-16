@@ -26,6 +26,7 @@ import ShippingAddress from "../pages/ShippingAddress";
 import ChangePassword from "../pages/ChangePassword";
 import Orders from "../pages/admin/Orders"; // This is the main Orders component
 import Refund from "../pages/Refund";
+import Order from "../pages/Orders";
 import WishList from "../pages/WishList";
 import Cart from "../pages/Cart";
 import cartSlider from "../pages/cartSlider";
@@ -69,7 +70,7 @@ import QuoteRequestPage from "../pages/admin/Quote Request";
 
 // Accept openLoginModal as a prop
 const Approutes = ({ openLoginModal }) => {
-  const LoggedIn = true ;
+  const LoggedIn = false ;
 
 const publicRoutes = [
   { path: "/", component: Home },
@@ -94,7 +95,7 @@ const publicRoutes = [
   { path: "/settings/edit-profile", component: UpdateProfile },
   { path: "/settings/shipping-address", component: ShippingAddress },
   { path: "/settings/change-password", component: ChangePassword },
-  // { path: "/order", component: Orders }, // REMOVED from public routes
+  { path: "/order", component: Order },
   { path: "/refund-requests", component: Refund },
   { path: "/wishlist/:slug", component: WishList },
   { path: "/cart", component: Cart },

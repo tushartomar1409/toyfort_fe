@@ -2,15 +2,18 @@
 // File: src/components/LoginModal.jsx
 // ───────────────────────────────────────────────────
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { AppContext } from "../context/AppContext";
 
 export default function LoginModal({ isOpen, onClose, onSuccess }) {
   const [values, setValues] = useState({ email: "", password: "" });
   // **CHANGE**: Re-added state to track password visibility
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const { user, setUser } = useContext(AppContext);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -54,7 +57,14 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
       );
 
       if (response.status === 201) {
+        console.log("Login res:",response.data);
+
+        let userData = response.data.data;
+        setUser(response.data.data);
+        localStorage.setItem("user", user);
+
         onSuccess(response.data.user, response.data.token);
+
         onClose();
       } else {
         setErrorMessage(
