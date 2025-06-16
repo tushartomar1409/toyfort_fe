@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Adminheader from "../../components/admin_components/Adminheader";
+import Adminfooter from "../../components/admin_components/Adminfooter";
 
 // Main component for the Quote Requests page
 export default function QuoteRequestPage() {
@@ -17,6 +19,8 @@ export default function QuoteRequestPage() {
   };
 
   return (
+    <div className="flex-1 bg-gray-100 min-h-screen -ml-[30px] overflow-auto">
+        <Adminheader />
     <div className="bg-gray-100 min-h-screen p-4 sm:p-6 lg:p-8 font-sans">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-2xl font-semibold text-gray-800 mb-6">Quote Requests</h1>
@@ -103,6 +107,9 @@ export default function QuoteRequestPage() {
           </div>
         </div>
       </div>
+    </div>
+     <Adminfooter />
+      
     </div>
   );
 }

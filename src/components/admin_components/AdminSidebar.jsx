@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {
   FaHome,
   FaShoppingCart,
-  FaFileInvoice, // Import FaFileInvoice for orders icon
+  FaFileInvoice, // Using this for sub-items if needed
   FaBoxOpen,
   FaDollarSign,
   FaFlag,
@@ -25,7 +25,7 @@ import {
 } from "react-icons/fa";
 
 const AdminSidebar = () => {
-  const [isOrdersOpen, setIsOrdersOpen] = useState(false);
+  const [isOrdersOpen, setIsOrdersOpen] = useState(false); // State for the new Orders dropdown
   const [isEarningOpen, setIsEarningOpen] = useState(false);
   const [isPayoutOpen, setIsPayoutOpen] = useState(false);
   const [isProductOpen, setIsProductOpen] = useState(false);
@@ -216,25 +216,53 @@ const AdminSidebar = () => {
               </ul>
             )}
           </ul>
-          {/* New Orders Section */}
-          <li className="flex items-center space-x-2">
-            <Link
-              to="/admin/orders"
-              className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
+          
+          {/* MODIFIED: Orders section is now a dropdown */}
+          <ul className="space-y-2 text-sm text-gray-700">
+            <li
+              className="flex items-center justify-between cursor-pointer py-2 hover:bg-gray-100 rounded"
+              onClick={() => setIsOrdersOpen(!isOrdersOpen)}
             >
-              <FaFileInvoice /> {/* Using FaFileInvoice icon for Orders */}
-              <p>Orders</p>
-            </Link>
-          </li>
-          {/* <li className="flex items-center space-x-2">
-            <Link
-              to="/admin/earnings"
-              className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
-            >
-              <FaWallet />
-              <p>Earnings</p>
-            </Link>
-          </li> */}
+              <div className="flex items-center space-x-2">
+                <FaShoppingCart />
+                <p>Orders</p>
+              </div>
+              {isOrdersOpen ? (
+                <FaChevronUp size={12} />
+              ) : (
+                <FaChevronDown size={12} />
+              )}
+            </li>
+            {isOrdersOpen && (
+              <ul className="ml-6 mt-1 space-y-1 text-gray-500">
+                <li className="flex items-center space-x-2">
+                  <Link
+                    to="/admin/orders"
+                    className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
+                  >
+                    <p>Orders</p>
+                  </Link>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <Link
+                    to="/admin/transactions"
+                    className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
+                  >
+                    <p>Transactions</p>
+                  </Link>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <Link
+                    to="/admin/bank-transfers"
+                    className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
+                  >
+                    <p>Bank Transfers Notifications</p>
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </ul>
+
           <ul className="space-y-2 text-sm text-gray-700">
             <li
               className="flex items-center justify-between cursor-pointer  py-2 hover:bg-gray-100 rounded"

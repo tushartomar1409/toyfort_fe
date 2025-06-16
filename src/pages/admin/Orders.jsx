@@ -1,4 +1,7 @@
  import React, { useState } from 'react';
+import Adminheader from "../../components/admin_components/Adminheader";
+import Adminfooter from "../../components/admin_components/Adminfooter";
+
 
 // A simple user avatar icon component
 const UserAvatar = () => (
@@ -37,6 +40,8 @@ function Orders() {
 
 
   return (
+     <div className="flex-1 bg-gray-100 min-h-screen -ml-[30px] overflow-auto">
+        <Adminheader />
     <div className="p-4 md:p-8 bg-gray-50 min-h-screen font-sans w-[80vw]">
 
       {/* Header Section */}
@@ -163,6 +168,9 @@ function Orders() {
           </table>
         </div>
       </div>
+    </div>
+    <Adminfooter />
+      
     </div>
   );
 }

@@ -54,18 +54,18 @@ import LatestOrders from "../components/admin_components/LatestOrders"; // This 
 import LatestPendingProducts from "../components/admin_components/LatestPendingProducts";
 import LatestProducts from "../components/admin_components/LatestProducts";
 import LatestReviews from "../pages/admin/review";
-import LatestTransactions from "../components/admin_components/LatestTransactions";
+import LatestTransactions from "../pages/admin/Transactions";
 import LatestTransactionsFeature from "../components/admin_components/LatestTransactionsFeature";
 import AdminHome from "../pages/Adminpages/AdminHome";
 import Layout from "../components/Layout"; // ✅ Import it here
 import ProductsTable from "../pages/Adminpages/ProductsTable";
-
 import Earnings from "../pages/Adminpages/Earnings";
 import SellerBalances from "../pages/Adminpages/SellerBalances";
 import QuoteRequestPage from "../pages/admin/Quote Request";
 import AddPayout from "../pages/Adminpages/AddPayout";
 import PayoutRequest from "../pages/Adminpages/PayoutRequest";
 import PayoutSettings from "../pages/Adminpages/PayoutSettings";
+import BankTransfer from "../pages/admin/BankTransfersNotifications"
 
 
 
@@ -73,7 +73,7 @@ import PayoutSettings from "../pages/Adminpages/PayoutSettings";
 
 // Accept openLoginModal as a prop
 const Approutes = ({ openLoginModal }) => {
-  const LoggedIn = false ;
+  const LoggedIn = true ;
 
 const publicRoutes = [
   { path: "/", component: Home },
@@ -100,6 +100,8 @@ const publicRoutes = [
   { path: "/settings/change-password", component: ChangePassword },
   { path: "/order", component: Order },
   { path: "/refund-requests", component: Refund },
+  // { path: "/order", component: Orders }, // REMOVED from public routes
+
   { path: "/wishlist/:slug", component: WishList },
   { path: "/cart", component: Cart },
   { path: "/card-slider", component: cartSlider },
@@ -139,7 +141,10 @@ const publicRoutes = [
   { path: "/admin/sellerBalances", component: SellerBalances },
    { path: "/admin/add-payout", component: AddPayout },
     { path: "/admin/payout-requests", component: PayoutRequest },
-    { path: "/admin/payout-settings", component: PayoutSettings}
+    { path: "/admin/payout-settings", component: PayoutSettings},
+  { path: "/admin/refund-requests", component: Refund },
+  { path: "/admin/refund-requests", component: Refund },
+  { path: "/admin/bank-transfers", component: BankTransfer},
   
   
 
