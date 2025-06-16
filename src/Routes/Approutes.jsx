@@ -63,6 +63,9 @@ import ProductsTable from "../pages/Adminpages/ProductsTable";
 import Earnings from "../pages/Adminpages/Earnings";
 import SellerBalances from "../pages/Adminpages/SellerBalances";
 import QuoteRequestPage from "../pages/admin/Quote Request";
+import AddPayout from "../pages/Adminpages/AddPayout";
+import PayoutRequest from "../pages/Adminpages/PayoutRequest";
+import PayoutSettings from "../pages/Adminpages/PayoutSettings";
 
 
 
@@ -133,7 +136,10 @@ const publicRoutes = [
   { path: "/admin/products", component: ProductsTable },
   { path: "admin/quote-requests", component: QuoteRequestPage },
   { path: "/admin/earnings", component: Earnings },
-  { path: "/admin/sellerBalances", component: SellerBalances }
+  { path: "/admin/sellerBalances", component: SellerBalances },
+   { path: "/admin/add-payout", component: AddPayout },
+    { path: "/admin/payout-requests", component: PayoutRequest },
+    { path: "/admin/payout-settings", component: PayoutSettings}
   
   
 
