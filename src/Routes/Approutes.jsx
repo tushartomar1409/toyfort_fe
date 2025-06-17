@@ -7,7 +7,7 @@ import Contact from "../pages/contact";
 import HelpCenter from "../pages/HelpCenter";
 import TermsConditions from "../pages/TermsConditions";
 import ShippingPolicy from "../pages/ShippingPolicy";
-import PrivacyPolicy from "../pages/PrivacyPolicy";
+// import PrivacyPolicy from "../pages/PrivacyPolicy";
 import Books from "../pages/Books";
 import WriteForUs from "../pages/WriteForUs";
 import ColoringBooks from "../pages/ColoringBooks";
@@ -81,7 +81,11 @@ import MembershipTransactions from "../pages/admin/MembershipTransactions";
 
 // Accept openLoginModal as a prop
 const Approutes = ({ openLoginModal }) => {
+<<<<<<< Updated upstream
   const LoggedIn = true  ;
+=======
+  const LoggedIn = false ;
+>>>>>>> Stashed changes
 
 const publicRoutes = [
   { path: "/", component: Home },
@@ -89,7 +93,7 @@ const publicRoutes = [
   { path: "/help-center", component: HelpCenter },
   { path: "/terms-conditions", component: TermsConditions },
   { path: "/shipping-policy", component: ShippingPolicy },
-  { path: "/privacy-policy", component: PrivacyPolicy },
+  // { path: "/privacy-policy", component: PrivacyPolicy },
   { path: "/blog", component: Blog },
   { path: "/contact", component: Contact },
   { path: "/write-for-us", component: WriteForUs },
