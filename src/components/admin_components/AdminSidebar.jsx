@@ -64,7 +64,7 @@ const AdminSidebar = () => {
         </div>
         <h2 className="text-xl font-semibold text-gray-800 mb-6">Hi, Piyush Gupta</h2>
       </div>
-
+      
       <nav className="overflow-y-auto flex-grow pr-2">
         <ul className="p-4 space-y-6">
           <li className="text-gray-400 text-xs mb-6">NAVIGATION</li>
@@ -221,6 +221,20 @@ const AdminSidebar = () => {
               </ul>
             )}
           </ul>
+       
+          
+          <ul className="space-y-2 text-sm text-gray-700">
+            <li className="flex items-center space-x-2">
+            <Link
+              to="/admin/sales"
+              className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
+            >
+              <FaShoppingBag />
+              <p>Digital Sales</p>
+            </Link>
+          </li>
+          </ul>
+          
           {/* MODIFIED: Orders section is now a dropdown */}
           <ul className="space-y-2 text-sm text-gray-700">
             <li
