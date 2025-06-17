@@ -3,9 +3,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaPlusCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import AddressForm from "../components/AddressForm";
 
 const ShippingAddress = () => {
   const [menu, setMenu] = useState("Shipping Address");
+  const [showForm, setShowForm] = useState(false)
   const navigate = useNavigate();
   return (
     <div>
@@ -76,10 +78,15 @@ const ShippingAddress = () => {
             You have not added a shipping address yet.
           </p>
 
-          <button className="flex items-center mt-3 text-black font-semibold hover:underline">
+          <button
+            onClick={() => setShowForm(true)}
+            className="flex items-center mt-3 text-black font-semibold hover:underline"
+          >
             <FaPlusCircle className="mr-2" />
             Add New Address
           </button>
+
+          {showForm && <AddressForm onClose={() => setShowForm(false)} />}
 
           <div className="mt-6">
             <button

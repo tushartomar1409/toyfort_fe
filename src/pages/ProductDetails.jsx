@@ -51,7 +51,7 @@ const ProductDetails = () => {
 
   const addProduct = () => {
     setState(state + 1);
-  };
+  };;
 
   const removeProduct = () => {
     if (state > 1) {

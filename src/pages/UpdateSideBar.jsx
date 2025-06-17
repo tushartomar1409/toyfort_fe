@@ -38,7 +38,7 @@ function UpdateSideBar() {
         if (response.status === 200) {
           const userData = response.data;
           setMessageState(true);
-          setMessage("Register Successful!");
+          setMessage("Your account has been created successfully!");
           setData(userData);
         } else {
           setMessageState(false);
@@ -192,6 +192,7 @@ function UpdateSideBar() {
               <input
                 type="email"
                 value={data.email}
+                readOnly
                 className="w-full p-2 text-gray-500 border border-gray-300 rounded-sm"
                 onChange={(e) => setData({ ...data, email: e.target.value })}
               />
