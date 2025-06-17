@@ -22,6 +22,7 @@ import {
   FaComment,
   FaStar,
   FaShippingFast,
+  FaShoppingBag,
 } from "react-icons/fa";
 
 const AdminSidebar = () => {
@@ -171,50 +172,65 @@ const AdminSidebar = () => {
               </ul>
             )}
           </ul>
-          <li className="text-gray-400 text-xs mb-6">SALES</li>
-          <ul className="space-y-2 text-sm text-gray-700">
+
+             <ul className="space-y-2 text-sm text-gray-700">
             <li
               className="flex items-center justify-between cursor-pointer  py-2 hover:bg-gray-100 rounded"
-              onClick={() => setIsSaleOpen(!isSaleOpen)}
+              onClick={() => setIsFeaturedProduct(!isFeaturedProduct)}
             >
               <div className="flex items-center space-x-2">
-                <FaShoppingCart />
-                <p>Sales</p>
+                <FaDollarSign />
+                <p> Featured Products</p>
               </div>
-              {isSaleOpen ? (
+              {isFeaturedProduct ? (
                 <FaChevronUp size={12} />
               ) : (
                 <FaChevronDown size={12} />
               )}
             </li>
-            {isSaleOpen && (
+            {isFeaturedProduct && (
               <ul className="ml-6 mt-1 space-y-1 text-gray-500">
                 <li className="flex items-center space-x-2">
                   <Link
-                    to="/admin/activesales"
+                    to="/admin/featuredProducts"
                     className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
                   >
-                    <p>Active Sales</p>
+                    <p>Products</p>
+                  </Link>
+                </li>
+              
+                <li className="flex items-center space-x-2">
+                  <Link
+                    to="/admin/pricing"
+                    className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
+                  >
+                    <p>Pricing</p>
                   </Link>
                 </li>
                 <li className="flex items-center space-x-2">
                   <Link
-                    to="/admin/completedsales"
+                    to="/admin/transaction"
                     className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
                   >
-                    <p>Completed Sales</p>
+                    <p>Transaction</p>
                   </Link>
                 </li>
-                <li className="flex items-center space-x-2">
-                  <Link
-                    to="/admin/cancelledsales"
-                    className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
-                  >
-                    <p>Cancelled Sales</p>
-                  </Link>
-                </li>
+
               </ul>
             )}
+          </ul>
+       
+          
+          <ul className="space-y-2 text-sm text-gray-700">
+            <li className="flex items-center space-x-2">
+            <Link
+              to="/admin/sales"
+              className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
+            >
+              <FaShoppingBag />
+              <p>Digital Sales</p>
+            </Link>
+          </li>
           </ul>
           
           {/* MODIFIED: Orders section is now a dropdown */}

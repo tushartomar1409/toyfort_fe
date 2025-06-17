@@ -66,6 +66,11 @@ import AddPayout from "../pages/Adminpages/AddPayout";
 import PayoutRequest from "../pages/Adminpages/PayoutRequest";
 import PayoutSettings from "../pages/Adminpages/PayoutSettings";
 import BankTransfer from "../pages/admin/BankTransfersNotifications"
+import DigitalSales from "../pages/Adminpages/DigitalSales";
+import FeaturedProducts from "../pages/Adminpages/FeaturedProducts";
+import Pricing from "../pages/Adminpages/Pricing";
+import Transaction from "../pages/Adminpages/Transaction";
+
 
 
 
@@ -145,7 +150,10 @@ const publicRoutes = [
   { path: "/admin/refund-requests", component: Refund },
   { path: "/admin/refund-requests", component: Refund },
   { path: "/admin/bank-transfers", component: BankTransfer},
-  
+   { path: "/admin/sales", component: DigitalSales},
+   { path: "/admin/featuredProducts", component:FeaturedProducts},
+   { path: "/admin/pricing", component:Pricing},
+   { path: "/admin/transaction", component:Transaction}
   
 
 ];
