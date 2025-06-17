@@ -71,6 +71,9 @@ import FeaturedProducts from "../pages/Adminpages/FeaturedProducts";
 import Pricing from "../pages/Adminpages/Pricing";
 import Transaction from "../pages/Adminpages/Transaction";
 
+import Newsletter from"../pages/admin/newsletter"
+import MembershipPlan from "../pages/admin/MembershipPlan";
+import MembershipTransactions from "../pages/admin/MembershipTransactions";
 
 
 
@@ -78,7 +81,7 @@ import Transaction from "../pages/Adminpages/Transaction";
 
 // Accept openLoginModal as a prop
 const Approutes = ({ openLoginModal }) => {
-  const LoggedIn = true ;
+  const LoggedIn = true  ;
 
 const publicRoutes = [
   { path: "/", component: Home },
@@ -153,7 +156,11 @@ const publicRoutes = [
    { path: "/admin/sales", component: DigitalSales},
    { path: "/admin/featuredProducts", component:FeaturedProducts},
    { path: "/admin/pricing", component:Pricing},
-   { path: "/admin/transaction", component:Transaction}
+   { path: "/admin/transaction", component:Transaction},
+   { path: "/admin/newsletter", component: Newsletter},
+  { path: "/admin/newsletter", component: Newsletter},
+ {path: "/admin/membership-plans" ,component: MembershipPlan},
+ {path: "/admin/membership-transactions",component: MembershipTransactions} 
   
 
 ];

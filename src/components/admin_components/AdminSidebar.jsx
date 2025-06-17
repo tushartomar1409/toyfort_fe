@@ -23,6 +23,8 @@ import {
   FaStar,
   FaShippingFast,
   FaShoppingBag,
+  FaEnvelope, // Import FaEnvelope for the Newsletter icon
+  FaUsers, // Imported for Membership -> Users
 } from "react-icons/fa";
 
 const AdminSidebar = () => {
@@ -62,7 +64,7 @@ const AdminSidebar = () => {
         </div>
         <h2 className="text-xl font-semibold text-gray-800 mb-6">Hi, Piyush Gupta</h2>
       </div>
-      
+
       <nav className="overflow-y-auto flex-grow pr-2">
         <ul className="p-4 space-y-6">
           <li className="text-gray-400 text-xs mb-6">NAVIGATION</li>
@@ -219,20 +221,6 @@ const AdminSidebar = () => {
               </ul>
             )}
           </ul>
-       
-          
-          <ul className="space-y-2 text-sm text-gray-700">
-            <li className="flex items-center space-x-2">
-            <Link
-              to="/admin/sales"
-              className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
-            >
-              <FaShoppingBag />
-              <p>Digital Sales</p>
-            </Link>
-          </li>
-          </ul>
-          
           {/* MODIFIED: Orders section is now a dropdown */}
           <ul className="space-y-2 text-sm text-gray-700">
             <li
@@ -313,10 +301,10 @@ const AdminSidebar = () => {
                   </Link>
                 </li>
                 </ul>
-               
+
             )}
              </ul>
-             
+
           <ul className="space-y-2 text-sm text-gray-700">
             <li
               className="flex items-center justify-between cursor-pointer  py-2 hover:bg-gray-100 rounded "
@@ -390,6 +378,54 @@ const AdminSidebar = () => {
             </Link>
           </li>
 
+          {/* New Membership Section */}
+          <li className="text-gray-400 text-xs mb-6">MEMBERSHIP</li>
+          <li className="flex items-center space-x-2">
+            <Link
+              to="/admin/users"
+              className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
+            >
+              <FaUsers />
+              <p>Users</p>
+            </Link>
+          </li>
+          <ul className="space-y-2 text-sm text-gray-700">
+            <li
+              className="flex items-center justify-between cursor-pointer py-2 hover:bg-gray-100 rounded"
+              onClick={() => setIsMembershipOpen(!isMembershipOpen)}
+            >
+              <div className="flex items-center space-x-2">
+                <FaFileInvoice />
+                <p>Membership Plans</p>
+              </div>
+              {isMembershipOpen ? (
+                <FaChevronUp size={12} />
+              ) : (
+                <FaChevronDown size={12} />
+              )}
+            </li>
+            {isMembershipOpen && (
+              <ul className="ml-6 mt-1 space-y-1 text-gray-500">
+                <li className="flex items-center space-x-2">
+                  <Link
+                    to="/admin/membership-plans"
+                    className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
+                  >
+                    <p>Membership Plans</p>
+                  </Link>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <Link
+                    to="/admin/membership-transactions"
+                    className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
+                  >
+                    <p>Transactions</p>
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </ul>
+
 
           <li className="text-gray-400 text-xs mb-6">PAYMENTS</li>
           <ul className="space-y-2 text-sm text-gray-700">
@@ -438,6 +474,16 @@ const AdminSidebar = () => {
             >
               <FaStar />
               <p>Reviews</p>
+            </Link>
+          </li>
+          {/* New Newsletter section */}
+          <li className="flex items-center space-x-2">
+            <Link
+              to="/admin/newsletter"
+              className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
+            >
+              <FaEnvelope />
+              <p>Newsletter</p>
             </Link>
           </li>
           <li className="text-gray-400 text-xs mb-6">SETTINGS</li>
