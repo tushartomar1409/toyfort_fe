@@ -81,7 +81,7 @@ import MembershipTransactions from "../pages/admin/MembershipTransactions";
 
 // Accept openLoginModal as a prop
 const Approutes = ({ openLoginModal }) => {
-  const LoggedIn = true  ;
+  const LoggedIn = false  ;
 
 const publicRoutes = [
   { path: "/", component: Home },
