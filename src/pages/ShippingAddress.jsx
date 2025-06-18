@@ -1,14 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaPlusCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import AddressForm from "../components/AddressForm";
+import axios from "axios";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 const ShippingAddress = () => {
   const [menu, setMenu] = useState("Shipping Address");
-  const [showForm, setShowForm] = useState(false)
+  const [showForm, setShowForm] = useState(false);
+  const [address, setAddress] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchAddress = async () => {
+      try {
+        const user = JSON.parse(localStorage.getItem("user"));
+        const token = user.token;
+        const response = await axios.get(
+          "http://localhost:5001/api/get-shipping-address",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setAddress(response.data);
+      } catch (error) {
+        if (error.response && error.response.status === 404) {
+          setAddress(null);
+        } else {
+          setError("Something went wrong.");
+        }
+      }
+    };
+    fetchAddress();
+  }, []);
   return (
     <div>
       <div
@@ -73,14 +103,46 @@ const ShippingAddress = () => {
           </div>
         </div>
 
-        <div className="w-3/4 p-10">
-          <p className="text-gray-500">
-            You have not added a shipping address yet.
-          </p>
+        <div className="w-full p-16">
+          {address && address.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {address.map((address, index) => (
+                <div
+                  key={index}
+                  className="min-w-[300px] grid-cols-2 border border-gray-300 p-4 rounded-lg shrink-0"
+                >
+                  <strong className="text-black text-sm">
+                    {address.title}
+                  </strong>
+                  <p className="text-black mt-3">
+                    {address.first_name} {address.last_name}
+                  </p>
+                  <p className="text-black text-sm">
+                    {address.address}, {address.city}, {address.zip_code}{" "}
+                    {address.state_id}/India
+                  </p>
+                  <p className="text-black text-sm">
+                    {address.email} {address.phone_number}
+                  </p>
+
+                  <div className="mt-2 ">
+                    <button className="mr-4"> <FontAwesomeIcon className="text-gray-600 mr-1" icon={faPenToSquare} />
+                      Edit</button>
+                    <button> <FontAwesomeIcon className="text-gray-600 mr-1" icon={faTrashCan} />
+                        Delete</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-gray-500">
+              You have not added a shipping address yet.
+            </p>
+          )}
 
           <button
             onClick={() => setShowForm(true)}
-            className="flex items-center mt-3 text-black font-semibold hover:underline"
+            className="flex items-center mt-3 text-black font-semibold hover:text-cyan-600"
           >
             <FaPlusCircle className="mr-2" />
             Add New Address
