@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Adminheader from "../../components/admin_components/Adminheader";
 import Adminfooter from "../../components/admin_components/Adminfooter";
+import { Link } from 'react-router-dom';
 
 
 const AddPayout = () => {
@@ -44,7 +45,9 @@ const AddPayout = () => {
     <div style={{ margin: '40px auto', maxWidth: 600, background: '#fff', padding: 32, borderRadius: 8 }}>
       <h2>Add Payout</h2>
       <button style={{ float: 'right', marginBottom: 16, background: '#16a085', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: 4 }}>
-        Payout Requests
+       <li className="flex items-center space-x-2"> <Link to={"/admin/payout-requests"}>
+        
+          Payout Requests</Link></li> 
       </button>
       <form onSubmit={handleSubmit} style={{ clear: 'both' }}>
         <div style={{ marginBottom: 24 }}>

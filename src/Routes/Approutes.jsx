@@ -74,6 +74,8 @@ import Transaction from "../pages/Adminpages/Transaction";
 import Newsletter from"../pages/admin/newsletter"
 import MembershipPlan from "../pages/admin/MembershipPlan";
 import MembershipTransactions from "../pages/admin/MembershipTransactions";
+import CustomField from "../pages/Adminpages/CustomField";
+import AddCustomField from "../pages/Adminpages/AddCustomField";
 
 
 
@@ -82,7 +84,7 @@ import MembershipTransactions from "../pages/admin/MembershipTransactions";
 // Accept openLoginModal as a prop
 const Approutes = ({ openLoginModal }) => {
 
-  const LoggedIn = false ;
+  const LoggedIn = true ;
 
 
 const publicRoutes = [
@@ -148,22 +150,23 @@ const publicRoutes = [
   { path: "/admin/products", component: ProductsTable },
   { path: "admin/quote-requests", component: QuoteRequestPage },
   { path: "/admin/earnings", component: Earnings },
-  { path: "/admin/sellerBalances", component: SellerBalances },
+  { path: "/admin/seller-balances", component: SellerBalances },
    { path: "/admin/add-payout", component: AddPayout },
     { path: "/admin/payout-requests", component: PayoutRequest },
     { path: "/admin/payout-settings", component: PayoutSettings},
   { path: "/admin/refund-requests", component: Refund },
   { path: "/admin/refund-requests", component: Refund },
   { path: "/admin/bank-transfers", component: BankTransfer},
-   { path: "/admin/sales", component: DigitalSales},
+   { path: "/admin/digital-sales", component: DigitalSales},
    { path: "/admin/featuredProducts", component:FeaturedProducts},
    { path: "/admin/pricing", component:Pricing},
    { path: "/admin/transaction", component:Transaction},
    { path: "/admin/newsletter", component: Newsletter},
   { path: "/admin/newsletter", component: Newsletter},
  {path: "/admin/membership-plans" ,component: MembershipPlan},
- {path: "/admin/membership-transactions",component: MembershipTransactions} 
-  
+ {path: "/admin/membership-transactions",component: MembershipTransactions} ,
+ {path: "/admin/custom-fields",component: CustomField} ,
+  {path: "/admin/add-custom-fields",component: AddCustomField} ,
 
 ];
 

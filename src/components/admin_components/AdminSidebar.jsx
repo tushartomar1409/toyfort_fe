@@ -315,10 +315,10 @@ const AdminSidebar = () => {
                   </Link>
                 </li>
                 </ul>
-
+               
             )}
              </ul>
-
+             
           <ul className="space-y-2 text-sm text-gray-700">
             <li
               className="flex items-center justify-between cursor-pointer  py-2 hover:bg-gray-100 rounded "
@@ -391,54 +391,6 @@ const AdminSidebar = () => {
               <p>Refund Requests</p>
             </Link>
           </li>
-
-          {/* New Membership Section */}
-          <li className="text-gray-400 text-xs mb-6">MEMBERSHIP</li>
-          <li className="flex items-center space-x-2">
-            <Link
-              to="/admin/users"
-              className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
-            >
-              <FaUsers />
-              <p>Users</p>
-            </Link>
-          </li>
-          <ul className="space-y-2 text-sm text-gray-700">
-            <li
-              className="flex items-center justify-between cursor-pointer py-2 hover:bg-gray-100 rounded"
-              onClick={() => setIsMembershipOpen(!isMembershipOpen)}
-            >
-              <div className="flex items-center space-x-2">
-                <FaFileInvoice />
-                <p>Membership Plans</p>
-              </div>
-              {isMembershipOpen ? (
-                <FaChevronUp size={12} />
-              ) : (
-                <FaChevronDown size={12} />
-              )}
-            </li>
-            {isMembershipOpen && (
-              <ul className="ml-6 mt-1 space-y-1 text-gray-500">
-                <li className="flex items-center space-x-2">
-                  <Link
-                    to="/admin/membership-plans"
-                    className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
-                  >
-                    <p>Membership Plans</p>
-                  </Link>
-                </li>
-                <li className="flex items-center space-x-2">
-                  <Link
-                    to="/admin/membership-transactions"
-                    className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
-                  >
-                    <p>Transactions</p>
-                  </Link>
-                </li>
-              </ul>
-            )}
-          </ul>
 
 
           <li className="text-gray-400 text-xs mb-6">PAYMENTS</li>
