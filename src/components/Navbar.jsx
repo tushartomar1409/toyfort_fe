@@ -68,8 +68,6 @@ function Navbar({ openLoginModal }) {
 
   const { profile, setProfile, user, setUser } = useContext(AppContext);
 
-  const storedUser = localStorage.getItem("user");
-
   const dropdownRef = useRef();
 
   // Dynamically calculate navbar height using ResizeObserver
