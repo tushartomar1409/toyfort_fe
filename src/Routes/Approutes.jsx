@@ -82,7 +82,7 @@ import MembershipTransactions from "../pages/admin/MembershipTransactions";
 // Accept openLoginModal as a prop
 const Approutes = ({ openLoginModal }) => {
 
-  const LoggedIn = false ;
+  const LoggedIn = true ;
 
 
 const publicRoutes = [

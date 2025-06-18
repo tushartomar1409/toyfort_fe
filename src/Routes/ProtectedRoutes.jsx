@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { IoMenu } from "react-icons/io5";
 import { MdMenuOpen, MdClose } from "react-icons/md";
 import { Navigate, useLocation } from "react-router-dom";
+import Dashboardsidebar from "../components/dashboard_components/Dashboardsidebar";
  
 const ProtectedRoutes = ({ component: Component }) => {
   const [sidebarVisible, setSidebarVisible] = useState(true);
@@ -12,7 +13,7 @@ const ProtectedRoutes = ({ component: Component }) => {
   const isLoggedIn = useSelector((state) => state.auth.loggedIn);
   const title = useSelector((state) => state.auth.title);
   const location = useLocation();
- 
+ const roleId=2;
   // Close mobile sidebar when route changes
   useEffect(() => {
     setMobileOpen(false);
@@ -42,7 +43,7 @@ const ProtectedRoutes = ({ component: Component }) => {
       setSidebarVisible(!sidebarVisible);
     }
   };
- 
+
   // Redirect to login if not authenticated
  
  
@@ -62,7 +63,10 @@ const ProtectedRoutes = ({ component: Component }) => {
           sidebarVisible ? "w-56" : "w-20"
         }`}
       >
+        {roleId === 1 ? (
         <AdminSidebar sidebarVisible={sidebarVisible} />
+        ) : ( <Dashboardsidebar sidebarVisible={sidebarVisible} />
+        )}
       </div>
  
       {/* Mobile sidebar */}
