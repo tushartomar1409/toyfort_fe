@@ -76,6 +76,10 @@ import MembershipPlan from "../pages/admin/MembershipPlan";
 import MembershipTransactions from "../pages/admin/MembershipTransactions";
 import CustomField from "../pages/Adminpages/CustomField";
 import AddCustomField from "../pages/Adminpages/AddCustomField";
+import users from"../pages/admin/Users";
+import shopOpening from "../pages/admin/ShopOpeningRequests";
+import rolesAndPermission from "../pages/admin/Roles & Permissions"
+import Navigation from "../pages/admin/navigation";
 
 
 
@@ -84,7 +88,7 @@ import AddCustomField from "../pages/Adminpages/AddCustomField";
 // Accept openLoginModal as a prop
 const Approutes = ({ openLoginModal }) => {
 
-  const LoggedIn = true ;
+  const LoggedIn = true  ;
 
 
 const publicRoutes = [
@@ -158,6 +162,8 @@ const publicRoutes = [
   { path: "/admin/refund-requests", component: Refund },
   { path: "/admin/bank-transfers", component: BankTransfer},
    { path: "/admin/digital-sales", component: DigitalSales},
+  { path: "/admin/order-bank-transfers", component: BankTransfer},
+   { path: "/admin/sales", component: DigitalSales},
    { path: "/admin/featuredProducts", component:FeaturedProducts},
    { path: "/admin/pricing", component:Pricing},
    { path: "/admin/transaction", component:Transaction},
@@ -167,6 +173,11 @@ const publicRoutes = [
  {path: "/admin/membership-transactions",component: MembershipTransactions} ,
  {path: "/admin/custom-fields",component: CustomField} ,
   {path: "/admin/add-custom-fields",component: AddCustomField} ,
+ {path: "/admin/transactions-membership",component: MembershipTransactions} ,
+   {path: "/admin/users",component: users}, 
+   {path: "/admin/shop-opening-requests" ,component: shopOpening},
+   {path: "/admin/roles-permissions" ,component: rolesAndPermission},
+   {path: "/admin/navigation" ,component: Navigation}
 
 ];
 
