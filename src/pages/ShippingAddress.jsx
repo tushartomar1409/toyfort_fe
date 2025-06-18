@@ -5,15 +5,19 @@ import { FaPlusCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import AddressForm from "../components/AddressForm";
 import axios from "axios";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { FaCheckCircle } from "react-icons/fa";
+import Swal from 'sweetalert2'
+
 
 const ShippingAddress = () => {
   const [menu, setMenu] = useState("Shipping Address");
   const [showForm, setShowForm] = useState(false);
   const [address, setAddress] = useState(null);
   const navigate = useNavigate();
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const fetchAddress = async () => {
@@ -39,6 +43,19 @@ const ShippingAddress = () => {
     };
     fetchAddress();
   }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:5001/api/delete-shipping-address/${id}`
+      );
+      console.log(response.data.message);
+      setMessage(response.data.message);
+      setAddress((prev) => prev.filter((item) => item.id !== id));
+    } catch (error) {
+      console.error("Error in remove address", error);
+    }
+  };
   return (
     <div>
       <div
@@ -104,6 +121,21 @@ const ShippingAddress = () => {
         </div>
 
         <div className="w-full p-16">
+          {message && (
+            <div
+              style={{
+                backgroundColor: "#d4edda",
+                padding: "20px",
+                color: "#155724",
+                marginBottom: "10px",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <FaCheckCircle style={{ marginRight: "10px" }} />
+              {message}
+            </div>
+          )}
           {address && address.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {address.map((address, index) => (
@@ -119,17 +151,44 @@ const ShippingAddress = () => {
                   </p>
                   <p className="text-black text-sm">
                     {address.address}, {address.city}, {address.zip_code}{" "}
-                    {address.state_id}/India
+                    {address.state_id}
                   </p>
                   <p className="text-black text-sm">
                     {address.email} {address.phone_number}
                   </p>
 
                   <div className="mt-2 ">
-                    <button className="mr-4"> <FontAwesomeIcon className="text-gray-600 mr-1" icon={faPenToSquare} />
-                      Edit</button>
-                    <button> <FontAwesomeIcon className="text-gray-600 mr-1" icon={faTrashCan} />
-                        Delete</button>
+                    <button className="mr-4">
+                      {" "}
+                      <FontAwesomeIcon
+                        className="text-gray-600 mr-1"
+                        icon={faPenToSquare}
+                      />
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => {
+                        Swal.fire({
+                          title: "Are you sure?",
+                          text: "Do you really want to delete this address?",
+                          icon: "warning",
+                          showCancelButton: true,
+                          confirmButtonColor: "#3085d6",
+                          cancelButtonColor: "#d33",
+                          confirmButtonText: "Yes, delete it!",
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            handleDelete(address.id);
+                          }
+                        });
+                      }}
+                    >
+                      <FontAwesomeIcon
+                        className="text-gray-600 mr-1"
+                        icon={faTrashCan}
+                      />
+                      Delete
+                    </button>
                   </div>
                 </div>
               ))}
