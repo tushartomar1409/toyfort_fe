@@ -15,5 +15,6 @@
   display: inline-block;
   white-space: nowrap;
   padding-top: 4px;
+  animation: marquee 10s linear infinite;
 }
 

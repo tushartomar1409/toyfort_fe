@@ -25,6 +25,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
+import Marquee from "react-fast-marquee";
 
 const menuItems = [
   { label: "Home", path: "/" },
@@ -115,25 +116,28 @@ function Navbar({ openLoginModal }) {
         >
           {/* Social Bar (Desktop Only) */}
           <div className="hidden md:flex items-center justify-between px-2 lg:px-4 bg-red-600 text-white h-7 md:h-8 text-xs md:text-sm font-semibold">
-            <div className="flex items-center space-x-2 md:space-x-3">
-              {socialIcons.map(({ icon, url }, i) => (
-                <a
-                  key={i}
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-gray-200"
-                >
-                  {icon}
-                </a>
-              ))}
-            </div>
-            <div className="overflow-hidden whitespace-nowrap w-full ml-2 md:ml-4 px-6">
-              <div className="animate-marquee">
-                CALL US AT 8744055175 FOR BULK ORDERS OR ANY OTHER ASSISTANCE
-              </div>
-            </div>
-          </div>
+  <div className="flex items-center space-x-2 md:space-x-3">
+    {socialIcons.map(({ icon, url }, i) => (
+      <a
+        key={i}
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:text-gray-200"
+      >
+        {icon}
+      </a>
+    ))}
+  </div>
+
+  {/* 🔁 Replace this block with Marquee */}
+  <div className="w-full ml-2 md:ml-4 px-6">
+    <Marquee pauseOnHover={true} gradient={false} speed={50}>
+      CALL US AT 8744055175 FOR BULK ORDERS OR ANY OTHER ASSISTANCE
+    </Marquee>
+  </div>
+</div>
+
 
           {/* Main Header */}
           <header className="flex items-center px-2 sm:px-4 py-1 sm:py-2 bg-white w-full">
