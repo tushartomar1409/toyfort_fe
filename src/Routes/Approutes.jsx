@@ -85,6 +85,9 @@ import Categories from "../pages/admin/categories";
 import HomepageManager from "../pages/admin/HomepageManager";
 import Pages from "../pages/admin/Pages";
 import AddPage from "../pages/admin/add-page";
+import PendingProduct from "../pages/Adminpages/PendingProduct";
+import SoldProduct from "../pages/Adminpages/SoldProduct";
+import SpecialOffers from "../pages/Adminpages/SpecialOffers";
 
 
 
@@ -188,7 +191,11 @@ const publicRoutes = [
   
    {path: "/admin/homepage-manager" ,component: HomepageManager},
    {path: "/admin/pages" ,component: Pages},
-   {path: "/admin/add-page" ,component: AddPage}
+   {path: "/admin/add-page" ,component: AddPage},
+
+   {path: "/admin/pending-product" ,component: PendingProduct},
+   {path: "/admin/sold-products" ,component: SoldProduct},
+   {path: "/admin/special-offers" ,component: SpecialOffers}
 
 ];
 

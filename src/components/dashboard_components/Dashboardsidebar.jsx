@@ -278,7 +278,7 @@ const Dashboardsidebar = () => {
           </li>
                 <li className="flex items-center space-x-2">
             <Link
-              to="/admin/products"
+              to="/admin/special-offers"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <p>Special Offers</p>
@@ -286,14 +286,14 @@ const Dashboardsidebar = () => {
           </li>
                <li className="flex items-center space-x-2">
             <Link
-              to="/admin/products"
+              to="/admin/pending-product"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <p>Pending Products</p>
             </Link>
           </li><li className="flex items-center space-x-2">
             <Link
-              to="/admin/products"
+              to="/admin/hidden-products"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <p>Hidden Products</p>
@@ -301,15 +301,15 @@ const Dashboardsidebar = () => {
           </li>
                 <li className="flex items-center space-x-2">
             <Link
-              to="/admin/products"
+              to="/admin/sold-products"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
-              <p>Sold Product</p>
+              <p>Sold Products</p>
             </Link>
           </li>
                 <li className="flex items-center space-x-2">
             <Link
-              to="/admin/products"
+              to="/admin/drafts"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <p>Drafts</p>
@@ -317,7 +317,7 @@ const Dashboardsidebar = () => {
           </li>
                 <li className="flex items-center space-x-2">
             <Link
-              to="/admin/products"
+              to="/admin/deleted-products"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <p>Deleted Products</p>
@@ -325,7 +325,7 @@ const Dashboardsidebar = () => {
           </li>
                  <li className="flex items-center space-x-2">
             <Link
-              to="/admin/products"
+              to="/admin/add-product"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <p>Add Product</p>
@@ -333,7 +333,7 @@ const Dashboardsidebar = () => {
           </li>
                 <li className="flex items-center space-x-2">
             <Link
-              to="/admin/products"
+              to="/admin/bulk-product-upload"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <p>Bulk Product Upload</p>
