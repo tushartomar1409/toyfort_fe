@@ -382,7 +382,7 @@ const Dashboardsidebar = () => {
           </li>
                  <li className="flex items-center space-x-2">
             <Link
-              to="/admin/featured-products-pricing"
+              to="/admin/featured-products-transaction"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <p>Transactions</p>
