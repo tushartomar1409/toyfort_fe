@@ -82,6 +82,9 @@ import shopOpening from "../pages/admin/ShopOpeningRequests";
 import rolesAndPermission from "../pages/admin/Roles & Permissions"
 import Navigation from "../pages/admin/navigation";
 import Categories from "../pages/admin/categories";
+import HomepageManager from "../pages/admin/HomepageManager";
+import Pages from "../pages/admin/Pages";
+import AddPage from "../pages/admin/add-page";
 
 
 
@@ -181,8 +184,11 @@ const publicRoutes = [
    {path: "/admin/roles-permissions" ,component: rolesAndPermission},
    {path: "/admin/navigation" ,component: Navigation},
  {path: "/admin/categories",component: Categories},
- {path: "/admin/add-category", component:AddCategory}
+ {path: "/admin/add-category", component:AddCategory},
   
+   {path: "/admin/homepage-manager" ,component: HomepageManager},
+   {path: "/admin/pages" ,component: Pages},
+   {path: "/admin/add-page" ,component: AddPage}
 
 ];
 
