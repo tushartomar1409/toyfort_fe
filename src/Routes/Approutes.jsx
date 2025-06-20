@@ -96,6 +96,9 @@ import Cities from "../pages/admin/Cities";
 import AddCities from "../pages/admin/addCities";
 
 
+import ProductDrafts from "../pages/Adminpages/ProductDrafts";
+import HiddenProducts from "../pages/Adminpages/HiddenProducts";
+import DeletedProductsPage from "../pages/Adminpages/DeletedProducts";
 
 
 
@@ -207,7 +210,12 @@ const publicRoutes = [
    {path: "/admin/states",component: States},
    {path:"/add-state", component: AddStates},
       {path:"/admin/cities", component: Cities},
-      {path: "/admin/add-city",component: AddCities}
+      {path: "/admin/add-city",component: AddCities},
+    {path: "/admin/drafts" ,component:ProductDrafts},
+    {path: "/admin/hidden-products" ,component:HiddenProducts},
+     {path: "/admin/deleted-products" ,component:DeletedProductsPage},
+
+
 ];
 
 
