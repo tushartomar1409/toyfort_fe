@@ -88,6 +88,12 @@ import AddPage from "../pages/admin/add-page";
 import PendingProduct from "../pages/Adminpages/PendingProduct";
 import SoldProduct from "../pages/Adminpages/SoldProduct";
 import SpecialOffers from "../pages/Adminpages/SpecialOffers";
+import Countries from "../pages/admin/countries";
+import AddCountry from "../pages/admin/AddCountry";
+import States from "../pages/admin/states";
+import AddStates from "../pages/admin/addStates";
+import Cities from "../pages/admin/Cities";
+import AddCities from "../pages/admin/addCities";
 
 
 
@@ -195,8 +201,13 @@ const publicRoutes = [
 
    {path: "/admin/pending-product" ,component: PendingProduct},
    {path: "/admin/sold-products" ,component: SoldProduct},
-   {path: "/admin/special-offers" ,component: SpecialOffers}
-
+   {path: "/admin/special-offers" ,component: SpecialOffers},
+   {path: "/admin/countries" ,component: Countries},
+   {path: "/admin/addCountries",component: AddCountry},
+   {path: "/admin/states",component: States},
+   {path:"/add-state", component: AddStates},
+      {path:"/admin/cities", component: Cities},
+      {path: "/admin/add-city",component: AddCities}
 ];
 
 
