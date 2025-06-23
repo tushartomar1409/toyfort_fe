@@ -1,4 +1,6 @@
 import React from 'react';
+import Adminheader from "../../components/admin_components/Adminheader";
+import Adminfooter from "../../components/admin_components/Adminfooter";
 
 // --- Reusable Input Components ---
 
@@ -41,6 +43,8 @@ const RadioGroup = ({ label, name, options }) => (
 
 export default function AddPage() {
     return (
+        <div className="flex-1 bg-gray-100 min-h-screen -ml-[30px] overflow-auto">
+        <Adminheader />
         <div className="bg-gray-50 min-h-screen p-4 sm:p-6 lg:p-8">
             <div className="max-w-4xl mx-auto">
                 {/* Header */}
@@ -122,5 +126,8 @@ export default function AddPage() {
                 </div>
             </div>
         </div>
+         <Adminfooter />
+      
+    </div>
     );
 }

@@ -2,6 +2,8 @@
 
 import React, { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // Assuming react-router-dom is set up
+import Adminheader from "../../components/admin_components/Adminheader";
+import Adminfooter from "../../components/admin_components/Adminfooter";
 
 const AddCities = () => {
   const navigate = useNavigate();
@@ -62,6 +64,8 @@ const AddCities = () => {
   };
 
   return (
+      <div className="flex-1 bg-gray-100 min-h-screen -ml-[30px] overflow-auto">
+        <Adminheader />
     <div className="add-city-container">
       <div className="add-city-header">
         <h2>Add City</h2>
@@ -235,6 +239,9 @@ const AddCities = () => {
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
         }
       `}</style>
+    </div>
+    <Adminfooter />
+      
     </div>
   );
 };

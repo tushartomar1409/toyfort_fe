@@ -1,5 +1,7 @@
  import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; // <-- 1. IMPORT LINK HERE
+import Adminheader from "../../components/admin_components/Adminheader";
+import Adminfooter from "../../components/admin_components/Adminfooter";
 
 // --- Reusable Sub-components ---
 
@@ -31,6 +33,7 @@ const VisibilityIcon = ({ isVisible }) => {
     );
 
     return (
+      
         <div className={`p-1 inline-flex items-center justify-center rounded-full ${bgColor} ${iconColor}`}>
             {icon}
         </div>
@@ -85,6 +88,8 @@ export default function Pages() {
   ];
 
   return (
+    <div className="flex-1 bg-gray-100 min-h-screen -ml-[30px] overflow-auto">
+        <Adminheader />
     <div className="bg-gray-50 min-h-screen p-4 sm:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
 
@@ -182,6 +187,9 @@ export default function Pages() {
             </div>
         </div>
       </div>
+    </div>
+    <Adminfooter />
+      
     </div>
   );
 }

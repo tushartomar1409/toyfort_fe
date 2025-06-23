@@ -107,13 +107,22 @@ import SeoTools from "../pages/Adminpages/SeoTools";
 import AbuseReports from "../pages/Adminpages/AbuseReports";
 import ApprovedProductComments from "../pages/Adminpages/ApprovedProductComments";
 import PendingProductComments from "../pages/Adminpages/PendingProductComments";
+import KnowledgeBase from "../pages/admin/knowledgebase";
+import AddContent from "../pages/admin/AddContent";
+import AddCategoryKnowledge from "../pages/admin/AddCategoryKnowledge";
+import supportTicket from "../pages/admin/Support Ticket Page"
+import cacheSystem from "../pages/admin/CacheSystem"
+import AdSpaces from "../pages/admin/AdSpaces"
+import bulkCategory from "../pages/admin/bulkCategoryUpload"
+import contactMessage from "../pages/admin/ContactMessage"
+import Blogcomment from "../pages/admin/blogComment";
 
 
 
 // Accept openLoginModal as a prop
 const Approutes = ({ openLoginModal }) => {
 
-  const LoggedIn = false  ;
+  const LoggedIn = true   ;
 
 
 const publicRoutes = [
@@ -230,6 +239,16 @@ const publicRoutes = [
 {path: "/admin/abuse-reports" ,component:AbuseReports},
 {path: "/admin/product-comments" ,component:ApprovedProductComments},
 {path: "/admin/pending-product-comments" ,component:PendingProductComments},
+     {path: "/admin/knowledge-base"  ,component:KnowledgeBase},
+     {path:"/admin/addContent", component:AddContent},
+     {path:"/admin/addCategory",component :AddCategoryKnowledge},
+     {path:"/admin/support-tickets",component:supportTicket},
+     {path:"/admin/cache-system",component:cacheSystem},
+     {path:"/admin/ad-spaces" ,component:AdSpaces},
+     {path:"/admin/bulk-category-upload" ,component:bulkCategory},
+     {path:"/admin/contact-messages" ,component:contactMessage},
+     {path :"admin/pending-blog-comments",component:Blogcomment}
+
 
 ];
 

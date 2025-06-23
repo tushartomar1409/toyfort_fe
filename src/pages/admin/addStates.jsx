@@ -1,5 +1,7 @@
  import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Adminheader from "../../components/admin_components/Adminheader";
+import Adminfooter from "../../components/admin_components/Adminfooter";
 
 function AddState() {
   const [name, setName] = useState('');
@@ -20,6 +22,8 @@ function AddState() {
   };
 
   return (
+    <div className="flex-1 bg-gray-100 min-h-screen -ml-[30px] overflow-auto">
+        <Adminheader />
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="bg-white shadow-lg rounded-md p-6 w-full max-w-lg">
         {/* Header with title and "States" button */}
@@ -95,6 +99,9 @@ function AddState() {
           </div>
         </form>
       </div>
+    </div>
+    <Adminfooter />
+      
     </div>
   );
 }

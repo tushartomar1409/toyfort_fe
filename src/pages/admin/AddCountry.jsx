@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Adminheader from "../../components/admin_components/Adminheader";
+import Adminfooter from "../../components/admin_components/Adminfooter";
 
 /**
  * AddCountry Page Component
@@ -149,6 +151,8 @@ const AddCountry = () => {
     };
 
     return (
+        <div className="flex-1 bg-gray-100 min-h-screen -ml-[30px] overflow-auto">
+        <Adminheader />
         <div style={styles.pageContainer}>
             <div style={styles.card}>
                 <div style={styles.header}>
@@ -233,6 +237,9 @@ const AddCountry = () => {
                 </form>
             </div>
         </div>
+        <Adminfooter />
+      
+    </div>
     );
 };
 
