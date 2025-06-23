@@ -99,6 +99,14 @@ import AddCities from "../pages/admin/addCities";
 import ProductDrafts from "../pages/Adminpages/ProductDrafts";
 import HiddenProducts from "../pages/Adminpages/HiddenProducts";
 import DeletedProductsPage from "../pages/Adminpages/DeletedProducts";
+import BlogPosts from "../pages/Adminpages/Blogposts";
+import AddBlogPost from "../pages/Adminpages/AddBlogPost";
+import BlogCategory from "../pages/Adminpages/BlogCategory";
+import Storage from "../pages/Adminpages/Storage";
+import SeoTools from "../pages/Adminpages/SeoTools";
+import AbuseReports from "../pages/Adminpages/AbuseReports";
+import ApprovedProductComments from "../pages/Adminpages/ApprovedProductComments";
+import PendingProductComments from "../pages/Adminpages/PendingProductComments";
 
 
 
@@ -214,7 +222,14 @@ const publicRoutes = [
     {path: "/admin/drafts" ,component:ProductDrafts},
     {path: "/admin/hidden-products" ,component:HiddenProducts},
      {path: "/admin/deleted-products" ,component:DeletedProductsPage},
-
+      {path: "/admin/blog-posts" ,component:BlogPosts},
+{path: "/admin/add-blog-post" ,component:AddBlogPost},
+{path: "/admin/blog-categories" ,component:BlogCategory},
+{path: "/admin/storage" ,component:Storage},
+{path: "/admin/seo-tools" ,component:SeoTools},
+{path: "/admin/abuse-reports" ,component:AbuseReports},
+{path: "/admin/product-comments" ,component:ApprovedProductComments},
+{path: "/admin/pending-product-comments" ,component:PendingProductComments},
 
 ];
 
