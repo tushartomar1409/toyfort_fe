@@ -115,7 +115,7 @@ const Card = ({
               });
               setAddCart(true)
               setTimeout(() => {
-                setAddCart(false)
+              setAddCart(false)
               }, 2000);
             }}
             className={`p-2 rounded-full shadow-md transition-all duration-300 ${
