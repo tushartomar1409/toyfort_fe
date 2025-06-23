@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
-const AddressForm = ({ onClose }) => {
+const AddressForm = ({ onClose, editData = null, onAddressUpdated }) => {
   const [zipCode, setZipcode] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -16,6 +16,23 @@ const AddressForm = ({ onClose }) => {
     phone_number: "",
     address: "",
   });
+
+  useEffect(() => {
+    if (editData) {
+      setFormData({
+        title: editData.title || "",
+        first_name: editData.first_name || "",
+        last_name: editData.last_name || "",
+        email: editData.email || "",
+        phone_number: editData.phone_number || "",
+        address: editData.address || "",
+      });
+
+      setZipcode(editData.zip_code || "");
+      setCity(editData.city || "");
+      setState(editData.state || "");
+    }
+  }, [editData]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -67,11 +84,6 @@ const AddressForm = ({ onClose }) => {
     const user = JSON.parse(localStorage.getItem("user"));
     const token = user.token;
 
-    if (!token) {
-      console.log("No token found");
-      return;
-    }
-
     const payload = {
       ...formData,
       zip_code: zipCode,
@@ -80,15 +92,28 @@ const AddressForm = ({ onClose }) => {
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:5001/api/shipping-address/info",
-        payload,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      if (editData) {
+        await axios.put(
+          `http://localhost:5001/api/update-shipping-address/${editData.id}`,
+          payload,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      } else {
+        await axios.post(
+          "http://localhost:5001/api/shipping-address/info",
+          payload,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      }
+      onAddressUpdated();
       onClose();
     } catch (error) {
       console.error("Error submitting address:", error);
@@ -99,7 +124,7 @@ const AddressForm = ({ onClose }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
       <div className="bg-white rounded-lg p-6 w-full max-w-2xl relative">
         <h2 className="text-2xl font-bold text-center mb-6 text-black">
-          Add New Address
+          {editData ? "Edit Address" : "Add New Address"}
         </h2>
 
         <button
@@ -108,6 +133,7 @@ const AddressForm = ({ onClose }) => {
         >
           &times;
         </button>
+
         <div ref={formRef}>
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Address Title */}
@@ -168,6 +194,7 @@ const AddressForm = ({ onClose }) => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
+                  readOnly={!!editData}
                   placeholder="Email"
                   className="w-full border border-gray-300 p-2 rounded"
                 />
@@ -202,7 +229,7 @@ const AddressForm = ({ onClose }) => {
               />
             </div>
 
-            {/* Zip Code & City */}
+            {/* Zip & City */}
             <div className="flex space-x-4">
               <div className="w-1/2">
                 <label className="block mb-1 text-sm font-medium text-black">
@@ -245,13 +272,13 @@ const AddressForm = ({ onClose }) => {
               />
             </div>
 
-            {/* Submit */}
+            {/* Submit Button */}
             <div className="flex justify-end mt-4">
               <button
                 type="submit"
                 className="bg-black text-white px-6 py-2 rounded hover:bg-gray-800"
               >
-                Submit
+                {editData ? "Update" : "Submit"}
               </button>
             </div>
           </form>
@@ -262,4 +289,3 @@ const AddressForm = ({ onClose }) => {
 };
 
 export default AddressForm;
- 

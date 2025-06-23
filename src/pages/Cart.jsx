@@ -15,10 +15,11 @@ const Cart = () => {
 
   useEffect(() => {
     const fetchCart = async () => {
-      const token = localStorage.getItem("token");
+      const user = JSON.parse(localStorage.getItem("user"));
+      const token = user.token;
 
-      // console.log("cart token", token)
-      // console.log("User", user)
+      console.log("cart token", token);
+      console.log("User", user);
 
       if (!token || !user || user === "Sign In") {
         return;
@@ -34,9 +35,9 @@ const Cart = () => {
           }
         );
 
-        // console.log("Cart response:", response.data)
+        console.log("Cart response:", response.data);
 
-        setCart(response.data);
+        setCart(response.data.result);
       } catch (error) {
         console.log(
           "Error in fetching products:",
@@ -64,7 +65,7 @@ const Cart = () => {
         }
       );
 
-      setCart((prevCart) => prevCart.filter((item) => item.slug !== slug))
+      setCart((prevCart) => prevCart.filter((item) => item.slug !== slug));
       // To update the card page dynamically
 
       // console.log("Cart Response",response);
@@ -99,10 +100,15 @@ const Cart = () => {
   const calculateTotal = () => {
     let totalPrice = 0;
     let discountedPrice = 0;
+
+    if (!Array.isArray(cart))
+      return { totalPrice, discountedPrice, youSaved: 0 };
+
     cart.forEach((item) => {
       totalPrice += item.original_price * item.quantity;
       discountedPrice += item.discounted_price * item.quantity;
     });
+
     return {
       totalPrice,
       discountedPrice,
@@ -114,75 +120,79 @@ const Cart = () => {
 
   return (
     <div className="p-8">
-      <h1 className="font-bold text-xl ml-4">My Cart ({cart.length})</h1>
+      <h1 className="font-bold text-xl ml-4">
+        My Cart ({Array.isArray(cart) ? cart.length : 0})
+      </h1>
 
       <div className="flex flex-col lg:flex-row justify-between mt-3 gap-8">
         {/* Left: Cart items */}
 
         <div className="w-[65%]">
           <hr className="my-4" />
-          {cart.map((item, index) => (
-            <div key={index} className="flex items-start gap-6 pb-4 mb-4">
-              <img
-                src={item.image}
-                alt={item.title}
-                className="w-32 h-32 object-cover"
-              />
-              <div className="flex-1">
-                <h2 className="text-md text-gray-800">{item.title}</h2>
-                <p className="text-gray-800 font-semibold text-sm mt-1">
-                  <span className="text-gray-500">By </span>
-                  Toy Fort
-                </p>
-                <div className="flex mt-2">
-                  <p className="mr-20">Unit price:</p>
-                  <p className="line-through text-gray-500 font-bold text-md">
-                    ₹{item.original_price}
+          {Array.isArray(cart) &&
+            cart.map((item, index) => (
+              <div key={index} className="flex items-start gap-6 pb-4 mb-4">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-32 h-32 object-cover"
+                />
+                <div className="flex-1">
+                  <h2 className="text-md text-gray-800">{item.title}</h2>
+                  <p className="text-gray-800 font-semibold text-sm mt-1">
+                    <span className="text-gray-500">By </span>
+                    Toy Fort
                   </p>
-                </div>
-                <div className="flex mt-2">
-                  <p className="mr-6">Discounted price:</p>
-                  <p className="text-black font-bold text-md">
-                    ₹{item.discounted_price}
-                  </p>
+                  <div className="flex mt-2">
+                    <p className="mr-20">Unit price:</p>
+                    <p className="line-through text-gray-500 font-bold text-md">
+                      ₹{item.original_price}
+                    </p>
+                  </div>
+                  <div className="flex mt-2">
+                    <p className="mr-6">Discounted price:</p>
+                    <p className="text-black font-bold text-md">
+                      ₹{item.discounted_price}
+                    </p>
+                  </div>
+
+                  <button
+                    onClick={() => removeFromCart(item.slug)}
+                    className="mt-4 bg-gray-50 px-3 py-1 text-sm border"
+                  >
+                    × Remove
+                  </button>
                 </div>
 
-                <button
-                  onClick={() => removeFromCart(item.slug)}
-                  className="mt-4 bg-gray-50 px-3 py-1 text-sm border"
-                >
-                  × Remove
-                </button>
-              </div>
-
-              <div className="flex flex-col items-center gap-2 mt-3">
-                <div className="flex flex-row items-center gap-0 border border-gray-300 rounded overflow-hidden">
-                  <button
-                    onClick={() => removeProductQuantity(item.slug)}
-                    className="px-3 py-1 w-full text-lg border-r border-gray-300"
-                  >
-                    -
-                  </button>
-                  <button className="px-3 py-1 w-full text-lg">
-                    {item.quantity}
-                  </button>
-                  <button
-                    onClick={() => increaseProductQuantity(item.slug)}
-                    className="px-3 py-1 w-full text-lg border-l border-gray-300"
-                  >
-                    +
-                  </button>
+                <div className="flex flex-col items-center gap-2 mt-3">
+                  <div className="flex flex-row items-center gap-0 border border-gray-300 rounded overflow-hidden">
+                    <button
+                      onClick={() => removeProductQuantity(item.slug)}
+                      className="px-3 py-1 w-full text-lg border-r border-gray-300"
+                    >
+                      -
+                    </button>
+                    <button className="px-3 py-1 w-full text-lg">
+                      {item.quantity}
+                    </button>
+                    <button
+                      onClick={() => increaseProductQuantity(item.slug)}
+                      className="px-3 py-1 w-full text-lg border-l border-gray-300"
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
 
           <hr className="my-4" />
-          <a href="/"><button className="bg-black text-white px-4 py-2 mt-4 rounded">
-            <KeyboardArrowLeftIcon />
-            Keep Shopping
-          </button></a>
-          
+          <a href="/">
+            <button className="bg-black text-white px-4 py-2 mt-4 rounded">
+              <KeyboardArrowLeftIcon />
+              Keep Shopping
+            </button>
+          </a>
         </div>
 
         {/* Right: Cart items */}
