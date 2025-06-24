@@ -62,9 +62,11 @@ const AdminSidebar = () => {
             className="w-full h-full object-contain rounded-full"
           />
         </div>
-        <h2 className="text-xl font-semibold text-gray-800 mb-6">Hi, Piyush Gupta</h2>
+        <h2 className="text-xl font-semibold text-gray-800 mb-6">
+          Hi, Piyush Gupta
+        </h2>
       </div>
-      
+
       <nav className="overflow-y-auto flex-grow pr-2">
         <ul className="p-4 space-y-6">
           <li className="text-gray-400 text-xs mb-6">NAVIGATION</li>
@@ -81,7 +83,7 @@ const AdminSidebar = () => {
           <li className="text-gray-400 text-xs mt-4 mb-2">PRODUCTS</li>
           <li className="flex items-center space-x-2">
             <Link
-              to="/admin/products"
+              to="/admin/productsform"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <FaFileAlt />
@@ -90,7 +92,7 @@ const AdminSidebar = () => {
           </li>
           <li className="flex items-center space-x-2">
             <Link
-              to="/admin/products"
+              to="/dashboard/bulkproductupload"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <FaCloudUploadAlt />
@@ -170,12 +172,11 @@ const AdminSidebar = () => {
                     <p>Deleted Products</p>
                   </Link>
                 </li> */}
-
               </ul>
             )}
           </ul>
 
-             <ul className="space-y-2 text-sm text-gray-700">
+          {/* <ul className="space-y-2 text-sm text-gray-700">
             <li
               className="flex items-center justify-between cursor-pointer  py-2 hover:bg-gray-100 rounded"
               onClick={() => setIsFeaturedProduct(!isFeaturedProduct)}
@@ -200,7 +201,7 @@ const AdminSidebar = () => {
                     <p>Products</p>
                   </Link>
                 </li>
-              
+
                 <li className="flex items-center space-x-2">
                   <Link
                     to="/admin/pricing"
@@ -217,13 +218,11 @@ const AdminSidebar = () => {
                     <p>Transaction</p>
                   </Link>
                 </li>
-
               </ul>
             )}
-          </ul>
-       
-          
-          <ul className="space-y-2 text-sm text-gray-700">
+          </ul> */}
+
+          {/* <ul className="space-y-2 text-sm text-gray-700">
             <li className="flex items-center space-x-2">
             <Link
               to="/admin/sales"
@@ -233,10 +232,10 @@ const AdminSidebar = () => {
               <p>Digital Sales</p>
             </Link>
           </li>
-          </ul>
-          
+          </ul> */}
+
           {/* MODIFIED: Orders section is now a dropdown */}
-          <ul className="space-y-2 text-sm text-gray-700">
+          {/* <ul className="space-y-2 text-sm text-gray-700">
             <li
               className="flex items-center justify-between cursor-pointer py-2 hover:bg-gray-100 rounded"
               onClick={() => setIsOrdersOpen(!isOrdersOpen)}
@@ -279,9 +278,9 @@ const AdminSidebar = () => {
                 </li>
               </ul>
             )}
-          </ul>
+          </ul> */}
 
-          <ul className="space-y-2 text-sm text-gray-700">
+          {/* <ul className="space-y-2 text-sm text-gray-700">
             <li
               className="flex items-center justify-between cursor-pointer  py-2 hover:bg-gray-100 rounded"
               onClick={() => setIsEarningOpen(!isEarningOpen)}
@@ -339,26 +338,26 @@ const AdminSidebar = () => {
               <ul className="ml-6 mt-1 space-y-1 text-gray-500">
                 <li className="flex items-center space-x-2">
                   <Link
-                    to="/admin/add-payout"
+                    to="/dashboard/withdraw-money"
                     className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
                   >
-                    <p>Add Payout</p>
+                    <p>Withdraw Money</p>
                   </Link>
                 </li>
                 <li className="flex items-center space-x-2">
                   <Link
-                    to="/admin/payout-requests"
+                    to="/dashboard/payoutpage"
                     className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
                   >
-                    <p>Payout Requests</p>
+                    <p>Payouts</p>
                   </Link>
                 </li>
                 <li className="flex items-center space-x-2">
                   <Link
-                    to="/admin/payout-settings"
+                    to="/dashboard/set-payout-account"
                     className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
                   >
-                    <p>Payout Settings</p>
+                    <p>Set Payout Amount</p>
                   </Link>
                 </li>
               </ul>
@@ -366,7 +365,7 @@ const AdminSidebar = () => {
           </ul>
           <li className="flex items-center space-x-2">
             <Link
-              to="/admin/quote-requests"
+              to="/dashboard/quote-requests"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <FaTag />
@@ -384,7 +383,7 @@ const AdminSidebar = () => {
           </li>
           <li className="flex items-center space-x-2">
             <Link
-              to="/admin/refund-requests"
+              to="/dashboard/refund-requests"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <FaFlag />
@@ -395,7 +394,6 @@ const AdminSidebar = () => {
 
           <li className="text-gray-400 text-xs mb-6">PAYMENTS</li>
           <ul className="space-y-2 text-sm text-gray-700">
-
             <li
               className="flex items-center justify-between cursor-pointer  py-2 hover:bg-gray-100 rounded"
               onClick={() => setIsPaymentSettingsOpen(!isPaymentSettingsOpen)}
@@ -414,7 +412,7 @@ const AdminSidebar = () => {
             {isPaymentSettingsOpen && (
               <ul className="ml-6 mt-2 space-y-1 text-sm text-gray-400">
                 <Link
-                  to="/admin/promotional-payment"
+                  to="/dashboard/promotional-payment"
                   className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
                 >
                   <p>Promotional Payments</p>
@@ -426,7 +424,7 @@ const AdminSidebar = () => {
 
           <li className="flex items-center space-x-2">
             <Link
-              to="/admin/comments"
+              to="/dashboard/comments"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <FaComment />
@@ -435,7 +433,7 @@ const AdminSidebar = () => {
           </li>
           <li className="flex items-center space-x-2">
             <Link
-              to="/admin/reviews"
+              to="/dashboard/reviews"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <FaStar />
@@ -443,7 +441,7 @@ const AdminSidebar = () => {
             </Link>
           </li>
           {/* New Newsletter section */}
-          <li className="flex items-center space-x-2">
+          {/* <li className="flex items-center space-x-2">
             <Link
               to="/admin/newsletter"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
@@ -451,11 +449,11 @@ const AdminSidebar = () => {
               <FaEnvelope />
               <p>Newsletter</p>
             </Link>
-          </li>
+          </li> */}
           <li className="text-gray-400 text-xs mb-6">SETTINGS</li>
           <li className="flex items-center space-x-2">
             <Link
-              to="/admin/shopsetttings"
+              to="/admin/shopsettings"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <FaCog />
@@ -464,7 +462,7 @@ const AdminSidebar = () => {
           </li>
           <li className="flex items-center space-x-2">
             <Link
-              to="/admin/systemsettings"
+              to="/admin/shippingsettings"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <FaShippingFast />

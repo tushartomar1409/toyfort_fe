@@ -54,7 +54,7 @@ import LatestMembers from "../components/admin_components/LatestComments";
 import LatestOrders from "../components/admin_components/LatestOrders"; // This is a different component
 import LatestPendingProducts from "../components/admin_components/LatestPendingProducts";
 import LatestProducts from "../components/admin_components/LatestProducts";
-import LatestReviews from "../pages/admin/review";
+import LatestReviews from "../components/admin_components/LatestReviews";
 import LatestTransactions from "../pages/admin/Transactions";
 import LatestTransactionsFeature from "../components/admin_components/LatestTransactionsFeature";
 import AdminHome from "../pages/Adminpages/AdminHome";
@@ -177,23 +177,27 @@ const publicRoutes = [
   { path: "/admin/header", component: Adminheader },
   { path: "/admin/footer", component: Adminfooter },
   { path: "/admin/comments", component: LatestComments },
+  { path: "/dashboard/comments", component: LatestComments },
   { path: "/admin/members", component: LatestMembers },
   { path: "/admin/orders", component: Orders }, // Main Orders page for admin
   { path: "/admin/latest-orders", component: LatestOrders }, // Existing LatestOrders component
   { path: "/admin/pending-products", component: LatestPendingProducts },
   //{ path: "/admin/products", component: LatestProducts },
+  { path: "/dashboard/reviews", component: LatestReviews },
   { path: "/admin/reviews", component: LatestReviews },
   { path: "/admin/transactions", component: LatestTransactions },
   { path: "/admin/transactions-feature", component: LatestTransactionsFeature },
   { path: "/admin/products", component: ProductsTable },
-  { path: "admin/quote-requests", component: QuoteRequestPage },
+  { path: "/dashboard/quote-requests", component: QuoteRequestPage },
+  { path: "/admin/quote-requests", component: QuoteRequestPage },
+  { path: "/dashboard/earnings", component: Earnings },
   { path: "/admin/earnings", component: Earnings },
   { path: "/admin/seller-balances", component: SellerBalances },
    { path: "/admin/add-payout", component: AddPayout },
     { path: "/admin/payout-requests", component: PayoutRequest },
     { path: "/admin/payout-settings", component: PayoutSettings},
-  { path: "/admin/refund-requests", component: Refund },
-  { path: "/admin/refund-requests", component: Refund },
+  { path: "/admin/refund-requests", component: RefundRequest },
+  { path: "/dashboard/refund-requests", component: RefundRequest },
   { path: "/admin/bank-transfers", component: BankTransfer},
    { path: "/admin/digital-sales", component: DigitalSales},
   { path: "/admin/order-bank-transfers", component: BankTransfer},

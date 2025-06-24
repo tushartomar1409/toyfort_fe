@@ -58,7 +58,7 @@ const Dashboardsidebar = () => {
 
           <li className="flex items-center space-x-2">
           <Link
-              to="/admin"
+              to="/admin/home"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
             <FaHome />
@@ -750,7 +750,7 @@ const Dashboardsidebar = () => {
               <ul className="ml-6 mt-2 space-y-1 text-sm text-gray-400">
                 <li className="flex items-center space-x-2">
             <Link
-              to="/admin/pending-product-comments"
+              to="/admin/comments"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <p>Product Comments</p>

@@ -6,14 +6,15 @@ import { IoMenu } from "react-icons/io5";
 import { MdMenuOpen, MdClose } from "react-icons/md";
 import { Navigate, useLocation } from "react-router-dom";
 import Dashboardsidebar from "../components/dashboard_components/Dashboardsidebar";
- 
+
 const ProtectedRoutes = ({ component: Component }) => {
   const [sidebarVisible, setSidebarVisible] = useState(true);
+const [headerVisible, setheaderVisible] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const isLoggedIn = useSelector((state) => state.auth.loggedIn);
   const title = useSelector((state) => state.auth.title);
   const location = useLocation();
- const roleId=2;
+ const roleId=1;
   // Close mobile sidebar when route changes
   useEffect(() => {
     setMobileOpen(false);

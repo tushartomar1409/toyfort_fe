@@ -1,68 +1,172 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { FaTrash, FaCheck } from 'react-icons/fa';
 
-const LatestComments = () => {
-  const Orders = [
-    { order: "#10101", amount: "₹2,370", status: "Processing", date: "2024-10-06 / 03:40" },
-    { order: "#10100", amount: "₹8,264", status: "Completed", date: "2024-10-05 / 17:57" },
-    { order: "#10099", amount: "₹5,275", status: "Completed", date: "2024-09-29 / 10:36" },
-    { order: "#10098", amount: "₹977", status: "Completed", date: "2024-09-23 / 17:30" },
-    { order: "#10097", amount: "₹399", status: "Completed", date: "2024-09-23 / 13:28" },
-    { order: "#10096", amount: "₹404", status: "Cancelled", date: "2024-09-23 / 10:46" },
-    { order: "#10095", amount: "₹1,998", status: "Completed", date: "2024-09-23 / 09:29" },
-  ];
+export default function LatestComments() {
+  const [comments, setComments] = useState([]);
+  const [filteredComments, setFilteredComments] = useState([]);
+  const [selectedIds, setSelectedIds] = useState([]);
+  const [viewApprovedOnly, setViewApprovedOnly] = useState(false);
+  const location = useLocation();
+
+  const isAdmin = location.pathname.includes('admin');
+
+  useEffect(() => {
+    const fetchedComments = [
+      {
+        id: 9,
+        name: 'anil',
+        email: 'anil@test.com',
+        comment: 'What is the capacity of the bottle?',
+        product: 'Rabitat Nutrilock Insulated Steel Bottle Mad Eye',
+        ip: '172.68.234.164',
+        date: '2025-05-15 / 11:54',
+        approved: true
+      },
+      {
+        id: 3,
+        name: 'Dummy',
+        email: 'user@gmm.co.in',
+        comment: '1234',
+        product: 'Chicco Baby Carrier Easyfit Black Night',
+        ip: '172.68.234.164',
+        date: '2025-05-01 / 11:48',
+        approved: false
+      },
+      {
+        id: 1,
+        name: 'abhi tyagi',
+        email: 'laxamn.mule@austere.co.in',
+        comment: 'testing',
+        product: 'Chicco Baby Carrier Easyfit Oxford',
+        ip: '::1',
+        date: '2025-05-01 / 11:46',
+        approved: true
+      },
+    ];
+
+    setComments(fetchedComments);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    let list = comments;
+    if (!isAdmin || viewApprovedOnly) {
+      list = list.filter(c => c.approved);
+    }
+    setFilteredComments(list);
+  }, [comments, viewApprovedOnly, isAdmin]);
+
+  const toggleSelect = (id) => {
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+    );
+  };
+
+  const handleDelete = (id) => {
+    const toDelete = id ? [id] : selectedIds;
+    setComments((prev) => prev.filter((c) => !toDelete.includes(c.id)));
+    setSelectedIds([]);
+  };
+
+  const handleApprove = (id) => {
+    setComments((prev) =>
+      prev.map((c) => (c.id === id ? { ...c, approved: true } : c))
+    );
+  };
 
   return (
-    <div className="bg-white shadow-md rounded p-6 relative">
-      {/* Minimize and Close Icons */}
-      <div className="absolute top-2 right-2 flex space-x-2 text-gray-500">
-        <button className="text-xl hover:text-gray-700" title="Minimize">−</button>
-        <button className="text-xl hover:text-gray-700" title="Close">×</button>
+    <div className="p-6 bg-gray-100 min-h-screen">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-2xl font-semibold">
+          {isAdmin ? 'Product Comments' : 'Comments'}
+        </h2>
+        {isAdmin && (
+          <button
+            onClick={() => setViewApprovedOnly(!viewApprovedOnly)}
+            className="bg-green-600 text-white px-4 py-2 rounded flex items-center"
+          >
+            <FaCheck className="mr-2" /> Approved Comments
+          </button>
+        )}
       </div>
 
-      {/* Header with title */}
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-sm">Latest Comments</h2>
-      </div>
-
-      {/* Orders Table */}
-      <div className="overflow-x-auto max-h-60 overflow-y-auto pr-2"> {/* Added padding-right here */}
-        <table className="w-full text-left border-collapse">
-          <thead>
-            <tr className="border-b">
-              <th className="p-2 text-xs font-medium text-gray-500">Id</th>
-              <th className="p-2 text-xs font-medium text-gray-500">User</th>
-              <th className="p-2 text-xs font-medium text-gray-500">Comment</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Orders.map((orders, index) => (
-              <tr key={index} className="border-b hover:bg-gray-50">
-                <td className="p-2 text-xs">{orders.order}</td>
-                <td className="p-2 text-xs">{orders.amount}</td>
-                <td className="p-2 text-xs">{orders.status}</td>
-                <td className="p-2 text-xs">{orders.date}</td>
+      <table className="min-w-full bg-white border">
+        <thead>
+          <tr className="bg-gray-200 text-left">
+            {isAdmin && (
+              <th className="p-2">
+                <input
+                  type="checkbox"
+                  onChange={(e) =>
+                    setSelectedIds(
+                      e.target.checked ? filteredComments.map((c) => c.id) : []
+                    )
+                  }
+                  checked={selectedIds.length === filteredComments.length && filteredComments.length > 0}
+                />
+              </th>
+            )}
+            <th className="p-2">Id</th>
+            <th className="p-2">Username</th>
+            {isAdmin && <th className="p-2">Email</th>}
+            <th className="p-2">Comment</th>
+            <th className="p-2">Product</th>
+            <th className="p-2">Date</th>
+            {isAdmin && <th className="p-2">IP Address</th>}
+            {isAdmin && <th className="p-2">Options</th>}
+          </tr>
+        </thead>
+        <tbody>
+          {filteredComments.map((c) => (
+            <tr key={c.id} className="border-t">
+              {isAdmin && (
                 <td className="p-2">
-                  <button
-                    style={{ backgroundColor: '#17a2b8' }}
-                    className="text-white text-xs px-2 py-1 rounded hover:bg-opacity-75"
-                  >
-                    Details
-                  </button>
+                  <input
+                    type="checkbox"
+                    checked={selectedIds.includes(c.id)}
+                    onChange={() => toggleSelect(c.id)}
+                  />
                 </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+              )}
+              <td className="p-2">{c.id}</td>
+              <td className="p-2">{c.name}</td>
+              {isAdmin && <td className="p-2">{c.email}</td>}
+              <td className="p-2">{c.comment}</td>
+              <td className="p-2">{c.product}</td>
+              <td className="p-2">{c.date}</td>
+              {isAdmin && <td className="p-2">{c.ip}</td>}
+              {isAdmin && (
+                <td className="p-2">
+                  <select
+                    onChange={(e) => {
+                      if (e.target.value === 'approve') handleApprove(c.id);
+                      if (e.target.value === 'delete') handleDelete(c.id);
+                    }}
+                    className="p-1 border rounded bg-purple-600 text-white"
+                  >
+                    <option>Select an option</option>
+                    {!c.approved && <option value="approve">Approve</option>}
+                    <option value="delete">Delete</option>
+                  </select>
+                </td>
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
-      {/* View All button positioned at the bottom-right */}
-      <div className="flex justify-end mt-4">
-        <button className="bg-gray-200 text-gray-700 text-xs px-3 py-1 rounded hover:bg-gray-300">
-          View All
+      {isAdmin && selectedIds.length > 0 && (
+        <button
+          onClick={() => handleDelete()}
+          className="mt-4 px-4 py-2 bg-red-600 text-white rounded"
+        >
+          Delete Selected
         </button>
+      )}
+
+      <div className="mt-4 font-semibold">
+        Number of Entries: {filteredComments.length}
       </div>
     </div>
   );
-};
-
-export default LatestComments;
+}
