@@ -325,15 +325,15 @@ const Dashboardsidebar = () => {
           </li>
                  <li className="flex items-center space-x-2">
             <Link
-              to="/admin/add-product"
-              className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
+              to="/admin/addproduct"
+           className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <p>Add Product</p>
             </Link>
           </li>
                 <li className="flex items-center space-x-2">
             <Link
-              to="/admin/bulk-product-upload"
+              to="/admin/bulkproduct"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <p>Bulk Product Upload</p>

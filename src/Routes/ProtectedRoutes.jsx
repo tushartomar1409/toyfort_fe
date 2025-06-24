@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AdminSidebar from "../components/admin_components/AdminSidebar";
-import Navbar from "../components/Navbar";
+// import Navbar from "../components/Navbar";
 import { useSelector } from "react-redux";
 import { IoMenu } from "react-icons/io5";
 import { MdMenuOpen, MdClose } from "react-icons/md";

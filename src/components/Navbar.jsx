@@ -25,7 +25,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
-import Marquee from "react-fast-marquee";
+// import Marquee from "react-fast-marquee";
 
 const menuItems = [
   { label: "Home", path: "/" },

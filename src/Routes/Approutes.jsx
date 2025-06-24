@@ -116,13 +116,19 @@ import AdSpaces from "../pages/admin/AdSpaces"
 import bulkCategory from "../pages/admin/bulkCategoryUpload"
 import contactMessage from "../pages/admin/ContactMessage"
 import Blogcomment from "../pages/admin/blogComment";
-
-
-
+import refundRequest from "../pages/admin/refundRequest"
+import ProductForm from "../pages/Adminpages/ProductForm";
+import BulkProductUpload from "../pages/dashboard_pages/BulkProductUpload";
+import WithdrawMoney from "../pages/dashboard_pages/WithdrawMoney";
+import SetPayoutAccount from "../pages/dashboard_pages/SetPayoutAccount";
+import Payoutpage from "../pages/dashboard_pages/Payoutpage";
+import PromotionalPayment from "../components/dashboard_components/PromotionalPayment";
+import Shopsettings from "../pages/Adminpages/Shopsettings";
+import Shippingsettings from "../pages/Adminpages/Shippingsettings";
 // Accept openLoginModal as a prop
 const Approutes = ({ openLoginModal }) => {
 
-  const LoggedIn = false   ;
+  const LoggedIn = true  ;
 
 
 const publicRoutes = [
@@ -192,12 +198,13 @@ const publicRoutes = [
   { path: "/admin/quote-requests", component: QuoteRequestPage },
   { path: "/dashboard/earnings", component: Earnings },
   { path: "/admin/earnings", component: Earnings },
+  { path: "/dashboard/earnings", component: Earnings },
   { path: "/admin/seller-balances", component: SellerBalances },
    { path: "/admin/add-payout", component: AddPayout },
     { path: "/admin/payout-requests", component: PayoutRequest },
     { path: "/admin/payout-settings", component: PayoutSettings},
-  { path: "/admin/refund-requests", component: RefundRequest },
-  { path: "/dashboard/refund-requests", component: RefundRequest },
+  { path: "/admin/refund-requests", component: refundRequest },
+  { path: "/dashboard/refund-requests", component: refundRequest },
   { path: "/admin/bank-transfers", component: BankTransfer},
    { path: "/admin/digital-sales", component: DigitalSales},
   { path: "/admin/order-bank-transfers", component: BankTransfer},
@@ -251,7 +258,21 @@ const publicRoutes = [
      {path:"/admin/ad-spaces" ,component:AdSpaces},
      {path:"/admin/bulk-category-upload" ,component:bulkCategory},
      {path:"/admin/contact-messages" ,component:contactMessage},
-     {path :"admin/pending-blog-comments",component:Blogcomment}
+     {path :"/admin/pending-blog-comments",component:Blogcomment},
+     {path :"/dashboard/addproduct",component:ProductForm},
+     {path :"/admin/addproduct",component:ProductForm},
+     {path :"/dashboard/bulkproduct",component:BulkProductUpload},
+     {path :"/admin/bulkproduct",component:BulkProductUpload},
+     {path :"/dashboard/withdrawmoney",component:WithdrawMoney},
+     {path :"/dashboard/setpayout",component:SetPayoutAccount},
+     {path :"/dashboard/payouts",component: Payoutpage},
+     {path :"/dashboard/promotionalpayment",component: PromotionalPayment},
+     {path :"/admin/promotionalpayment",component: PromotionalPayment},
+     {path :"/dashboard/shopsettings",component: Shopsettings},
+     {path :"/dashboard/shippingsettings",component: Shippingsettings},
+
+
+
 
 
 ];

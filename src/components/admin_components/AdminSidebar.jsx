@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {
   FaHome,
   FaShoppingCart,
-  FaFileInvoice, // Using this for sub-items if needed
+  FaFileInvoice,
   FaBoxOpen,
   FaDollarSign,
   FaFlag,
@@ -22,13 +22,10 @@ import {
   FaComment,
   FaStar,
   FaShippingFast,
-  FaShoppingBag,
-  FaEnvelope, // Import FaEnvelope for the Newsletter icon
-  FaUsers, // Imported for Membership -> Users
 } from "react-icons/fa";
 
 const AdminSidebar = () => {
-  const [isOrdersOpen, setIsOrdersOpen] = useState(false); // State for the new Orders dropdown
+  const [isOrdersOpen, setIsOrdersOpen] = useState(false);
   const [isEarningOpen, setIsEarningOpen] = useState(false);
   const [isPayoutOpen, setIsPayoutOpen] = useState(false);
   const [isProductOpen, setIsProductOpen] = useState(false);
@@ -62,11 +59,9 @@ const AdminSidebar = () => {
             className="w-full h-full object-contain rounded-full"
           />
         </div>
-        <h2 className="text-xl font-semibold text-gray-800 mb-6">
-          Hi, Piyush Gupta
-        </h2>
+        <h2 className="text-xl font-semibold text-gray-800 mb-6">Hi, Piyush Gupta</h2>
       </div>
-
+      
       <nav className="overflow-y-auto flex-grow pr-2">
         <ul className="p-4 space-y-6">
           <li className="text-gray-400 text-xs mb-6">NAVIGATION</li>
@@ -83,7 +78,7 @@ const AdminSidebar = () => {
           <li className="text-gray-400 text-xs mt-4 mb-2">PRODUCTS</li>
           <li className="flex items-center space-x-2">
             <Link
-              to="/admin/productsform"
+              to="/dashboard/addproduct"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <FaFileAlt />
@@ -92,7 +87,7 @@ const AdminSidebar = () => {
           </li>
           <li className="flex items-center space-x-2">
             <Link
-              to="/dashboard/bulkproductupload"
+              to="/dashboard/bulkproduct"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <FaCloudUploadAlt />
@@ -172,152 +167,64 @@ const AdminSidebar = () => {
                     <p>Deleted Products</p>
                   </Link>
                 </li> */}
+
               </ul>
             )}
           </ul>
-
-          {/* <ul className="space-y-2 text-sm text-gray-700">
+          <li className="text-gray-400 text-xs mb-6">SALES</li>
+          <ul className="space-y-2 text-sm text-gray-700">
             <li
               className="flex items-center justify-between cursor-pointer  py-2 hover:bg-gray-100 rounded"
-              onClick={() => setIsFeaturedProduct(!isFeaturedProduct)}
-            >
-              <div className="flex items-center space-x-2">
-                <FaDollarSign />
-                <p> Featured Products</p>
-              </div>
-              {isFeaturedProduct ? (
-                <FaChevronUp size={12} />
-              ) : (
-                <FaChevronDown size={12} />
-              )}
-            </li>
-            {isFeaturedProduct && (
-              <ul className="ml-6 mt-1 space-y-1 text-gray-500">
-                <li className="flex items-center space-x-2">
-                  <Link
-                    to="/admin/featuredProducts"
-                    className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
-                  >
-                    <p>Products</p>
-                  </Link>
-                </li>
-
-                <li className="flex items-center space-x-2">
-                  <Link
-                    to="/admin/pricing"
-                    className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
-                  >
-                    <p>Pricing</p>
-                  </Link>
-                </li>
-                <li className="flex items-center space-x-2">
-                  <Link
-                    to="/admin/transaction"
-                    className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
-                  >
-                    <p>Transaction</p>
-                  </Link>
-                </li>
-              </ul>
-            )}
-          </ul> */}
-
-          {/* <ul className="space-y-2 text-sm text-gray-700">
-            <li className="flex items-center space-x-2">
-            <Link
-              to="/admin/sales"
-              className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
-            >
-              <FaShoppingBag />
-              <p>Digital Sales</p>
-            </Link>
-          </li>
-          </ul> */}
-
-          {/* MODIFIED: Orders section is now a dropdown */}
-          {/* <ul className="space-y-2 text-sm text-gray-700">
-            <li
-              className="flex items-center justify-between cursor-pointer py-2 hover:bg-gray-100 rounded"
-              onClick={() => setIsOrdersOpen(!isOrdersOpen)}
+              onClick={() => setIsSaleOpen(!isSaleOpen)}
             >
               <div className="flex items-center space-x-2">
                 <FaShoppingCart />
-                <p>Orders</p>
+                <p>Sales</p>
               </div>
-              {isOrdersOpen ? (
+              {isSaleOpen ? (
                 <FaChevronUp size={12} />
               ) : (
                 <FaChevronDown size={12} />
               )}
             </li>
-            {isOrdersOpen && (
+            {isSaleOpen && (
               <ul className="ml-6 mt-1 space-y-1 text-gray-500">
                 <li className="flex items-center space-x-2">
                   <Link
-                    to="/admin/orders"
+                    to="/admin/activesales"
                     className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
                   >
-                    <p>Orders</p>
+                    <p>Active Sales</p>
                   </Link>
                 </li>
                 <li className="flex items-center space-x-2">
                   <Link
-                    to="/admin/transactions"
+                    to="/admin/completedsales"
                     className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
                   >
-                    <p>Transactions</p>
+                    <p>Completed Sales</p>
                   </Link>
                 </li>
                 <li className="flex items-center space-x-2">
                   <Link
-                    to="/admin/bank-transfers"
+                    to="/admin/cancelledsales"
                     className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
                   >
-                    <p>Bank Transfers Notifications</p>
+                    <p>Cancelled Sales</p>
                   </Link>
                 </li>
               </ul>
             )}
-          </ul> */}
-
-          {/* <ul className="space-y-2 text-sm text-gray-700">
-            <li
-              className="flex items-center justify-between cursor-pointer  py-2 hover:bg-gray-100 rounded"
-              onClick={() => setIsEarningOpen(!isEarningOpen)}
+          </ul>
+          <li className="flex items-center space-x-2">
+            <Link
+              to="/dashboard/earnings"
+              className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
-           <div className="flex items-center space-x-2">
-                <FaWallet />
-                <p>Earnings</p>
-              </div>
-              {isEarningOpen ? (
-                <FaChevronUp size={12} />
-              ) : (
-                <FaChevronDown size={12} />
-              )}
-            </li>
-            {isEarningOpen && (
-              <ul className="ml-6 mt-1 space-y-1 text-gray-500">
-                <li className="flex items-center space-x-2">
-                  <Link
-                    to="/admin/earnings"
-                    className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
-                  >
-                    <p>Earnings</p>
-                  </Link>
-                </li>
-                <li className="flex items-center space-x-2">
-                  <Link
-                    to="/admin/sellerBalances"
-                    className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
-                  >
-                    <p>Seller Balances</p>
-                  </Link>
-                </li>
-                </ul>
-               
-            )}
-             </ul>
-             
+              <FaWallet />
+              <p>Earnings</p>
+            </Link>
+          </li>
           <ul className="space-y-2 text-sm text-gray-700">
             <li
               className="flex items-center justify-between cursor-pointer  py-2 hover:bg-gray-100 rounded "
@@ -338,7 +245,7 @@ const AdminSidebar = () => {
               <ul className="ml-6 mt-1 space-y-1 text-gray-500">
                 <li className="flex items-center space-x-2">
                   <Link
-                    to="/dashboard/withdraw-money"
+                    to="/dashboard/withdrawmoney"
                     className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
                   >
                     <p>Withdraw Money</p>
@@ -346,7 +253,7 @@ const AdminSidebar = () => {
                 </li>
                 <li className="flex items-center space-x-2">
                   <Link
-                    to="/dashboard/payoutpage"
+                    to="/dashboard/payouts"
                     className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
                   >
                     <p>Payouts</p>
@@ -354,10 +261,10 @@ const AdminSidebar = () => {
                 </li>
                 <li className="flex items-center space-x-2">
                   <Link
-                    to="/dashboard/set-payout-account"
+                    to="/dashboard/setpayout"
                     className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
                   >
-                    <p>Set Payout Amount</p>
+                    <p>Set Payout Account</p>
                   </Link>
                 </li>
               </ul>
@@ -365,7 +272,7 @@ const AdminSidebar = () => {
           </ul>
           <li className="flex items-center space-x-2">
             <Link
-              to="/dashboard/quote-requests"
+              to="/admin/quote-requests"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <FaTag />
@@ -394,6 +301,7 @@ const AdminSidebar = () => {
 
           <li className="text-gray-400 text-xs mb-6">PAYMENTS</li>
           <ul className="space-y-2 text-sm text-gray-700">
+
             <li
               className="flex items-center justify-between cursor-pointer  py-2 hover:bg-gray-100 rounded"
               onClick={() => setIsPaymentSettingsOpen(!isPaymentSettingsOpen)}
@@ -412,7 +320,7 @@ const AdminSidebar = () => {
             {isPaymentSettingsOpen && (
               <ul className="ml-6 mt-2 space-y-1 text-sm text-gray-400">
                 <Link
-                  to="/dashboard/promotional-payment"
+                  to="/dashboard/promotionalpayment"
                   className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
                 >
                   <p>Promotional Payments</p>
@@ -440,20 +348,10 @@ const AdminSidebar = () => {
               <p>Reviews</p>
             </Link>
           </li>
-          {/* New Newsletter section */}
-          {/* <li className="flex items-center space-x-2">
-            <Link
-              to="/admin/newsletter"
-              className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
-            >
-              <FaEnvelope />
-              <p>Newsletter</p>
-            </Link>
-          </li> */}
           <li className="text-gray-400 text-xs mb-6">SETTINGS</li>
           <li className="flex items-center space-x-2">
             <Link
-              to="/admin/shopsettings"
+              to="/dashboard/shopsettings"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <FaCog />
@@ -462,7 +360,7 @@ const AdminSidebar = () => {
           </li>
           <li className="flex items-center space-x-2">
             <Link
-              to="/admin/shippingsettings"
+              to="/dashboard/shippingsettings"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <FaShippingFast />
