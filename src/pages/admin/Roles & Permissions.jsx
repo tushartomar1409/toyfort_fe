@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Plus, Edit, Trash2 } from 'lucide-react';
+import Adminheader from "../../components/admin_components/Adminheader";
+import Adminfooter from "../../components/admin_components/Adminfooter";
 
 // Mock data based on the provided image
 const mockRoles = [
@@ -80,6 +82,8 @@ const RolesAndPermissions = () => {
     const [roles] = useState(mockRoles);
 
     return (
+         <div className="flex-1 bg-gray-100 min-h-screen -ml-[30px] overflow-auto">
+        <Adminheader />
         <div className="bg-gray-50 min-h-screen p-4 sm:p-6 lg:p-8 font-sans">
             <div className="max-w-7xl mx-auto">
                 <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
@@ -109,6 +113,9 @@ const RolesAndPermissions = () => {
                 </div>
             </div>
         </div>
+         <Adminfooter />
+      
+    </div>
     );
 };
 

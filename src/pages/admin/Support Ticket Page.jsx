@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import Adminheader from "../../components/admin_components/Adminheader";
+import Adminfooter from "../../components/admin_components/Adminfooter";
 // Main App component for the Support Tickets page
 const App = () => {
   // State to manage the active ticket filter (e.g., 'open', 'responded', 'closed')
@@ -41,6 +42,8 @@ const App = () => {
 
   return (
     // Tailwind CSS classes are used for styling
+    <div className="flex-1 bg-gray-100 min-h-screen -ml-[30px] overflow-auto">
+        <Adminheader />
     <div className="min-h-screen bg-gray-100 p-8 font-sans">
       <script src="https://cdn.tailwindcss.com"></script> {/* Load Tailwind CSS */}
       <h1 className="text-3xl font-semibold text-gray-800 mb-6">Support Tickets</h1>
@@ -143,6 +146,9 @@ const App = () => {
           </tbody>
         </table>
       </div>
+    </div>
+    <Adminfooter />
+      
     </div>
   );
 };

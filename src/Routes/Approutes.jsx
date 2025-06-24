@@ -128,6 +128,15 @@ import Shippingsettings from "../pages/Adminpages/Shippingsettings";
 import Coupons from "../pages/dashboard_pages/Coupons";
 import ActiveSalesPage from "../pages/dashboard_pages/ActiveSalesPage";
 import CancelledSalesPage from "../pages/dashboard_pages/CancelledSalesPage";
+import CurrencySettings from "../pages/admin/CurrencySettings";
+import AddCurrency from "../pages/admin/addCurrency";
+import PaymentSettings from "../pages/admin/PaymentSettings";
+import SystemSettings from "../pages/admin/SystemSettings";
+import RouteSettings from "../pages/admin/RouteSettings";
+import ProductSettings from "../pages/admin/ProductSettings";
+
+
+
 // Accept openLoginModal as a prop
 const Approutes = ({ openLoginModal }) => {
 
@@ -278,6 +287,13 @@ const publicRoutes = [
      {path :"/dashboard/cancelledsales", component: CancelledSalesPage},
 
 
+     {path :"admin/pending-blog-comments",component:Blogcomment},
+       {path :"/admin/currency-settings",component:CurrencySettings},
+       {path :"/admin/addCurrency",component:AddCurrency},
+        {path :"/admin/payment-settings",component:PaymentSettings},
+        {path:"/admin/system-settings", component:SystemSettings},
+{path:"/admin/route-settings",component:RouteSettings},
+{path:"/admin/product-settings",component:ProductSettings}
 
 
 

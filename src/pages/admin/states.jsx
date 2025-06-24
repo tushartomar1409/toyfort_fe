@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Adminheader from "../../components/admin_components/Adminheader";
+import Adminfooter from "../../components/admin_components/Adminfooter";
 
 // Sample data for the list of states. In a real application, this would come from an API.
 // Added states from another country to demonstrate the filter.
@@ -225,6 +227,8 @@ const States = () => {
 
 
   return (
+    <div className="flex-1 bg-gray-100 min-h-screen -ml-[30px] overflow-auto">
+        <Adminheader />
     <div style={styles.pageContainer}>
       <div style={styles.card}>
         <div style={styles.cardHeader}>
@@ -323,6 +327,9 @@ const States = () => {
             </nav>
         </div>
       </div>
+    </div>
+    <Adminfooter />
+      
     </div>
   );
 };

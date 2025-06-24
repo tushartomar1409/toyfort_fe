@@ -1,5 +1,8 @@
  import React, { useState } from 'react';
 // ⬇️ 1. IMPORT `Link` INSTEAD OF `useNavigate`
+import Adminheader from "../../components/admin_components/Adminheader";
+import Adminfooter from "../../components/admin_components/Adminfooter";
+
 import { Link } from 'react-router-dom';
 
 // Sample data for the list of countries. In a real application, this would likely come from an API.
@@ -251,6 +254,9 @@ const Countries = () => {
 
 
   return (
+    <div className="flex-1 bg-gray-100 min-h-screen -ml-[30px] overflow-auto">
+        <Adminheader />
+  
     <div style={styles.pageContainer}>
       <div style={styles.card}>
         <div style={styles.cardHeader}>
@@ -344,6 +350,9 @@ const Countries = () => {
             </nav>
         </div>
       </div>
+    </div>
+     <Adminfooter />
+      
     </div>
   );
 };
