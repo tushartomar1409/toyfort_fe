@@ -191,7 +191,7 @@ const AdminSidebar = () => {
               <ul className="ml-6 mt-1 space-y-1 text-gray-500">
                 <li className="flex items-center space-x-2">
                   <Link
-                    to="/admin/activesales"
+                    to="/dashboard/activesales"
                     className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
                   >
                     <p>Active Sales</p>
@@ -207,7 +207,7 @@ const AdminSidebar = () => {
                 </li>
                 <li className="flex items-center space-x-2">
                   <Link
-                    to="/admin/cancelledsales"
+                    to="/dashboard/cancelledsales"
                     className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
                   >
                     <p>Cancelled Sales</p>
@@ -281,7 +281,7 @@ const AdminSidebar = () => {
           </li>
           <li className="flex items-center space-x-2">
             <Link
-              to="/admin/coupons"
+              to="/dashboard/coupons"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <FaTicketAlt />

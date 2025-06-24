@@ -125,10 +125,13 @@ import Payoutpage from "../pages/dashboard_pages/Payoutpage";
 import PromotionalPayment from "../components/dashboard_components/PromotionalPayment";
 import Shopsettings from "../pages/Adminpages/Shopsettings";
 import Shippingsettings from "../pages/Adminpages/Shippingsettings";
+import Coupons from "../pages/dashboard_pages/Coupons";
+import ActiveSalesPage from "../pages/dashboard_pages/ActiveSalesPage";
+import CancelledSalesPage from "../pages/dashboard_pages/CancelledSalesPage";
 // Accept openLoginModal as a prop
 const Approutes = ({ openLoginModal }) => {
 
-  const LoggedIn = true  ;
+  const LoggedIn = true ;
 
 
 const publicRoutes = [
@@ -270,6 +273,9 @@ const publicRoutes = [
      {path :"/admin/promotionalpayment",component: PromotionalPayment},
      {path :"/dashboard/shopsettings",component: Shopsettings},
      {path :"/dashboard/shippingsettings",component: Shippingsettings},
+     {path :"/dashboard/coupons",component: Coupons},
+     {path :"/dashboard/activesales", component: ActiveSalesPage},
+     {path :"/dashboard/cancelledsales", component: CancelledSalesPage},
 
 
 
