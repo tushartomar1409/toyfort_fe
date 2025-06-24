@@ -16,7 +16,7 @@ const Cart = () => {
   useEffect(() => {
     const fetchCart = async () => {
       const user = JSON.parse(localStorage.getItem("user"));
-      const token = user.token;
+      const token = user.token; 
 
       console.log("cart token", token);
       console.log("User", user);
@@ -35,9 +35,8 @@ const Cart = () => {
           }
         );
 
-        console.log("Cart response:", response.data);
 
-        setCart(response.data.result);
+        setCart(response.data);
       } catch (error) {
         console.log(
           "Error in fetching products:",
@@ -53,9 +52,8 @@ const Cart = () => {
     // console.log("slug remove cart",slug);
 
     try {
-      const token = localStorage.getItem("token");
-      // console.log("Token",token)
-
+     const user = JSON.parse(localStorage.getItem("user"));
+     const token = user.token; 
       const response = await axios.delete(
         `http://localhost:5001/api/removeProduct/${slug}`,
         {
@@ -83,7 +81,7 @@ const Cart = () => {
       );
 
       // console.log("Cart Response",response.data.newQuantity);
-      // setProductQuantity(response.data.newQuantity)
+      setProductQuantity(response.data.newQuantity)
 
       const newQuantity = response.data.newQuantity;
 

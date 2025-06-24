@@ -93,11 +93,11 @@ export const AppContextProvider = (props) => {
 
   const addToCart = async (item) => {
     try {
-       const user = JSON.parse(localStorage.getItem("user"));
+      const user = JSON.parse(localStorage.getItem("user"));
       const token = user.token; 
-      console.log("item.slug", item.slug);
-      console.log(token);
-      console.log("Items",item)
+      // console.log("item.slug", item.slug);
+      // console.log(token);
+      // console.log("Items",item)
       
       // const existingItem = cart.find((product) => product.slug === item.slug);
 
