@@ -13,10 +13,12 @@ const RelatedPosts = () => {
   useEffect(() => {
     const fetchRelatedPosts = async () => {
       try {
-        const { data } = await axios.get(
+        const response = await axios.get(
           "http://localhost:5001/api/related-posts"
         );
-        setRelatedPosts(data);
+        setRelatedPosts(response.data.data);
+        // console.log(response.data.data);
+        
       } catch (error) {
         console.error("Error fetching related posts:", error.message);
       }
@@ -37,7 +39,7 @@ const RelatedPosts = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {relatedPosts.map((post) => (
           <div key={post.id}>
-            <Link to={`${post.category_slug}/${post.id}`}>
+            <Link to={`/blog/${post.category_slug}/${post.id}`}>
               <img
                 src={`${imgUrl}${post.image_default}`}
                 alt="blog_images"

@@ -12,16 +12,15 @@ const BlogContent = () => {
 
   // console.log(category_slug)
   // console.log(id)
-  console.log(blogPost);
+  // console.log(blogPost);
 
   useEffect(() => {
     const fetchBlogContent = async () => {
       try {
-        const { data } = await axios.get(
+        const response = await axios.get(
           `http://localhost:5001/api/blog-image/${category_slug}/${id}`
         );
-        // console.log(data);
-        setBlogPost(data);
+        setBlogPost(response.data);
       } catch (error) {
         console.error("Error fetching blog content:", error.message);
       }

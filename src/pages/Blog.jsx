@@ -31,12 +31,14 @@ function Blog() {
   useEffect(() => {
     const fetchBlogImage = async () => {
       try {
-        const { data } = await axios.get(
-          "http://localhost:5001/api/blog-image"
+        const response = await axios.get(
+          "http://localhost:5001/api/blog_images"
         );
-        setBlogPosts(data);
+        setBlogPosts(response.data.data);
+        // console.log(response.data.data);
+        
       } catch (error) {
-        console.log("Error fetching slider data:", error.message);
+        console.log("Error fetching blog images:", error.message);
       }
     };
     fetchBlogImage();
@@ -49,8 +51,10 @@ function Blog() {
           "http://localhost:5001/api/blog-content"
         );
         setBlogContent(data);
+        // console.log(data);
+
       } catch (error) {
-        console.log("Error fetching slider data:", error.message);
+        console.log("Error fetching blog-content:", error.message);
       }
     };
     fetchBlogContent();
@@ -59,10 +63,12 @@ function Blog() {
   useEffect(() => {
     const fetchBooksImages = async () => {
       try {
-        const { data } = await axios.get(
-          "http://localhost:5001/api/books-images"
+        const response = await axios.get(
+          "http://localhost:5001/api/book_images"
         );
-        setBooksImages(data);
+        setBooksImages(response.data.data);
+        // console.log(response.data.data);
+
       } catch (error) {
         console.log("Error in fetching the Books Images", error.message);
       }
