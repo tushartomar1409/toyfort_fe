@@ -89,91 +89,46 @@ export const AppContextProvider = (props) => {
     }
   };
 
-  // Add to cart 
+  // Add to cart
 
   const addToCart = async (item) => {
-    try {
-      const user = JSON.parse(localStorage.getItem("user"));
-      const token = user.token; 
-      // console.log("item.slug", item.slug);
-      // console.log(token);
-      // console.log("Items",item)
-      
-      // const existingItem = cart.find((product) => product.slug === item.slug);
+  try {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = user.token;
 
-      // if (existingItem) {
-      //   await increaseProductQuantity(item.slug);
-      // } else {
-      //   const response = await axios.post(
-      //     "http://localhost:5001/api/addToCart",
-      //     item,
-      //     {
-      //       headers: {
-      //         Authorization: `Bearer ${token}`,
-      //       },
-      //     }
-      //   );
-      // }
+    // Check if the product is already in the cart
+    const existingProduct = cart.find((cartItem) => cartItem.slug === item.slug);
 
+    if (existingProduct) {
+      // If item exists, increase quantity
+      await increaseProductQuantity(item.slug);
+    } else {
+      // If not, add to cart
       const response = await axios.post(
-          "http://localhost:5001/api/addToCart",
-          item,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-      
+        "http://localhost:5001/api/addToCart",
+        item,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response.data && response.data.result) {
         console.log("Product added to cart successfully");
 
         setCart(response.data.result);
-        console.log("Cart",cart);
       }
-    } catch (error) {
-      console.error("Error adding to cart:", error);
     }
-  };
-
-//   const addToCart = async (item) => {
-//   try {
-//     const user = JSON.parse(localStorage.getItem("user"));
-//     const token = user.token;
-
-//     const existingItem = cart.find((product) => product.slug === item.slug);
-
-//     let response;
-
-//     if (existingItem) {
-//       await increaseProductQuantity(item.slug);
-//     } else {
-//       response = await axios.post(
-//         "http://localhost:5001/api/addToCart",
-//         item,
-//         {
-//           headers: {
-//             Authorization: `Bearer ${token}`,
-//           },
-//         }
-//       );
-
-//       if (response.data && response.data.result) {
-//         setCart(response.data.result);
-//         console.log("Product added to cart successfully");
-//       }
-//     }
-//   } catch (error) {
-//     console.error("Error adding to cart:", error);
-//   }
-// };
-
+  } catch (error) {
+    console.error("Error in addToCart logic:", error);
+  }
+};
 
   // Manage product quantity
 
   const increaseProductQuantity = async (slug) => {
-    //  console.log("slug update cart",slug);
+     console.log("slug update cart",slug);
 
     try {
       const response = await axios.post(

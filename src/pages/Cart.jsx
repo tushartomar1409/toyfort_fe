@@ -18,9 +18,6 @@ const Cart = () => {
       const user = JSON.parse(localStorage.getItem("user"));
       const token = user.token; 
 
-      console.log("cart token", token);
-      console.log("User", user);
-
       if (!token || !user || user === "Sign In") {
         return;
       }
@@ -79,9 +76,6 @@ const Cart = () => {
       const response = await axios.post(
         `http://localhost:5001/api/decreaseProductQuantity/${slug}`
       );
-
-      // console.log("Cart Response",response.data.newQuantity);
-      setProductQuantity(response.data.newQuantity)
 
       const newQuantity = response.data.newQuantity;
 
