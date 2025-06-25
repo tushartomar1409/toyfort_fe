@@ -95,7 +95,6 @@ import AddStates from "../pages/admin/addStates";
 import Cities from "../pages/admin/Cities";
 import AddCities from "../pages/admin/addCities";
 
-
 import ProductDrafts from "../pages/Adminpages/ProductDrafts";
 import HiddenProducts from "../pages/Adminpages/HiddenProducts";
 import DeletedProductsPage from "../pages/Adminpages/DeletedProducts";
@@ -139,12 +138,14 @@ import ProductSettings from "../pages/admin/ProductSettings";
 import GeneralSettings from "../pages/Adminpages/GeneralSettings";
 import EmailSettings from "../pages/Adminpages/EmailSettings";
 import SocialLogin from "../pages/Adminpages/SocialLogin";
+import LanguageSettings from "../pages/Adminpages/LanguageSettings";
+import EditTranslationsPage from "../pages/Adminpages/EditTranslation";
 
 // Accept openLoginModal as a prop
 const Approutes = ({ openLoginModal }) => {
 
   const LoggedIn = true;
-  
+
   const publicRoutes = [
     { path: "/", component: Home },
     { path: "/about-us", component: AboutUs },
@@ -361,6 +362,8 @@ const Approutes = ({ openLoginModal }) => {
      {path :"admin/general-settings",component:GeneralSettings},
      {path :"admin/email-settings",component:EmailSettings},
  {path :"admin/social-login",component:SocialLogin},
+ {path :"admin/language-settings",component:LanguageSettings},
+ {path :"admin/edit-translations",component:EditTranslationsPage},
   ];
 
   return (
