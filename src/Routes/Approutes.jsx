@@ -140,6 +140,9 @@ import EmailSettings from "../pages/Adminpages/EmailSettings";
 import SocialLogin from "../pages/Adminpages/SocialLogin";
 import LanguageSettings from "../pages/Adminpages/LanguageSettings";
 import EditTranslationsPage from "../pages/Adminpages/EditTranslation";
+import visualsetting from "../pages/admin/Visual Settings";
+import Preferences from "../pages/admin/Preferences";
+import FontSettings from "../pages/admin/FontSettings";
 
 // Accept openLoginModal as a prop
 const Approutes = ({ openLoginModal }) => {
@@ -364,6 +367,10 @@ const Approutes = ({ openLoginModal }) => {
  {path :"admin/social-login",component:SocialLogin},
  {path :"admin/language-settings",component:LanguageSettings},
  {path :"admin/edit-translations",component:EditTranslationsPage},
+
+  {path :"/admin/visual-settings",component:visualsetting},
+   {path :"/admin/preferences",component:Preferences},
+   {path :"/admin/font-settings", component:FontSettings}
   ];
 
   return (

@@ -1,355 +1,349 @@
  import React, { useState } from 'react';
+import { Check } from 'lucide-react';
+import Adminheader from "../../components/admin_components/Adminheader";
+import Adminfooter from "../../components/admin_components/Adminfooter";
 
-// Reusable component for each settings card
-const SettingsCard = ({ title, subtitle, children }) => (
-    <div className="card">
-        <div className="mb-4">
-            <h3 className="text-xl font-semibold text-gray-800">{title}</h3>
-            {subtitle && <p className="text-sm text-gray-500">{subtitle}</p>}
-        </div>
-        {/* The children prop is rendered here, its spacing controlled by the parent ProductSettings component or internal divs */}
-        <div>
-            {children}
-        </div>
-    </div>
-);
 
 const ProductSettings = () => {
-    const [settings, setSettings] = useState({
-        // Physical Products settings
-        physicalProducts: {
-            demoUrl: true,
-            videoPreview: true,
-            audioPreview: true,
-        },
-        // Marketplace settings
-        marketplace: {
-            sku: true,
-            variations: true,
-            shipping: true,
-            location: true,
-        },
-        // Classified Ads settings
-        classifiedAds: {
-            priceEnable: true,
-            priceRequired: true,
-            locationEnable: true,
-            externalLink: true,
-        },
-        // Digital Products settings
+  const [settings, setSettings] = useState({
+    marketplace: {
+      sku: true,
+      variations: true,
+      shipping: true,
+      location: true
+    },
+    classifiedAds: {
+      price: { enabled: true, required: true },
+      location: true,
+      externalLink: true
+    },
+    digitalProducts: {
+      demoUrl: true,
+      videoPreview: true,
+      audioPreview: true,
+      allowedExtensions: ['zip']
+    },
+    physicalProducts: {
+      demoUrl: true,
+      videoPreview: true,
+      audioPreview: true
+    },
+    fileUpload: {
+      imageUploadLimit: 20,
+      maxImageSize: 1000,
+      maxVideoSize: 1000,
+      maxAudioSize: 1000
+    }
+  });
+
+  const [newExtension, setNewExtension] = useState('');
+
+  const toggleSetting = (section, key, subKey = null) => {
+    setSettings(prev => ({
+      ...prev,
+      [section]: {
+        ...prev[section],
+        [key]: subKey 
+          ? { ...prev[section][key], [subKey]: !prev[section][key][subKey] }
+          : !prev[section][key]
+      }
+    }));
+  };
+
+  const updateFileSize = (type, value) => {
+    setSettings(prev => ({
+      ...prev,
+      fileUpload: {
+        ...prev.fileUpload,
+        [type]: parseInt(value) || 0
+      }
+    }));
+  };
+
+  const addExtension = () => {
+    if (newExtension.trim() && !settings.digitalProducts.allowedExtensions.includes(newExtension.trim())) {
+      setSettings(prev => ({
+        ...prev,
         digitalProducts: {
-            demoUrl: true,
-            videoPreview: true,
-            audioPreview: true,
-            allowedExtensions: ['zip'],
-        },
-        // File Upload settings
-        fileUpload: {
-            productImageUploadLimit: 20,
-            maxFileSizeImage: 1000, // MB
-            maxFileSizeVideo: 1000, // MB
-            maxFileSizeAudio: 1000, // MB
+          ...prev.digitalProducts,
+          allowedExtensions: [...prev.digitalProducts.allowedExtensions, newExtension.trim()]
         }
-    });
+      }));
+      setNewExtension('');
+    }
+  };
 
-    // Handle checkbox changes for nested objects
-    const handleCheckboxChange = (section, field) => {
-        setSettings(prev => ({
-            ...prev,
-            [section]: {
-                ...prev[section],
-                [field]: !prev[section][field],
-            },
-        }));
-    };
+  const removeExtension = (extension) => {
+    setSettings(prev => ({
+      ...prev,
+      digitalProducts: {
+        ...prev.digitalProducts,
+        allowedExtensions: prev.digitalProducts.allowedExtensions.filter(ext => ext !== extension)
+      }
+    }));
+  };
 
-    // Handle input changes for nested objects
-    const handleInputChange = (section, field, value) => {
-        setSettings(prev => ({
-            ...prev,
-            [section]: {
-                ...prev[section],
-                [field]: value,
-            },
-        }));
-    };
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      addExtension();
+    }
+  };
 
-    // Handle allowed extensions input with tag-like behavior
-    const handleExtensionChange = (e) => {
-        if (e.key === 'Enter' && e.target.value.trim() !== '') {
-            const newExtension = e.target.value.trim().toLowerCase();
-            if (!settings.digitalProducts.allowedExtensions.includes(newExtension)) {
-                setSettings(prev => ({
-                    ...prev,
-                    digitalProducts: {
-                        ...prev.digitalProducts,
-                        allowedExtensions: [...prev.digitalProducts.allowedExtensions, newExtension],
-                    },
-                }));
-            }
-            e.target.value = ''; // Clear input
-            e.preventDefault(); // Prevent form submission
-        }
-    };
+  const CheckboxInput = ({ checked, onChange, label }) => (
+    <div className="flex items-center space-x-3 mb-4">
+      <div 
+        className={`w-6 h-6 rounded border-2 flex items-center justify-center cursor-pointer transition-colors ${
+          checked ? 'bg-purple-600 border-purple-600' : 'border-gray-300 hover:border-purple-400'
+        }`}
+        onClick={onChange}
+      >
+        {checked && <Check size={14} className="text-white" />}
+      </div>
+      <span className="text-gray-700 font-medium">{label}</span>
+    </div>
+  );
 
-    const removeExtension = (extensionToRemove) => {
-        setSettings(prev => ({
-            ...prev,
-            digitalProducts: {
-                ...prev.digitalProducts,
-                allowedExtensions: prev.digitalProducts.allowedExtensions.filter(ext => ext !== extensionToRemove),
-            },
-        }));
-    };
+  const SettingSection = ({ title, subtitle, children, onSave }) => (
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+      <div className="mb-6">
+        <h3 className="text-xl font-semibold text-gray-800 mb-2">{title}</h3>
+        {subtitle && <p className="text-gray-600 text-sm">{subtitle}</p>}
+      </div>
+      
+      <div className="space-y-4 mb-6">
+        {children}
+      </div>
+      
+      <button 
+        onClick={onSave}
+        className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md font-medium transition-colors"
+      >
+        Save Changes
+      </button>
+    </div>
+  );
 
-    const handleSave = (section) => {
-        // In a real application, you would send specific section data to an API
-        console.log(`Saving ${section} Settings:`, settings[section]);
-        alert(`${section} Settings saved!`);
-    };
+  return (
+    <div className="flex-1 bg-gray-100 min-h-screen -ml-[30px] overflow-auto">
+        <Adminheader />
+        
+    <div className="min-h-screen bg-gray-50 p-6">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-3xl font-bold text-gray-900 mb-8">Product Settings</h1>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+          {/* Marketplace */}
+          <SettingSection 
+            title="Marketplace" 
+            subtitle="Add a Product for Sale"
+            onSave={() => console.log('Marketplace settings saved')}
+          >
+            <CheckboxInput 
+              checked={settings.marketplace.sku}
+              onChange={() => toggleSetting('marketplace', 'sku')}
+              label="SKU"
+            />
+            <CheckboxInput 
+              checked={settings.marketplace.variations}
+              onChange={() => toggleSetting('marketplace', 'variations')}
+              label="Variations"
+            />
+            <CheckboxInput 
+              checked={settings.marketplace.shipping}
+              onChange={() => toggleSetting('marketplace', 'shipping')}
+              label="Shipping"
+            />
+            <CheckboxInput 
+              checked={settings.marketplace.location}
+              onChange={() => toggleSetting('marketplace', 'location')}
+              label="Location"
+            />
+          </SettingSection>
 
-    return (
-        <div className="p-6 bg-gray-50">
-            <style>{`
-                .card { background-color: white; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1.5rem; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); }
-                .form-input { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid #d1d5db; border-radius: 0.375rem; box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
-                .btn-primary { padding: 0.5rem 1rem; border-radius: 0.375rem; background-color: #3b82f6; color: white; font-weight: 500; cursor: pointer; transition: background-color 0.2s; border: none; }
-                .btn-primary:hover { background-color: #2563eb; }
-                .checkbox-label { display: inline-flex; align-items: center; cursor: pointer; }
-                .tag { display: inline-flex; align-items: center; background-color: #e0f2f7; color: #007bb6; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.875rem; margin-right: 0.5rem; margin-bottom: 0.5rem; }
-                .tag-remove { margin-left: 0.5rem; cursor: pointer; font-weight: bold; }
-            `}</style>
-
-            <h1 className="text-2xl font-bold text-gray-900 mb-6">Product Settings</h1>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                {/* Marketplace Section */}
-                <SettingsCard title="Marketplace" subtitle="Add a Product for Sale">
-                    <div className="space-y-2"> {/* Added space-y-2 here for explicit spacing */}
-                        <label className="checkbox-label">
-                            <input
-                                type="checkbox"
-                                checked={settings.marketplace.sku}
-                                onChange={() => handleCheckboxChange('marketplace', 'sku')}
-                            />
-                            <span className="ml-2">SKU</span>
-                        </label>
-                        <label className="checkbox-label">
-                            <input
-                                type="checkbox"
-                                checked={settings.marketplace.variations}
-                                onChange={() => handleCheckboxChange('marketplace', 'variations')}
-                            />
-                            <span className="ml-2">Variations</span>
-                        </label>
-                        <label className="checkbox-label">
-                            <input
-                                type="checkbox"
-                                checked={settings.marketplace.shipping}
-                                onChange={() => handleCheckboxChange('marketplace', 'shipping')}
-                            />
-                            <span className="ml-2">Shipping</span>
-                        </label>
-                        <label className="checkbox-label">
-                            <input
-                                type="checkbox"
-                                checked={settings.marketplace.location}
-                                onChange={() => handleCheckboxChange('marketplace', 'location')}
-                            />
-                            <span className="ml-2">Location</span>
-                        </label>
-                    </div>
-                    <div className="text-right pt-4">
-                        <button className="btn-primary" onClick={() => handleSave('marketplace')}>Save Changes</button>
-                    </div>
-                </SettingsCard>
-
-                {/* Classified Ads Section */}
-                <SettingsCard title="Classified Ads" subtitle="Add a Product or Service as an Ordinary Listing">
-                    <div className="space-y-2"> {/* Added space-y-2 here for explicit spacing */}
-                        <div>
-                            <span className="block font-medium text-gray-700 mb-2">Price</span>
-                            <label className="checkbox-label block mb-2">
-                                <input
-                                    type="checkbox"
-                                    checked={settings.classifiedAds.priceEnable}
-                                    onChange={() => handleCheckboxChange('classifiedAds', 'priceEnable')}
-                                />
-                                <span className="ml-2">Enable</span>
-                            </label>
-                            <label className="checkbox-label block">
-                                <input
-                                    type="checkbox"
-                                    checked={settings.classifiedAds.priceRequired}
-                                    onChange={() => handleCheckboxChange('classifiedAds', 'priceRequired')}
-                                />
-                                <span className="ml-2">Required</span>
-                            </label>
-                        </div>
-                        <label className="checkbox-label block">
-                            <input
-                                type="checkbox"
-                                checked={settings.classifiedAds.locationEnable}
-                                onChange={() => handleCheckboxChange('classifiedAds', 'locationEnable')}
-                            />
-                            <span className="ml-2">Location</span>
-                        </label>
-                        <label className="checkbox-label block">
-                            <input
-                                type="checkbox"
-                                checked={settings.classifiedAds.externalLink}
-                                onChange={() => handleCheckboxChange('classifiedAds', 'externalLink')}
-                            />
-                            <span className="ml-2">External Link</span>
-                        </label>
-                    </div>
-                    <div className="text-right pt-4">
-                        <button className="btn-primary" onClick={() => handleSave('classifiedAds')}>Save Changes</button>
-                    </div>
-                </SettingsCard>
-
-                {/* Digital Products Section */}
-                <SettingsCard title="Digital Products">
-                    <div className="space-y-2"> {/* Added space-y-2 here for explicit spacing */}
-                        <label className="checkbox-label block">
-                            <input
-                                type="checkbox"
-                                checked={settings.digitalProducts.demoUrl}
-                                onChange={() => handleCheckboxChange('digitalProducts', 'demoUrl')}
-                            />
-                            <span className="ml-2">Demo URL</span>
-                        </label>
-                        <label className="checkbox-label block">
-                            <input
-                                type="checkbox"
-                                checked={settings.digitalProducts.videoPreview}
-                                onChange={() => handleCheckboxChange('digitalProducts', 'videoPreview')}
-                            />
-                            <span className="ml-2">Video Preview</span>
-                        </label>
-                        <label className="checkbox-label block">
-                            <input
-                                type="checkbox"
-                                checked={settings.digitalProducts.audioPreview}
-                                onChange={() => handleCheckboxChange('digitalProducts', 'audioPreview')}
-                            />
-                            <span className="ml-2">Audio Preview</span>
-                        </label>
-                        <div>
-                            <label className="block font-medium text-gray-700 mb-1">Allowed File Extensions</label>
-                            <div className="flex flex-wrap items-center mb-2">
-                                {settings.digitalProducts.allowedExtensions.map((ext, index) => (
-                                    <span key={index} className="tag">
-                                        {ext}
-                                        <span className="tag-remove" onClick={() => removeExtension(ext)}>x</span>
-                                    </span>
-                                ))}
-                                <input
-                                    type="text"
-                                    className="form-input flex-grow"
-                                    placeholder="Type an extension and hit enter (e.g., zip, jpg, doc, pdf..)"
-                                    onKeyDown={handleExtensionChange}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="text-right pt-4">
-                        <button className="btn-primary" onClick={() => handleSave('digitalProducts')}>Save Changes</button>
-                    </div>
-                </SettingsCard>
+          {/* Classified Ads */}
+          <SettingSection 
+            title="Classified Ads" 
+            subtitle="Add a Product or Service as an Ordinary Listing"
+            onSave={() => console.log('Classified Ads settings saved')}
+          >
+            <div className="mb-4">
+              <span className="text-gray-700 font-medium mb-3 block">Price</span>
+              <div className="ml-4 space-y-2">
+                <CheckboxInput 
+                  checked={settings.classifiedAds.price.enabled}
+                  onChange={() => toggleSetting('classifiedAds', 'price', 'enabled')}
+                  label="Enable"
+                />
+                <CheckboxInput 
+                  checked={settings.classifiedAds.price.required}
+                  onChange={() => toggleSetting('classifiedAds', 'price', 'required')}
+                  label="Required"
+                />
+              </div>
             </div>
+            
+            <CheckboxInput 
+              checked={settings.classifiedAds.location}
+              onChange={() => toggleSetting('classifiedAds', 'location')}
+              label="Location"
+            />
+            <CheckboxInput 
+              checked={settings.classifiedAds.externalLink}
+              onChange={() => toggleSetting('classifiedAds', 'externalLink')}
+              label="External Link"
+            />
+          </SettingSection>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                {/* Physical Products Section - Adjusted for compactness */}
-                <SettingsCard title="Physical Products">
-                    <div className="space-y-1"> {/* Changed from space-y-2 to space-y-1 for more compactness */}
-                        <label className="checkbox-label block">
-                            <input
-                                type="checkbox"
-                                checked={settings.physicalProducts.demoUrl}
-                                onChange={() => handleCheckboxChange('physicalProducts', 'demoUrl')}
-                            />
-                            <span className="ml-2">Demo URL</span>
-                        </label>
-                        <label className="checkbox-label block">
-                            <input
-                                type="checkbox"
-                                checked={settings.physicalProducts.videoPreview}
-                                onChange={() => handleCheckboxChange('physicalProducts', 'videoPreview')}
-                            />
-                            <span className="ml-2">Video Preview</span>
-                        </label>
-                        <label className="checkbox-label block">
-                            <input
-                                type="checkbox"
-                                checked={settings.physicalProducts.audioPreview}
-                                onChange={() => handleCheckboxChange('physicalProducts', 'audioPreview')}
-                            />
-                            <span className="ml-2">Audio Preview</span>
-                        </label>
-                    </div>
-                    <div className="text-right pt-4">
-                        <button className="btn-primary" onClick={() => handleSave('physicalProducts')}>Save Changes</button>
-                    </div>
-                </SettingsCard>
-
-                {/* File Upload Section (Separate Card, as per image) */}
-                <SettingsCard title="File Upload">
-                    <div className="space-y-2"> {/* Added space-y-2 here for explicit spacing */}
-                        <div>
-                            <label className="block font-medium text-gray-700 mb-1">Product Image Upload Limit</label>
-                            <input
-                                type="number"
-                                className="form-input"
-                                value={settings.fileUpload.productImageUploadLimit}
-                                onChange={e => handleInputChange('fileUpload', 'productImageUploadLimit', parseInt(e.target.value) || 0)}
-                            />
-                        </div>
-                        <div>
-                            <label className="block font-medium text-gray-700 mb-1">Max File Size (Image)</label>
-                            <div className="flex items-center">
-                                <input
-                                    type="number"
-                                    className="form-input"
-                                    value={settings.fileUpload.maxFileSizeImage}
-                                    onChange={e => handleInputChange('fileUpload', 'maxFileSizeImage', parseInt(e.target.value) || 0)}
-                                />
-                                <span className="ml-2 text-gray-600">MB</span>
-                            </div>
-                        </div>
-                        <div>
-                            <label className="block font-medium text-gray-700 mb-1">Max File Size (Video)</label>
-                            <div className="flex items-center">
-                                <input
-                                    type="number"
-                                    className="form-input"
-                                    value={settings.fileUpload.maxFileSizeVideo}
-                                    onChange={e => handleInputChange('fileUpload', 'maxFileSizeVideo', parseInt(e.target.value) || 0)}
-                                />
-                                <span className="ml-2 text-gray-600">MB</span>
-                            </div>
-                        </div>
-                        <div>
-                            <label className="block font-medium text-gray-700 mb-1">Max File Size (Audio)</label>
-                            <div className="flex items-center">
-                                <input
-                                    type="number"
-                                    className="form-input"
-                                    value={settings.fileUpload.maxFileSizeAudio}
-                                    onChange={e => handleInputChange('fileUpload', 'maxFileSizeAudio', parseInt(e.target.value) || 0)}
-                                />
-                                <span className="ml-2 text-gray-600">MB</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="text-right pt-4">
-                        <button className="btn-primary" onClick={() => handleSave('fileUpload')}>Save Changes</button>
-                    </div>
-                </SettingsCard>
+          {/* Digital Products */}
+          <SettingSection 
+            title="Digital Products"
+            onSave={() => console.log('Digital Products settings saved')}
+          >
+            <CheckboxInput 
+              checked={settings.digitalProducts.demoUrl}
+              onChange={() => toggleSetting('digitalProducts', 'demoUrl')}
+              label="Demo URL"
+            />
+            <CheckboxInput 
+              checked={settings.digitalProducts.videoPreview}
+              onChange={() => toggleSetting('digitalProducts', 'videoPreview')}
+              label="Video Preview"
+            />
+            <CheckboxInput 
+              checked={settings.digitalProducts.audioPreview}
+              onChange={() => toggleSetting('digitalProducts', 'audioPreview')}
+              label="Audio Preview"
+            />
+            
+            <div className="mt-6">
+              <label className="block text-gray-700 font-medium mb-3">Allowed File Extensions</label>
+              <div className="flex flex-wrap gap-2 mb-3">
+                {settings.digitalProducts.allowedExtensions.map((ext, index) => (
+                  <span 
+                    key={index}
+                    className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-2"
+                  >
+                    {ext}
+                    <button 
+                      onClick={() => removeExtension(ext)}
+                      className="text-green-600 hover:text-green-800 font-bold text-lg leading-none"
+                    >
+                      ×
+                    </button>
+                  </span>
+                ))}
+              </div>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={newExtension}
+                  onChange={(e) => setNewExtension(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="E.g. zip, jpg, doc, pdf..."
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm"
+                />
+                <button
+                  onClick={addExtension}
+                  className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 text-sm font-medium"
+                >
+                  Add
+                </button>
+              </div>
+              <p className="text-gray-500 text-xs mt-2">(Type an extension and hit enter. E.g. zip, jpg, doc, pdf.)</p>
             </div>
+          </SettingSection>
+
+          {/* Physical Products */}
+          <SettingSection 
+            title="Physical Products"
+            onSave={() => console.log('Physical Products settings saved')}
+          >
+            <CheckboxInput 
+              checked={settings.physicalProducts.demoUrl}
+              onChange={() => toggleSetting('physicalProducts', 'demoUrl')}
+              label="Demo URL"
+            />
+            <CheckboxInput 
+              checked={settings.physicalProducts.videoPreview}
+              onChange={() => toggleSetting('physicalProducts', 'videoPreview')}
+              label="Video Preview"
+            />
+            <CheckboxInput 
+              checked={settings.physicalProducts.audioPreview}
+              onChange={() => toggleSetting('physicalProducts', 'audioPreview')}
+              label="Audio Preview"
+            />
+          </SettingSection>
+
+          {/* File Upload */}
+          <SettingSection 
+            title="File Upload"
+            onSave={() => console.log('File Upload settings saved')}
+          >
+            <div className="space-y-4">
+              <div>
+                <label className="block text-gray-700 font-medium mb-2">Product Image Upload Limit</label>
+                <input
+                  type="number"
+                  value={settings.fileUpload.imageUploadLimit}
+                  onChange={(e) => updateFileSize('imageUploadLimit', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-gray-700 font-medium mb-2">Max File Size (Image)</label>
+                <div className="flex">
+                  <input
+                    type="number"
+                    value={settings.fileUpload.maxImageSize}
+                    onChange={(e) => updateFileSize('maxImageSize', e.target.value)}
+                    className="flex-1 px-3 py-2 border border-gray-300 rounded-l-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                  <span className="px-3 py-2 bg-gray-100 border border-l-0 border-gray-300 rounded-r-md text-gray-600 font-medium">
+                    MB
+                  </span>
+                </div>
+              </div>
+              
+              <div>
+                <label className="block text-gray-700 font-medium mb-2">Max File Size (Video)</label>
+                <div className="flex">
+                  <input
+                    type="number"
+                    value={settings.fileUpload.maxVideoSize}
+                    onChange={(e) => updateFileSize('maxVideoSize', e.target.value)}
+                    className="flex-1 px-3 py-2 border border-gray-300 rounded-l-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                  <span className="px-3 py-2 bg-gray-100 border border-l-0 border-gray-300 rounded-r-md text-gray-600 font-medium">
+                    MB
+                  </span>
+                </div>
+              </div>
+              
+              <div>
+                <label className="block text-gray-700 font-medium mb-2">Max File Size (Audio)</label>
+                <div className="flex">
+                  <input
+                    type="number"
+                    value={settings.fileUpload.maxAudioSize}
+                    onChange={(e) => updateFileSize('maxAudioSize', e.target.value)}
+                    className="flex-1 px-3 py-2 border border-gray-300 rounded-l-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                  <span className="px-3 py-2 bg-gray-100 border border-l-0 border-gray-300 rounded-r-md text-gray-600 font-medium">
+                    MB
+                  </span>
+                </div>
+              </div>
+            </div>
+          </SettingSection>
         </div>
-    );
+      </div>
+    </div>
+    <Adminfooter />
+      
+    </div>
+  );
 };
 
-export default ProductSettings; 
+export default ProductSettings;
