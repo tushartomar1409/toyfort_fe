@@ -144,6 +144,7 @@ import visualsetting from "../pages/admin/Visual Settings";
 import Preferences from "../pages/admin/Preferences";
 import FontSettings from "../pages/admin/FontSettings";
 
+import CompletedSales from "../pages/dashboard_pages/CompletedSales";
 // Accept openLoginModal as a prop
 const Approutes = ({ openLoginModal }) => {
 
@@ -351,6 +352,7 @@ const Approutes = ({ openLoginModal }) => {
      {path :"/dashboard/coupons",component: Coupons},
      {path :"/dashboard/activesales", component: ActiveSalesPage},
      {path :"/dashboard/cancelledsales", component: CancelledSalesPage},
+     {path :"/dashboard/completedsales", component: CompletedSales},
 
 
      {path :"admin/pending-blog-comments",component:Blogcomment},
