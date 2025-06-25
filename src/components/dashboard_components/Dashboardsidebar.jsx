@@ -750,7 +750,7 @@ const Dashboardsidebar = () => {
               <ul className="ml-6 mt-2 space-y-1 text-sm text-gray-400">
                 <li className="flex items-center space-x-2">
             <Link
-              to="/admin/comments"
+              to="/admin/product-comments"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <p>Product Comments</p>
@@ -761,7 +761,7 @@ const Dashboardsidebar = () => {
               to="/admin/pending-blog-comments"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
-              <p>Blog Commennts</p>
+              <p>Blog Comments</p>
             </Link>
           </li>
               </ul>
@@ -830,7 +830,7 @@ const Dashboardsidebar = () => {
           </li>
                  <li className="flex items-center space-x-2">
             <Link
-              to="/admin/general-settings"
+              to="/admin/language-settings"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <p>Language Settings</p>
@@ -838,7 +838,7 @@ const Dashboardsidebar = () => {
           </li>
             <li className="flex items-center space-x-2">
             <Link
-              to="/admin/general-settings"
+              to="/admin/email-settings"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <p>Email Settings</p>
@@ -846,7 +846,7 @@ const Dashboardsidebar = () => {
           </li>
             <li className="flex items-center space-x-2">
             <Link
-              to="/admin/general-settings"
+              to="/admin/social-login"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <p>Social Login</p>
@@ -854,7 +854,7 @@ const Dashboardsidebar = () => {
           </li>
             <li className="flex items-center space-x-2">
             <Link
-              to="/admin/general-settings"
+              to="/admin/visual-settings"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <p>Visual Settings</p>
@@ -862,7 +862,7 @@ const Dashboardsidebar = () => {
           </li>
             <li className="flex items-center space-x-2">
             <Link
-              to="/admin/general-settings"
+              to="/admin/font-settings"
               className="flex items-center space-x-2 text-sm text-white-700 hover:text-white-500"
             >
               <p>Font Settings</p>
