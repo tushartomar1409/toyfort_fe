@@ -149,8 +149,6 @@ export default function SettingsPage() {
               <div>
                 <label className="block font-semibold">Keywords</label>
                 <input
-              </div>
-              <div>
                   className="w-full border rounded px-3 py-2"
                   defaultValue="index, home, toyfort"
                 />
@@ -180,8 +178,6 @@ export default function SettingsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
               {/* Google reCAPTCHA */}
               <div className="bg-gray-50 rounded shadow p-6">
-            </form>
-
                 <h3 className="font-semibold mb-4 text-blue-700">
                   Google reCAPTCHA
                 </h3>
@@ -735,17 +731,11 @@ export default function SettingsPage() {
                     type="radio"
                     checked={maintenanceEnabled}
                     onChange={() => setMaintenanceEnabled(true)}
-                </div>
-                <div className="mb-3">
-                  <label className="block font-medium">Image</label>
                     className="mr-1"
                   />
                   <span>Enable</span>
                 </div>
                 <div className="mb-3">
-                    defaultValue="assets/img/maintenance_bg.jpg"
-                  />
-                </div>
                   <label className="block font-medium">Image</label>
                   <input
                     className="w-full border rounded px-3 py-2"
