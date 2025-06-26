@@ -18,8 +18,8 @@ export const AppContextProvider = (props) => {
   const [productByPrice, setProductByPrice] = useState([]);
   const [productOutOfStock, setProductOutOfStock] = useState([]);
   const [productInStock, setProductInStock] = useState([]);
-  const [subcategoryProduct, setSubcategoryProduct] = useState([])
-  const [outdoorProduct, setOutdoorProduct] = useState([])
+  const [subcategoryProduct, setSubcategoryProduct] = useState([]);
+  const [outdoorProduct, setOutdoorProduct] = useState([]);
 
   const [user, setUser] = useState(() => {
     try {
@@ -35,7 +35,7 @@ export const AppContextProvider = (props) => {
     } else {
       localStorage.removeItem("user");
     }
-  }, [user])
+  }, [user]);
 
   const addToWishlist = async (item) => {
     try {
@@ -92,43 +92,45 @@ export const AppContextProvider = (props) => {
   // Add to cart
 
   const addToCart = async (item) => {
-  try {
-    const user = JSON.parse(localStorage.getItem("user"));
-    const token = user.token;
+    try {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const token = user.token;
 
-    // Check if the product is already in the cart
-    const existingProduct = cart.find((cartItem) => cartItem.slug === item.slug);
-
-    if (existingProduct) {
-      // If item exists, increase quantity
-      await increaseProductQuantity(item.slug);
-    } else {
-      // If not, add to cart
-      const response = await axios.post(
-        "http://localhost:5001/api/addToCart",
-        item,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+      // Check if the product is already in the cart
+      const existingProduct = cart.find(
+        (cartItem) => cartItem.slug === item.slug
       );
 
-      if (response.data && response.data.result) {
-        console.log("Product added to cart successfully");
+      if (existingProduct) {
+        // If item exists, increase quantity
+        await increaseProductQuantity(item.slug);
+      } else {
+        // If not, add to cart
+        const response = await axios.post(
+          "http://localhost:5001/api/addToCart",
+          item,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
-        setCart(response.data.result);
+        if (response.data && response.data.result) {
+          console.log("Product added to cart successfully");
+
+          setCart(response.data.result);
+        }
       }
+    } catch (error) {
+      console.error("Error in addToCart logic:", error);
     }
-  } catch (error) {
-    console.error("Error in addToCart logic:", error);
-  }
-};
+  };
 
   // Manage product quantity
 
   const increaseProductQuantity = async (slug) => {
-     console.log("slug update cart",slug);
+    console.log("slug update cart", slug);
 
     try {
       const response = await axios.post(
@@ -161,7 +163,6 @@ export const AppContextProvider = (props) => {
     }
   };
 
-
   // Filter to fetch discounted products
 
   const fetchDiscountProduct = async (discount) => {
@@ -190,7 +191,6 @@ export const AppContextProvider = (props) => {
     }
   };
 
- 
   const fetchProductByGender = async (gender) => {
     try {
       const response = await axios.get(
@@ -242,33 +242,29 @@ export const AppContextProvider = (props) => {
     }
   };
 
-  const fetchSubCategoryProduct = async (cat,subCat) =>{
-
+  const fetchSubCategoryProduct = async (cat, subCat) => {
     try {
-      const response = await axios.get(`http://localhost:5001/api/category/${cat}/${subCat}`)
+      const response = await axios.get(
+        `http://localhost:5001/api/category/${cat}/${subCat}`
+      );
 
       // console.log("sub-cat",response.data);
-      
-      setSubcategoryProduct(response.data)
 
+      setSubcategoryProduct(response.data);
     } catch (error) {
       console.log(error);
-      
     }
-
-  }
+  };
 
   const outdoorProducts = async (toys) => {
-    console.log("Toys: ",toys);
-    
+    console.log("Toys: ", toys);
 
     try {
       const response = await axios.get(
         `http://localhost:5001/api/toys/${toys}`
       );
-    
-      setOutdoorProduct(response.data)
-    
+
+      setOutdoorProduct(response.data);
     } catch (error) {
       console.error("Error in fetching product:", error);
     }
@@ -311,7 +307,7 @@ export const AppContextProvider = (props) => {
     outdoorProducts,
     setOutdoorProduct,
     outdoorProduct,
-    fetchProductByAge: fetchProduct
+    fetchProductByAge: fetchProduct,
   };
 
   return (

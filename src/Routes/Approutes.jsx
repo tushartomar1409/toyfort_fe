@@ -148,7 +148,7 @@ import CompletedSales from "../pages/dashboard_pages/CompletedSales";
 // Accept openLoginModal as a prop
 const Approutes = ({ openLoginModal }) => {
 
-  const LoggedIn = true;
+  const LoggedIn = false;
 
   const publicRoutes = [
     { path: "/", component: Home },
@@ -225,13 +225,9 @@ const Approutes = ({ openLoginModal }) => {
    { path: "/admin/add-payout", component: AddPayout },
     { path: "/admin/payout-requests", component: PayoutRequest },
     { path: "/admin/payout-settings", component: PayoutSettings},
-<<<<<<< Updated upstream
   { path: "/admin/refund-requests", component: refundRequest },
   { path: "/dashboard/refund-requests", component: refundRequest },
-=======
-  // { path: "/admin/refund-requests", component: RefundRequest },
-  // { path: "/dashboard/refund-requests", component: RefundRequest },
->>>>>>> Stashed changes
+
   { path: "/admin/bank-transfers", component: BankTransfer},
    { path: "/admin/digital-sales", component: DigitalSales},
   { path: "/admin/order-bank-transfers", component: BankTransfer},
