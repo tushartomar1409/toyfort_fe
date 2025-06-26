@@ -15,6 +15,10 @@ const Sidebar = () => {
   const [getCharacters, setGetCharacters] = useState([]);
   const [activeCategory, setActiveCategory] = useState(null);
   const [showCat, setShowCat] = useState(null);
+  const [selectedDiscount, setSelectedDiscount] = useState("")
+  const [selectedGender, setSelectedGender] = useState("")
+  const [selectedAge,setSelectedAge] = useState("")
+  const [selectedStock, setSelectedStock] = useState("")
 
   const navigate = useNavigate();
 
@@ -97,7 +101,7 @@ const Sidebar = () => {
         );
 
         const characters = response.data.map((item) => item.attribute5_value);
-        console.log("characters", characters);
+        // console.log("characters", characters);
         setGetCharacters(characters);
       } catch (error) {
         console.log(error);
@@ -709,7 +713,10 @@ const Sidebar = () => {
               <input
                 type="checkbox"
                 id="outOfStock"
-                onClick={() => handleOutOfStockProduct("out")}
+                checked={selectedStock === "out"}
+                onChange={() => 
+                  {setSelectedStock("out")
+                  handleOutOfStockProduct("out")}}
               />
               <label htmlFor="outOfStock" className="ml-2 hover:text-red-500 ">
                 Out of Stock
@@ -719,7 +726,10 @@ const Sidebar = () => {
               <input
                 type="checkbox"
                 id="inStock"
-                onClick={() => handleInStockProduct("in")}
+                checked={selectedStock === "in"}
+                onChange={() => 
+                  {setSelectedStock("in")
+                  handleInStockProduct("in")}}
               />
               <label htmlFor="inStock" className="ml-2 hover:text-red-600">
                 In Stock
@@ -838,7 +848,10 @@ const Sidebar = () => {
               <input
                 type="checkbox"
                 id="discount1"
-                onClick={() => handleSiderbarDiscount("50-100")}
+                checked={selectedDiscount === "50-100"}
+                onChange={() => 
+                  {setSelectedDiscount("50-100")
+                  handleSiderbarDiscount("50-100")}}
               />
               <label htmlFor="discount1" className="ml-2 hover:text-red-600 ">
                 50-100%
@@ -848,7 +861,10 @@ const Sidebar = () => {
               <input
                 type="checkbox"
                 id="discount2"
-                onClick={() => handleSiderbarDiscount("40-50")}
+                checked={selectedDiscount === "40-50"}
+                onChange={() => {
+                  setSelectedDiscount("40-50")
+                  handleSiderbarDiscount("40-50")}}
               />
               <label htmlFor="discount2" className="ml-2 hover:text-red-600">
                 40-50%
@@ -858,8 +874,11 @@ const Sidebar = () => {
               <input
                 type="checkbox"
                 id="discount3"
-                onClick={() => handleSiderbarDiscount("30-40")}
-              />
+                checked={selectedDiscount === "30-40"}
+                onChange={() => {
+                  setSelectedDiscount("30-40")
+                  handleSiderbarDiscount("30-40")}}
+                />
               <label htmlFor="discount3" className="ml-2 hover:text-red-600">
                 30-40%
               </label>
@@ -868,7 +887,10 @@ const Sidebar = () => {
               <input
                 type="checkbox"
                 id="discount4"
-                onClick={() => handleSiderbarDiscount("20-30")}
+                checked={selectedDiscount === "20-30"}
+                onChange={() => {
+                  setSelectedDiscount("20-30")
+                  handleSiderbarDiscount("20-30")}}
               />
               <label htmlFor="discount4" className="ml-2 hover:text-red-600">
                 20-30%
@@ -876,7 +898,10 @@ const Sidebar = () => {
             </div>
             <div
               className="mt-2"
-              onClick={() => handleSiderbarDiscount("0-20")}
+              checked={selectedDiscount === "0-20"}
+                onChange={() => {
+                  setSelectedDiscount("0-20")
+                  handleSiderbarDiscount("0-20")}}
             >
               <input type="checkbox" id="discount5" />
               <label htmlFor="discount5" className="ml-2 hover:text-red-600">
@@ -911,7 +936,11 @@ const Sidebar = () => {
               <input
                 type="checkbox"
                 id="gender1"
-                onClick={() => handleSidebarByGender("Boys")}
+                checked={selectedGender === "Boys"}
+                 onChange={() => {
+                  setSelectedGender("Boys")
+                  handleSidebarByGender("Boys")}
+                }
               />
               <label htmlFor="gender1" className="ml-2 hover:text-red-600">
                 Boys
@@ -921,7 +950,11 @@ const Sidebar = () => {
               <input
                 type="checkbox"
                 id="gender2"
-                onClick={() => handleSidebarByGender("Girls")}
+                checked={selectedGender === "Girls"}
+                 onChange={() => {
+                  setSelectedGender("Girls")
+                  handleSidebarByGender("Girls")}
+                }
               />
               <label htmlFor="gender2" className="ml-2 hover:text-red-600">
                 Girls
@@ -931,7 +964,11 @@ const Sidebar = () => {
               <input
                 type="checkbox"
                 id="gender3"
-                onClick={() => handleSidebarByGender("Unisex")}
+                checked={selectedGender === "Unisex"}
+                 onChange={() => {
+                  setSelectedGender("Unisex")
+                  handleSidebarByGender("Unisex")}
+                }
               />
               <label htmlFor="gender3" className="ml-2 hover:text-red-600">
                 Unisex
@@ -965,7 +1002,11 @@ const Sidebar = () => {
               <input
                 type="checkbox"
                 id="age1"
-                onClick={() => handleSidebarByAge("0-18M")}
+                checked={selectedAge === "0-18M"}
+                 onChange={() => {
+                  setSelectedAge("0-18M")
+                  handleSidebarByAge("0-18M")}
+                }
               />
               <label htmlFor="age1" className="ml-2 hover:text-red-600">
                 0-18 M
@@ -975,14 +1016,24 @@ const Sidebar = () => {
               <input
                 type="checkbox"
                 id="age2"
-                onClick={() => handleSidebarByAge("18-36M")}
+                checked={selectedAge === "18-36M"}
+                onChange={() => {
+                  setSelectedAge("18-36M")
+                  handleSidebarByAge("18-36M")}
+                }
               />
               <label htmlFor="age2" className="ml-2 hover:text-red-600">
                 18-36 M
               </label>
             </div>
             <div className="mt-2">
-              <input type="checkbox" id="age3" />
+              <input type="checkbox" id="age3"
+              checked={selectedAge === "3-5Y"}
+              onChange={() => {
+                  setSelectedAge("3-5Y")
+                  handleSidebarByAge("3-5Y")}
+                }
+              />
               <label htmlFor="age3" className="ml-2 hover:text-red-600">
                 3-5 Y
               </label>
@@ -991,7 +1042,11 @@ const Sidebar = () => {
               <input
                 type="checkbox"
                 id="age4"
-                onClick={() => handleSidebarByAge("5-8Y")}
+                checked={selectedAge === "5-8Y"}
+                onChange={() => {
+                  setSelectedAge("5-8Y")
+                  handleSidebarByAge("5-8Y")}
+                }
               />
               <label htmlFor="age4" className="ml-2 hover:text-red-600">
                 5-8 Y
@@ -1001,7 +1056,11 @@ const Sidebar = () => {
               <input
                 type="checkbox"
                 id="age5"
-                onClick={() => handleSidebarByAge("8-12Y")}
+                checked={selectedAge === "8-12Y"}
+                 onChange={() => {
+                  setSelectedAge("8-12Y")
+                  handleSidebarByAge("8-12Y")}
+                }
               />
               <label htmlFor="age5" className="ml-2 hover:text-red-600">
                 8-12 Y
@@ -1011,7 +1070,11 @@ const Sidebar = () => {
               <input
                 type="checkbox"
                 id="age6"
-                onClick={() => handleSidebarByAge("12Y")}
+                checked={selectedAge === "12Y"}
+                 onChange={() => {
+                  setSelectedAge("12Y")
+                  handleSidebarByAge("12Y")}
+                }
               />
               <label htmlFor="age6" className="ml-2 hover:text-red-600">
                 12+ Y

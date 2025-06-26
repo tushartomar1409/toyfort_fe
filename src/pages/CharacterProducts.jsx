@@ -6,7 +6,7 @@ import Card from "../components/Card";
 import { useNavigate } from "react-router-dom";
 const CharacterProducts = () => {
   const character = new URLSearchParams(location.search).get("character");
-  console.log("character", character);
+  // console.log("character", character);
 
   const [product, setProduct] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);

@@ -20,6 +20,8 @@ const ProductByGender = () => {
 
   useEffect(() => {
       if (gender) {
+        console.log("gender product",productByGender);
+        
         fetchProductByGender(gender);
       }
     }, [gender, fetchProductByGender]);

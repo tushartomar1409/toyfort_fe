@@ -40,7 +40,7 @@ const BrandProducts = () => {
         );
         setProducts(data)
         setCurrentPage(1)
-        console.log(data)
+        // console.log(data)
       } catch (error) {
         console.error("Error fetching brand products:", error.message)
       }

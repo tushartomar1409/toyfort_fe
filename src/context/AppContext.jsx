@@ -197,7 +197,7 @@ export const AppContextProvider = (props) => {
         `http://localhost:5001/api/products/gender?gender=${gender}`
       );
 
-      // console.log(response.data);
+      console.log(response.data);
       setProductByGender(response.data);
     } catch (error) {
       console.log("Error in fetching the products", error);
