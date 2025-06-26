@@ -71,7 +71,7 @@ const BtsBanner = () => {
         <div className="bts-prod">
           {products.map((item, index) => (
             <div
-              className="bts-prodImg"
+              className="bts-prodImg cursor-pointer"
               key={index}
               onClick={() => handleSidebarCategory(item.cat, item.category)}
             >
