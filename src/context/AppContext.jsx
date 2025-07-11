@@ -1,12 +1,11 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import { API_ENDPOINTS } from "../config/api/api";
 
 export const AppContext = createContext();
 
 export const AppContextProvider = (props) => {
   const storedUser = localStorage.getItem("user");
-
-  // console.log("Stored user", storedUser);
 
   const [profile, setProfile] = useState(false);
   const [wishlist, setWishlist] = useState([]);
@@ -20,6 +19,8 @@ export const AppContextProvider = (props) => {
   const [productInStock, setProductInStock] = useState([]);
   const [subcategoryProduct, setSubcategoryProduct] = useState([]);
   const [outdoorProduct, setOutdoorProduct] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const [user, setUser] = useState(() => {
     try {
@@ -37,115 +38,141 @@ export const AppContextProvider = (props) => {
     }
   }, [user]);
 
-  const addToWishlist = async (item) => {
+  // Auth API methods
+  const loginUser = async (credentials) => {
+    setLoading(true);
+    setError(null);
     try {
-      // console.log(item);
-
-      const token = localStorage.getItem("token");
-      // console.log("Token",token)
-
-      const response = await axios.post("http://localhost:5001/api/add", item, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      // console.log("Add Response", response.data.result);
-
-      if (response.data && response.data.result) {
-        console.log("Product Added successfully");
-        setWishlist(response.data.result);
-
-        // setWishlist((prevWishlist) => [...prevWishlist, item])
+      const response = await axios.post(API_ENDPOINTS.AUTH.LOGIN, credentials);
+      const { data, token } = response.data;
+      
+      console.log(data);
+      
+      setUser(data);
+      if (token) {
+        localStorage.setItem("token", token);
       }
-    } catch (error) {
-      console.error("Error adding to wishlist:", error);
+      
+      return { data, token };
+    } catch (err) {
+      const errorMessage = err.response?.data?.message || "Login failed. Please try again.";
+      setError(errorMessage);
+      throw new Error(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Remove item from wishlist
-
-  const removeFromWishlist = async (slug) => {
-    console.log("slug remove wishlist", slug);
-
+  const logoutUser = async () => {
     try {
-      const token = localStorage.getItem("token");
-      // console.log("Token", token);
-
-      const response = await axios.delete(
-        `http://localhost:5001/api/remove/${slug}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (response.data && response.data.wishlist) {
-        // setWishlist(response.data.wishlist);
-        setWishlist((prevWishlist) =>
-          prevWishlist.filter((item) => item.slug !== slug)
-        );
-      }
+      await axios.post(API_ENDPOINTS.AUTH.LOGOUT, {}, { headers: getAuthHeaders() });
     } catch (error) {
-      console.error("Error removing from wishlist:", error);
+      console.error("Logout error:", error);
+    } finally {
+      // Clear local storage and reset state
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      setUser("Sign In");
+      setProfile(false);
+      setWishlist([]);
+      setCart([]);
     }
   };
 
-  // Add to cart
+  // Product API methods
+  const fetchProductsByAge = async (age) => {
+    setLoading(true);
+    try {
+      const response = await axios.get(API_ENDPOINTS.PRODUCTS.BY_AGE(age));
+      setProductByAge(response.data);
+    } catch (error) {
+      console.error("Error fetching products by age:", error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  const fetchProductsByGender = async (gender) => {
+    setLoading(true);
+    try {
+      const response = await axios.get(API_ENDPOINTS.PRODUCTS.BY_GENDER(gender));
+      setProductByGender(response.data);
+    } catch (error) {
+      console.error("Error fetching products by gender:", error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchProductsByPrice = async (min, max) => {
+    setLoading(true);
+    try {
+      const response = await axios.get(API_ENDPOINTS.PRODUCTS.BY_PRICE(min, max));
+      setProductByPrice(response.data);
+    } catch (error) {
+      console.error("Error fetching products by price:", error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Cart API methods
   const addToCart = async (item) => {
     try {
-      const user = JSON.parse(localStorage.getItem("user"));
-      const token = user.token;
-
-      // Check if the product is already in the cart
-      const existingProduct = cart.find(
-        (cartItem) => cartItem.slug === item.slug
+      const response = await axios.post(
+        API_ENDPOINTS.CART.ADD,
+        item,
+        { headers: getAuthHeaders() }
       );
-
-      if (existingProduct) {
-        // If item exists, increase quantity
-        await increaseProductQuantity(item.slug);
-      } else {
-        // If not, add to cart
-        const response = await axios.post(
-          "http://localhost:5001/api/addToCart",
-          item,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (response.data && response.data.result) {
-          console.log("Product added to cart successfully");
-
-          setCart(response.data.result);
-        }
-      }
+      setCart(response.data.result);
     } catch (error) {
-      console.error("Error in addToCart logic:", error);
+      console.error("Error adding to cart:", error);
+      setError(error.message);
     }
   };
 
-  // Manage product quantity
+  const updateCartQuantity = async (productId, action) => {
+    try {
+      const response = await axios.put(
+        API_ENDPOINTS.CART.UPDATE_QUANTITY(productId),
+        { action },
+        { headers: getAuthHeaders() }
+      );
+      setCart(response.data.result);
+    } catch (error) {
+      console.error("Error updating cart quantity:", error);
+      setError(error.message);
+    }
+  };
 
-  const increaseProductQuantity = async (slug) => {
-    console.log("slug update cart", slug);
-
+  // Wishlist API methods
+  const addToWishlist = async (item) => {
     try {
       const response = await axios.post(
-        `http://localhost:5001/api/increaseProductQuantity/${slug}`
+        API_ENDPOINTS.WISHLIST.ADD,
+        item,
+        { headers: getAuthHeaders() }
       );
-
-      const newQuantity = response.data.newQuantity;
-
-      setCart((prevCart) =>
-        prevCart.map((item) =>
-          item.slug === slug ? { ...item, quantity: newQuantity } : item
-        )
-      );
+      setWishlist(response.data.result);
     } catch (error) {
-      console.error("Error in updating quantity of product:", error);
+      console.error("Error adding to wishlist:", error);
+      setError(error.message);
+    }
+  };
+
+  const removeFromWishlist = async (slug) => {
+    try {
+      const response = await axios.delete(
+        API_ENDPOINTS.WISHLIST.REMOVE(slug),
+        { headers: getAuthHeaders() }
+      );
+      setWishlist(response.data.wishlist);
+    } catch (error) {
+      console.error("Error removing from wishlist:", error);
+      setError(error.message);
     }
   };
 
@@ -173,44 +200,6 @@ export const AppContextProvider = (props) => {
 
       // console.log(response.data);
       setProduct(response.data);
-    } catch (error) {
-      console.log("Error in fetching the products", error);
-    }
-  };
-
-  const fetchProduct = async (age) => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5001/api/products/age?age=${age}`
-      );
-
-      // console.log(response.data);
-      setProductByAge(response.data);
-    } catch (error) {
-      console.log("Error in fetching the products", error);
-    }
-  };
-
-  const fetchProductByGender = async (gender) => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5001/api/products/gender?gender=${gender}`
-      );
-
-      console.log(response.data);
-      setProductByGender(response.data);
-    } catch (error) {
-      console.log("Error in fetching the products", error);
-    }
-  };
-
-  const fetchProductByPrice = async (min, max) => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5001/api/products/filter-by-price?p_min=${min}&p_max=${max}`
-      );
-
-      setProductByPrice(response.data);
     } catch (error) {
       console.log("Error in fetching the products", error);
     }
@@ -271,43 +260,47 @@ export const AppContextProvider = (props) => {
   };
 
   const value = {
+    // Auth
     user,
     setUser,
+    loginUser,
+    logoutUser,
+    
+    // Profile
     profile,
     setProfile,
-    storedUser,
+    
+    // Wishlist
     wishlist,
     addToWishlist,
     removeFromWishlist,
-    setWishlist,
-    addToCart,
+    
+    // Cart
     cart,
-    setCart,
-    increaseProductQuantity,
-    sidebarFilter,
+    addToCart,
+    updateCartQuantity,
+    
+    // Products
+    product,
+    productByAge,
+    productByGender,
+    productByPrice,
+    productOutOfStock,
+    productInStock,
+    fetchProductsByAge,
+    fetchProductsByGender,
+    fetchProductsByPrice,
+    
+    // UI State
+    loading,
+    error,
+    
+    // Other existing methods...
     sidebarProducts,
     setSidebarProducts,
-    fetchDiscountProduct,
-    product,
-    setProduct,
-    fetchProduct,
-    productByAge,
-    setProductByAge,
-    fetchProductByGender,
-    productByGender,
-    fetchProductByPrice,
-    setProductByPrice,
-    productByPrice,
-    fetchProductOutStock,
-    productOutOfStock,
-    fetchProductInStock,
-    productInStock,
-    fetchSubCategoryProduct,
     subcategoryProduct,
-    outdoorProducts,
-    setOutdoorProduct,
     outdoorProduct,
-    fetchProductByAge: fetchProduct,
+    setOutdoorProduct
   };
 
   return (

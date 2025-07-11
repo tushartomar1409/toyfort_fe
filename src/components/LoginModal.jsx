@@ -4,16 +4,14 @@
 
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { AppContext } from "../context/AppContext";
 
 export default function LoginModal({ isOpen, onClose, onSuccess }) {
   const [values, setValues] = useState({ email: "", password: "" });
-  // **CHANGE**: Re-added state to track password visibility
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { user, setUser } = useContext(AppContext);
+  const { loginUser, loading } = useContext(AppContext);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -39,9 +37,9 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
 
   const handleChange = (e) => {
     setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setErrorMessage(""); // Clear error when user types
   };
 
-  // **CHANGE**: Re-added the function to toggle the state
   const togglePasswordVisibility = () => {
     setPasswordVisible((prev) => !prev);
   };
@@ -51,36 +49,11 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
     setErrorMessage("");
 
     try {
-      const response = await axios.post(
-        "http://localhost:5001/api/login",
-        values
-      );
-
-      if (response.status === 201) {
-        // console.log("Login res:",response.data);
-        
-        setUser(response.data.data);
-        localStorage.setItem("user", user);
-
-        onSuccess(response.data.user, response.data.token);
-
-        onClose();
-      } else {
-        setErrorMessage(
-          response.data.message || "Login failed. Please try again."
-        );
-      }
+      const { data, token } = await loginUser(values);
+      onSuccess(data, token);
+      onClose();
     } catch (error) {
-      console.error("Login error:", error);
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
-        setErrorMessage(error.response.data.message);
-      } else {
-        setErrorMessage("An error occurred during login. Please try again.");
-      }
+      setErrorMessage(error.message);
     }
   };
 
@@ -129,6 +102,7 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
               value={values.email}
               onChange={handleChange}
               required
+              disabled={loading}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 text-sm sm:text-base"
             />
           </div>
@@ -148,6 +122,7 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
                 value={values.password}
                 onChange={handleChange}
                 required
+                disabled={loading}
                 className="block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 text-sm sm:text-base"
               />
               <button
@@ -192,9 +167,10 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
           <div>
             <button
               type="submit"
-              className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 transition-colors text-sm sm:text-base"
+              disabled={loading}
+              className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 transition-colors text-sm sm:text-base disabled:bg-gray-400 disabled:cursor-not-allowed"
             >
-              Login
+              {loading ? "Logging in..." : "Login"}
             </button>
           </div>
 

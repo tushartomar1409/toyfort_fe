@@ -19,7 +19,7 @@ const CategoryLinks = () => {
             className="bg-gray-100 pt-2 pr-3 pl-3 pb-2 rounded-md text-sm text-gray-400 focus:bg-black focus:text-white "
             href="/blog"
           >
-            All
+            All  
           </a>
           <a
             className="bg-gray-100 pt-2 pr-3 pl-3 pb-2 rounded-md text-sm text-gray-400 focus:bg-black focus:text-white "

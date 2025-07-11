@@ -9,19 +9,21 @@ const Toys = () => {
 
   const imgUrl = import.meta.env.VITE_IMAGE_URL;
 
-  useEffect(() => {
+  
     const fetchBlogImage = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:5001/api/blog-image"
+          `http://localhost:5001/api/blog_categories/${slug}`
         );
-        setBlogPosts(data);
+        // setBlogPosts(data);
+        console.log(data);
+        
       } catch (error) {
         console.log("Error fetching blog data:", error.message);
       }
     };
     fetchBlogImage();
-  }, []);
+ 
 
   const infantsPosts = blogPosts.filter(
     (post) => post.category_name === "Toys"

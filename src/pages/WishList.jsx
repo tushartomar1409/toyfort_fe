@@ -6,26 +6,29 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const WishList = () => {
-  const { user, setUser } = useContext(AppContext)
+  const { setUser } = useContext(AppContext)
 
   const [wishlist, setWishlist] = useState([])
 
   const navigate = useNavigate()
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user.token;
+  const slug = user.name
 
   useEffect(() => {
     const fetchWishlist = async () => {
-      const token = localStorage.getItem('token');
+      // const token = localStorage.getItem('token');
       // console.log("Fetching wishlist... User:", user, "Token:", token);
   
       try {
-        if (user && user !== "Sign In") {
+        
           const response = await axios.get("http://localhost:5001/api/user/wishlist", {
             headers: { Authorization: `Bearer ${token}` },
           })
   
-          // console.log("Fetched response", response.data);
+          console.log("Fetched response", response.data);
           setWishlist(response.data)
-        }
+        
       } catch (error) {
         console.error("Error fetching wishlist:", error);
         setWishlist([])
@@ -33,7 +36,7 @@ const WishList = () => {
     };
   
     fetchWishlist();
-  }, [user]);
+  }, [slug]);
   
 
 

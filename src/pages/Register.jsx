@@ -3,40 +3,45 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AppContext } from "../context/AppContext";
+import { API_ENDPOINTS } from "../config/api/api";
 
 // Accept openLoginModal as a prop
 const Register = ({ openLoginModal }) => {
   const [values, setValues] = useState({
-    fName: "",
-    lName: "",
+    first_name: "",
+    last_name: "",
     email: "",
-    phone: "",
+    phone_number: "",
     password: "",
-    confirmPassword: "",
+    confirm_password: "",
   });
 
   const [message, setMessage] = useState("");
   const [messageState, setMessageState] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const { user, setUser, setProfile } = useContext(AppContext);
+  const { setUser, setProfile } = useContext(AppContext);
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleChanges = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
+    setMessage(""); 
   };
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    if (values.password !== values.confirmPassword) {
-      console.log("Passwords do not match.");
+    if (values.password !== values.confirm_password) {
+      setMessage("Passwords do not match.");
+      setMessageState(false);
       return;
     }
 
+    setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:5001/api/register",
+        API_ENDPOINTS.AUTH.REGISTER,
         values,
         {
           headers: {
@@ -45,40 +50,45 @@ const Register = ({ openLoginModal }) => {
         }
       );
 
-      console.log(values.fName);
-      // console.log("Register Val", values);
+      console.log("Register ",response);
+      console.log("values",values);
+      
       
 
-      if (response.status === 201) {
-        let userData = response.data.data
-        console.log(userData.name);
+      if (response.status === 200) {
+        const userData = response.data.data;
         
-        localStorage.setItem("token", userData.token);
+        // // Store token and user data
+        // localStorage.setItem("token", userData.token);
+        // localStorage.setItem("user", JSON.stringify(userData));
+        
+        // Update app state
         setUser(userData);
         setProfile(true);
-        localStorage.setItem("user", JSON.stringify(userData));
+        
+        // Navigate to profile page
         navigate("/settings/edit-profile");
-
-        } else {
-          setMessageState(false);
-          setMessage("User not Register!");
-        }
-       
-    } catch (error) {
-      if (error.response) {
-        console.log("Backend error:", error.response.data);
       } else {
-        console.log("Other error:", error.message);
+        setMessageState(false);
+        setMessage("Registration failed. Please try again.");
       }
+    } catch (error) {
+      setMessageState(false);
+      if (error.response?.data?.message) {
+        setMessage(error.response.data.message);
+      } else {
+        setMessage("An error occurred during registration. Please try again.");
+      }
+      console.error("Registration error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  // New handler to open the login modal
   const handleLoginClick = (e) => {
-    e.preventDefault(); // Prevent default anchor link behavior
+    e.preventDefault();
     if (openLoginModal) {
-      // Check if the prop exists
-      openLoginModal(); // Call the function passed from App.jsx to open the modal
+      openLoginModal();
     }
   };
 
@@ -93,88 +103,105 @@ const Register = ({ openLoginModal }) => {
         Register
       </h1>
 
-      <form onSubmit={handleRegister}>
+      {message && (
+        <div 
+          className={`w-full p-3 mb-4 rounded ${
+            messageState ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+          }`}
+        >
+          {message}
+        </div>
+      )}
+
+      <form onSubmit={handleRegister} className="w-full max-w-md">
         <input
-          className="mb-3 w-full p-3 border border-gray-300"
+          className="mb-3 w-full p-3 border border-gray-300 rounded"
           type="text"
-          name="fName"
+          name="first_name"
           placeholder="First Name"
           required
+          disabled={loading}
           onChange={handleChanges}
         />
-        <br />
         <input
-          className="mb-3 w-full p-3 border border-gray-300"
+          className="mb-3 w-full p-3 border border-gray-300 rounded"
           type="text"
-          name="lName"
+          name="last_name"
           placeholder="Last Name"
           required
+          disabled={loading}
           onChange={handleChanges}
         />
-        <br />
         <input
-          className="mb-3 w-full p-3 border border-gray-300"
+          className="mb-3 w-full p-3 border border-gray-300 rounded"
           type="email"
           name="email"
           placeholder="Email Address"
           required
+          disabled={loading}
           onChange={handleChanges}
         />
-        <br />
         <input
-          className="mb-3 w-full p-3 border border-gray-300"
+          className="mb-3 w-full p-3 border border-gray-300 rounded"
           type="tel"
-          name="phone"
+          name="phone_number"
           placeholder="Phone Number"
           required
+          disabled={loading}
           onChange={handleChanges}
         />
-        <br />
         <input
-          className="mb-3 w-full p-3 border border-gray-300"
+          className="mb-3 w-full p-3 border border-gray-300 rounded"
           type="password"
           name="password"
           placeholder="Password"
           required
+          disabled={loading}
           onChange={handleChanges}
         />
-        <br />
         <input
-          className="mb-3 w-full p-3 border border-gray-300"
+          className="mb-3 w-full p-3 border border-gray-300 rounded"
           type="password"
-          name="confirmPassword"
+          name="confirm_password"
           placeholder="Confirm Password"
           required
+          disabled={loading}
           onChange={handleChanges}
         />
-        <br />
-        <input type="checkbox" id="check" />
-        <label htmlFor="check" className="ml-2">
-          I have read and agree to the{" "}
-          <u>
-            <a href="/terms-conditions" target="_blank">
+        <div className="mb-4">
+          <input 
+            type="checkbox" 
+            id="check" 
+            required 
+            className="mr-2"
+          />
+          <label htmlFor="check">
+            I have read and agree to the{" "}
+            <a 
+              href="/terms-conditions" 
+              target="_blank"
+              className="text-red-500 hover:underline"
+            >
               Terms & Conditions
             </a>
-          </u>
-        </label>
-        <br />
+          </label>
+        </div>
         <button
           type="submit"
-          className="w-full text-white py-2 rounded mt-4"
-          style={{ backgroundColor: "black" }}
+          disabled={loading}
+          className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
-          Register
+          {loading ? "Registering..." : "Register"}
         </button>
-        <br />
         <div className="text-center mt-4">
-          <p className="text-gray-500 inline-block mr-1">Have an account?</p>
-          <a
-            href="#" // Change href to # or remove it to prevent page reload
-            onClick={handleLoginClick} // Call the new handler
-            className="text-black font-medium"
+          <span className="text-gray-500">Have an account? </span>
+          <button
+            onClick={handleLoginClick}
+            className="text-red-500 hover:underline font-medium"
+            type="button"
           >
             Login
-          </a>
+          </button>
         </div>
       </form>
     </div>

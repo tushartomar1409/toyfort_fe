@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 const ShippingAddress = () => {
   const [menu, setMenu] = useState("Shipping Address");
   const [showForm, setShowForm] = useState(false);
-  const [editData, setEditData] = useState(null); // ⭐ new
+  const [editData, setEditData] = useState(null); 
   const [address, setAddress] = useState([]);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
@@ -55,7 +55,6 @@ const ShippingAddress = () => {
 
   return (
     <div>
-      {/* Breadcrumb */}
       <div
         className="text-gray-600 text-sm mt-6 ml-6"
         style={{ fontFamily: "Open Sans" }}
@@ -74,7 +73,6 @@ const ShippingAddress = () => {
         </a>
       </div>
 
-      {/* Main layout */}
       <div className="min-h-screen flex">
         {/* Sidebar */}
         <div className="w-1/4 bg-white p-6 shadow-md">
@@ -198,7 +196,6 @@ const ShippingAddress = () => {
             Add New Address
           </button>
 
-          {/* Form */}
           {showForm && (
             <AddressForm
               onClose={() => {

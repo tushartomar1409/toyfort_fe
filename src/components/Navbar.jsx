@@ -67,9 +67,13 @@ function Navbar({ openLoginModal }) {
   const sidebarRef = useRef(null);
   const navigate = useNavigate();
 
-  const { profile, setProfile, user, setUser } = useContext(AppContext);
+  const { profile, setProfile, setUser } = useContext(AppContext);
 
   const dropdownRef = useRef();
+
+  // const user = JSON.parse(localStorage.getItem("user"));
+  // const token = user.token;
+  // const slug = user.name
 
   // Dynamically calculate navbar height using ResizeObserver
 
@@ -158,7 +162,7 @@ function Navbar({ openLoginModal }) {
                 src="https://toyfort.s3.ap-south-1.amazonaws.com/img/logo.webp"
                 alt="Toy Fort Logo"
                 className="h-8 sm:h-10 cursor-pointer"
-                onClick={() => navigate("/")}
+                onClick={() => {navigate("/"); scrollTo(0,0)}}
                 style={{ maxWidth: "130px", width: "auto" }}
               />
             </div>
@@ -197,10 +201,15 @@ function Navbar({ openLoginModal }) {
               />
               <AiOutlineHeart
                 className="w-6 h-6 sm:w-7 sm:h-7 text-gray-700 cursor-pointer"
-                onClick={() => navigate("/wishlist")}
+                onClick={() => navigate(`/wishlist/${slug}`)}
               />
 
-              {user?.name ? (
+              <AiOutlineUser
+                  className="w-6 h-6 sm:w-7 sm:h-7 text-gray-700 cursor-pointer"
+                  onClick={openLoginModal}
+                />
+
+              {/* {user?.name ? (
                 <div className="relative flex items-center gap-1">
                   <span
                     onClick={() => setProfile(!profile)}
@@ -263,7 +272,7 @@ function Navbar({ openLoginModal }) {
                   className="w-6 h-6 sm:w-7 sm:h-7 text-gray-700 cursor-pointer"
                   onClick={openLoginModal}
                 />
-              )}
+              )} */}
             </div>
           </header>
 
